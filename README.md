@@ -1,63 +1,32 @@
-# Astro Starter Kit: Blog
+# Portfolio 2026 🚀
 
-```sh
-pnpm create astro@latest -- --template blog
-```
+Bienvenue sur le dépôt de mon portfolio personnel. Ce site vitrine est conçu pour présenter mes projets, mes compétences et mon parcours, tout en intégrant une interface de gestion de contenu dynamique et fluide.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+---
 
-Features:
+## 🛠️ Stack Technique
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+- **Framework Front-end :** [Astro](https://astro.build/) (délivrant un HTML ultra-léger et un rendu hybride performant)
+- **CMS Headless :** [Sanity](https://www.sanity.io/) (gestion du contenu intégrée directement sur la route `/admin`)
+- **UI & Composants :** [React](https://react.dev/) + [MDX](https://mdxjs.com/) (pour les pages dynamiques et le contenu riche)
+- **SEO & Performances :** Integrations `@astrojs/sitemap` & `@astrojs/mdx`
+- **Gestionnaire de paquets :** [pnpm](https://pnpm.io/)
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## 📁 Architecture du Projet
 
 ```text
-├── public/
+portfolio-2026/
+├── public/                  # Assets statiques (favicons, images publiques)
 ├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+│   ├── components/          # Composants réutilisables (UI, layouts)
+│   ├── layouts/             # Squelettes de pages
+│   ├── pages/               # Routes Astro du site
+│   │   ├── index.astro      # Page d'accueil
+│   │   └── admin/           # Route d'accès à l'interface Sanity Studio
+│   └── sanity/              # Schemas et configurations de contenu Sanity
+├── astro.config.mjs         # Configuration Astro (Intégrations & Vite)
+├── sanity.config.ts         # Configuration du Studio Sanity
+├── package.json             # Dépendances et scripts
+└── README.md
