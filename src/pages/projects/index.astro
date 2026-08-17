@@ -1,9 +1,9 @@
 ---
 // src/pages/projets/index.astro
 import Layout from "../../layouts/Layout.astro";
-import TechIcon from "../../components/TechIcon";
 import { sanityClient } from "sanity:client";
 import type { Project } from "../../types";
+import ProjectCard from "../../components/ProjectCard.astro";
 
 const ALL_PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
   _id,
@@ -15,7 +15,7 @@ const ALL_PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
   tags,
   link,
   isLarge,
-  "coverImageUrl": coverImage.asset->url
+  coverImage
 }`;
 
 const projects: Project[] = await sanityClient.fetch(ALL_PROJECTS_QUERY);
@@ -32,7 +32,7 @@ const allCategories = [
     <!-- En-tête de la page -->
     <section class="projects-hero">
       <span class="section-badge">[ Hub &bull; Travaux ]</span>
-      <h1 class="page-title">Tous les Projets & Expérimentations</h1>
+      <h1 class="page-title">Projets & Expérimentations</h1>
       <p class="page-subtitle">
         Découvrez l'ensemble de mes réalisations en développement Front-End,
         intégrations d'interfaces modulaires, design systems et projets R&D.
@@ -55,50 +55,7 @@ const allCategories = [
 
     <!-- Grille complète des projets -->
     <section class="projects-grid-all">
-      {
-        projects.map((proj) => (
-          <article
-            class="bento-card project-card"
-            data-categories={JSON.stringify(proj.category || [])}
-          >
-            <div>
-              <div class="project-top-meta">
-                <div class="tech-pills">
-                  {proj.category?.map((cat) => (
-                    <span class="tag-pill">{cat}</span>
-                  ))}
-                </div>
-                <span class="project-year">{proj.year}</span>
-              </div>
-
-              <h2 class="project-title">{proj.title}</h2>
-              <p class="project-desc">{proj.description}</p>
-            </div>
-
-            <div class="project-bottom">
-              <div class="tech-pills">
-                {proj.tags?.map((tag) => (
-                  <span class="tag-pill">{tag}</span>
-                ))}
-              </div>
-
-              <div class="project-links">
-                {proj.link && (
-                  <a
-                    href={proj.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-circle-action"
-                    aria-label={`Voir ${proj.title}`}
-                  >
-                    ↗
-                  </a>
-                )}
-              </div>
-            </div>
-          </article>
-        ))
-      }
+      {projects.map((p) => <ProjectCard project={p} />)}
     </section>
   </main>
 </Layout>
@@ -112,7 +69,7 @@ const allCategories = [
     font-size: var(--text-4xl);
     font-family: var(--font-serif);
     line-height: var(--leading-tight);
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs);
   }
 
   .page-subtitle {
@@ -129,7 +86,7 @@ const allCategories = [
     gap: var(--space-xs);
     flex-wrap: wrap;
     border-bottom: 1px solid var(--border-light);
-    padding-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
   }
 
   .filter-btn {
@@ -155,7 +112,7 @@ const allCategories = [
   .projects-grid-all {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-xl);
+    gap: var(--space-l);
   }
 
   .project-card {
@@ -164,14 +121,14 @@ const allCategories = [
     flex-direction: column;
     justify-content: space-between;
     min-height: 380px;
-    gap: var(--space-xl);
+    gap: var(--space-l);
   }
 
   .project-top-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-s);
   }
 
   .project-year {
@@ -199,13 +156,19 @@ const allCategories = [
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid var(--border-light);
-    padding-top: var(--space-lg);
+    padding-top: var(--space-md);
   }
 
   .nav-page-title {
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     color: var(--text-dim);
+  }
+
+  .tech-pills {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
   }
 
   @media (max-width: 768px) {

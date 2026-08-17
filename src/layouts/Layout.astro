@@ -16,6 +16,8 @@ interface Props {
 const { title, description = "", image = FallbackImage } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+import 'lenis/dist/lenis.css'
 ---
 
 <!--DOCTTYPE html-->
@@ -59,3 +61,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <Footer />
   </body>
 </html>
+
+<script src="../assets/script/utils/lenis.ts"></script>
