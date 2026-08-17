@@ -20,7 +20,12 @@ body {
 }
 
 /* 2. Headings Hierarchy */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-serif);
   font-weight: var(--font-weight-semibold);
   color: var(--text-main);
@@ -120,7 +125,7 @@ small {
   border-radius: var(--radius-full);
   text-decoration: none;
   box-shadow: var(--shadow-btn);
-  transition: 
+  transition:
     background var(--duration-base) ease,
     transform var(--duration-base) var(--ease-spring),
     box-shadow var(--duration-base) ease;
@@ -145,7 +150,7 @@ small {
   padding: 0.95rem 1.85rem;
   border-radius: var(--radius-full);
   text-decoration: none;
-  transition: 
+  transition:
     border-color var(--duration-fast) ease,
     transform var(--duration-base) var(--ease-spring);
 }
@@ -167,7 +172,7 @@ small {
   color: var(--text-main);
   text-decoration: none;
   font-size: var(--text-lg);
-  transition: 
+  transition:
     background var(--duration-base) ease,
     color var(--duration-base) ease,
     transform var(--duration-base) var(--ease-spring),
@@ -223,4 +228,18 @@ small {
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
   width: fit-content;
+}
+
+.bg-aura {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: var(--z-canvas-bg);
+  background:
+    radial-gradient(at 15% 15%, rgba(214, 194, 154, 0.35) 0px, transparent 55%),
+    radial-gradient(at 85% 75%, rgba(184, 91, 53, 0.12) 0px, transparent 50%),
+    radial-gradient(at 50% 90%, rgba(76, 43, 36, 0.06) 0px, transparent 55%);
 }

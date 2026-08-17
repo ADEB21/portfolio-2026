@@ -33,21 +33,33 @@ body {
 }
 
 /* Remove list styles on ul, ol elements with a list role */
-ul[role='list'],
-ol[role='list'],
+ul[role="list"],
+ol[role="list"],
 ul:not([class]),
 ol:not([class]) {
   list-style: none;
 }
 
 /* Set shorter line heights on headings and interactive elements */
-h1, h2, h3, h4, h5, h6,
-button, input, label {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+input,
+label {
   line-height: 1.15;
 }
 
 /* Balance heading text wrapping */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-wrap: balance;
   overflow-wrap: break-word;
 }
@@ -61,6 +73,12 @@ svg {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Inherit fonts for inputs, buttons and textareas */
@@ -97,7 +115,7 @@ a {
   html:focus-within {
     scroll-behavior: auto;
   }
-  
+
   *,
   *::before,
   *::after {
