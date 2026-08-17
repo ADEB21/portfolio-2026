@@ -18,7 +18,7 @@ const { title, description = "", image = FallbackImage } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<!doctype html>
+<!--DOCTTYPE html-->
 <html lang="fr">
   <head>
     <!-- Global Metadata -->
@@ -53,6 +53,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body class="site-wrapper">
+    <div class="bg-aura"></div>
     <Header />
     <slot />
     <Footer />
