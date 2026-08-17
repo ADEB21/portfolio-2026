@@ -1,0 +1,242 @@
+---
+// src/pages/projets/index.astro
+import Layout from "../../layouts/Layout.astro";
+import TechIcon from "../../components/TechIcon";
+import { sanityClient } from "sanity:client";
+import type { Project } from "../../types";
+
+const ALL_PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
+  _id,
+  title,
+  "slug": slug.current,
+  category,
+  year,
+  description,
+  tags,
+  link,
+  isLarge,
+  "coverImageUrl": coverImage.asset->url
+}`;
+
+const projects: Project[] = await sanityClient.fetch(ALL_PROJECTS_QUERY);
+
+// Extraction unique des catégories pour les filtres
+const allCategories = [
+  "Tous",
+  ...new Set(projects.flatMap((p) => p.category || [])),
+];
+---
+
+<Layout title="Projets & Études de cas — Arthur Debruille">
+  <main>
+    <!-- En-tête de la page -->
+    <section class="projects-hero">
+      <span class="section-badge">[ Hub &bull; Travaux ]</span>
+      <h1 class="page-title">Tous les Projets & Expérimentations</h1>
+      <p class="page-subtitle">
+        Découvrez l'ensemble de mes réalisations en développement Front-End,
+        intégrations d'interfaces modulaires, design systems et projets R&D.
+      </p>
+
+      <!-- Filtres par catégorie -->
+      <div class="category-filters">
+        {
+          allCategories.map((cat, i) => (
+            <button
+              class={`filter-btn ${i === 0 ? "active" : ""}`}
+              data-filter={cat}
+            >
+              {cat}
+            </button>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Grille complète des projets -->
+    <section class="projects-grid-all">
+      {
+        projects.map((proj) => (
+          <article
+            class="bento-card project-card"
+            data-categories={JSON.stringify(proj.category || [])}
+          >
+            <div>
+              <div class="project-top-meta">
+                <div class="tech-pills">
+                  {proj.category?.map((cat) => (
+                    <span class="tag-pill">{cat}</span>
+                  ))}
+                </div>
+                <span class="project-year">{proj.year}</span>
+              </div>
+
+              <h2 class="project-title">{proj.title}</h2>
+              <p class="project-desc">{proj.description}</p>
+            </div>
+
+            <div class="project-bottom">
+              <div class="tech-pills">
+                {proj.tags?.map((tag) => (
+                  <span class="tag-pill">{tag}</span>
+                ))}
+              </div>
+
+              <div class="project-links">
+                {proj.link && (
+                  <a
+                    href={proj.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn-circle-action"
+                    aria-label={`Voir ${proj.title}`}
+                  >
+                    ↗
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .projects-hero {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .page-title {
+    font-size: var(--text-4xl);
+    font-family: var(--font-serif);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-subtitle {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    max-width: 700px;
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-2xl);
+  }
+
+  /* Filtres */
+  .category-filters {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: var(--space-lg);
+  }
+
+  .filter-btn {
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border-light);
+    padding: 6px 16px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--duration-fast) ease;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--color-brown);
+    color: var(--bg-main);
+    border-color: var(--color-brown);
+  }
+
+  /* Grille des projets */
+  .projects-grid-all {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .project-card {
+    padding: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 380px;
+    gap: var(--space-xl);
+  }
+
+  .project-top-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+  }
+
+  .project-year {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-copper);
+    font-weight: 600;
+  }
+
+  .project-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+  }
+
+  .project-desc {
+    color: var(--text-muted);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+  }
+
+  .project-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-light);
+    padding-top: var(--space-lg);
+  }
+
+  .nav-page-title {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid-all {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<!-- Script de filtrage dynamique côté client -->
+<script>
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  const projectCards = document.querySelectorAll<HTMLElement>(".project-card");
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const filter = btn.getAttribute("data-filter");
+
+      projectCards.forEach((card) => {
+        const categories = JSON.parse(
+          card.getAttribute("data-categories") || "[]",
+        );
+        if (filter === "Tous" || categories.includes(filter)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  });
+</script>
