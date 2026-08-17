@@ -107,11 +107,11 @@
 .grid-bento-2col {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
 .grid-bento-4col {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }

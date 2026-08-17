@@ -19,7 +19,7 @@ html {
   scroll-behavior: smooth;
   hanging-punctuation: first last;
   color-scheme: light;
-  scroll-padding-top: calc(80px + var(--space-xl));
+  scroll-padding-top: calc(80px + var(--space-l));
 }
 
 /* Set core body defaults */

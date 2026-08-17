@@ -3,66 +3,68 @@
      1. COLOR PALETTE
      ------------------------------------------------------------------------ */
   /* Base Palette */
-  --color-black: #0F0806;
-  --color-white: #FBF7EE;
-  --color-beige: #D6C29A;
-  --color-brown: #4C2B24;
-  
+  --color-black: #0f0806;
+  --color-white: #fbf7ee;
+  --color-beige: #d6c29a;
+  --color-brown: #4c2b24;
+
   /* Modernized Semantic Accents */
-  --color-copper: #B85B35;
+  --color-copper: #b85b35;
   --color-copper-hover: #964320;
   --color-copper-soft: rgba(184, 91, 53, 0.09);
   --color-copper-glow: rgba(184, 91, 53, 0.28);
-  
-  --color-sand: #D6C29A;
+
+  --color-sand: #d6c29a;
   --color-sand-soft: rgba(214, 194, 154, 0.28);
-  --color-sand-hover: #C5B085;
-  
-  --color-brown-deep: #4C2B24;
+  --color-sand-hover: #c5b085;
+
+  --color-brown-deep: #4c2b24;
   --color-brown-soft: rgba(76, 43, 36, 0.06);
-  
+
   /* Background & Surfaces */
   --bg-main: var(--color-white);
-  --bg-subtle: #F4EEDF;
+  --bg-subtle: #f4eedf;
   --bg-card: rgba(255, 253, 247, 0.82);
-  --bg-card-solid: #FFFDF9;
+  --bg-card-solid: #fffdf9;
   --bg-glass: rgba(251, 247, 238, 0.85);
-  
+
   /* Text Shades */
   --text-main: var(--color-black);
-  --text-muted: #5A4843;
-  --text-dim: #8C7870;
-  --text-inverse: #FBF7EE;
-  
+  --text-muted: #5a4843;
+  --text-dim: #8c7870;
+  --text-inverse: #fbf7ee;
+
   /* Borders */
   --border-light: rgba(76, 43, 36, 0.12);
   --border-hover: rgba(184, 91, 53, 0.45);
   --border-strong: rgba(76, 43, 36, 0.25);
   --border-dash: rgba(184, 91, 53, 0.35);
-  
+
   /* Functional Colors */
-  --color-success: #2E7D32;
+  --color-success: #2e7d32;
   --color-success-bg: rgba(46, 125, 50, 0.08);
   --color-success-border: rgba(46, 125, 50, 0.22);
-  --color-error: #D32F2F;
+  --color-error: #d32f2f;
   --color-error-bg: rgba(211, 47, 47, 0.08);
 
   /* ------------------------------------------------------------------------
      2. TYPOGRAPHY
      ------------------------------------------------------------------------ */
-  --font-serif: 'Fraunces', 'Fraunces Fallback', Georgia, serif;
-  --font-sans: 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  --font-serif: "Fraunces", "Fraunces Fallback", Georgia, serif;
+  --font-sans:
+    "Plus Jakarta Sans", "Plus Jakarta Sans Fallback", system-ui, -apple-system,
+    sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
   /* Fluid Typography Scale (clamp min, preferred, max) */
-  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);      /* 11px - 13px */
-  --text-sm: clamp(0.8rem, 0.75rem + 0.3vw, 0.875rem);    /* 13px - 14px */
-  --text-base: clamp(0.95rem, 0.9rem + 0.35vw, 1.05rem);  /* 15px - 17px */
-  --text-lg: clamp(1.1rem, 1.02rem + 0.45vw, 1.25rem);    /* 17.5px - 20px */
-  --text-xl: clamp(1.3rem, 1.18rem + 0.65vw, 1.55rem);    /* 21px - 25px */
-  --text-2xl: clamp(1.6rem, 1.4rem + 1.1vw, 2.05rem);     /* 25.5px - 33px */
-  --text-3xl: clamp(2.1rem, 1.75rem + 1.8vw, 2.75rem);    /* 33.5px - 44px */
-  --text-4xl: clamp(2.75rem, 2.2rem + 2.8vw, 3.85rem);    /* 44px - 62px */
+  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem); /* 11px - 13px */
+  --text-sm: clamp(0.8rem, 0.75rem + 0.3vw, 0.875rem); /* 13px - 14px */
+  --text-base: clamp(0.95rem, 0.9rem + 0.35vw, 1.05rem); /* 15px - 17px */
+  --text-lg: clamp(1.1rem, 1.02rem + 0.45vw, 1.25rem); /* 17.5px - 20px */
+  --text-xl: clamp(1.3rem, 1.18rem + 0.65vw, 1.55rem); /* 21px - 25px */
+  --text-2xl: clamp(1.6rem, 1.4rem + 1.1vw, 2.05rem); /* 25.5px - 33px */
+  --text-3xl: clamp(2.1rem, 1.75rem + 1.8vw, 2.75rem); /* 33.5px - 44px */
+  --text-4xl: clamp(2.75rem, 2.2rem + 2.8vw, 3.85rem); /* 44px - 62px */
 
   /* Font Weights */
   --font-weight-regular: 400;
@@ -88,15 +90,17 @@
   /* ------------------------------------------------------------------------
      3. SPACING & SIZING SCALE
      ------------------------------------------------------------------------ */
-  --space-2xs: 0.25rem;  /* 4px */
-  --space-xs: 0.5rem;    /* 8px */
-  --space-sm: 0.75rem;   /* 12px */
-  --space-md: 1rem;      /* 16px */
-  --space-lg: 1.5rem;    /* 24px */
-  --space-xl: 2rem;      /* 32px */
-  --space-2xl: 2.75rem;  /* 44px */
-  --space-3xl: 3.75rem;  /* 60px */
-  --space-4xl: 5.5rem;   /* 88px */
+  --space-3xs: 0.25rem; /* 4px */
+  --space-2xs: 0.5rem; /* 8px */
+  --space-xs: 0.75rem; /* 12px */
+  --space-s: 1rem; /* 16px */
+  --space-md: 1.5rem; /* 24px */
+  --space-l: 2rem; /* 32px */
+  --space-xl: 2.5rem; /* 40px */
+  --space-2xl: 2.75rem; /* 44px */
+  --space-3xl: 3.75rem; /* 60px */
+  --space-3xl: 5rem; /* 80px */
+  --space-4xl: 5.5rem; /* 88px */
 
   /* Container Widths */
   --container-sm: 640px;
