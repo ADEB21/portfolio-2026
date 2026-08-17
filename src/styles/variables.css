@@ -1,0 +1,144 @@
+:root {
+  /* ------------------------------------------------------------------------
+     1. COLOR PALETTE
+     ------------------------------------------------------------------------ */
+  /* Base Palette */
+  --color-black: #0F0806;
+  --color-white: #FBF7EE;
+  --color-beige: #D6C29A;
+  --color-brown: #4C2B24;
+  
+  /* Modernized Semantic Accents */
+  --color-copper: #B85B35;
+  --color-copper-hover: #964320;
+  --color-copper-soft: rgba(184, 91, 53, 0.09);
+  --color-copper-glow: rgba(184, 91, 53, 0.28);
+  
+  --color-sand: #D6C29A;
+  --color-sand-soft: rgba(214, 194, 154, 0.28);
+  --color-sand-hover: #C5B085;
+  
+  --color-brown-deep: #4C2B24;
+  --color-brown-soft: rgba(76, 43, 36, 0.06);
+  
+  /* Background & Surfaces */
+  --bg-main: var(--color-white);
+  --bg-subtle: #F4EEDF;
+  --bg-card: rgba(255, 253, 247, 0.82);
+  --bg-card-solid: #FFFDF9;
+  --bg-glass: rgba(251, 247, 238, 0.85);
+  
+  /* Text Shades */
+  --text-main: var(--color-black);
+  --text-muted: #5A4843;
+  --text-dim: #8C7870;
+  --text-inverse: #FBF7EE;
+  
+  /* Borders */
+  --border-light: rgba(76, 43, 36, 0.12);
+  --border-hover: rgba(184, 91, 53, 0.45);
+  --border-strong: rgba(76, 43, 36, 0.25);
+  --border-dash: rgba(184, 91, 53, 0.35);
+  
+  /* Functional Colors */
+  --color-success: #2E7D32;
+  --color-success-bg: rgba(46, 125, 50, 0.08);
+  --color-success-border: rgba(46, 125, 50, 0.22);
+  --color-error: #D32F2F;
+  --color-error-bg: rgba(211, 47, 47, 0.08);
+
+  /* ------------------------------------------------------------------------
+     2. TYPOGRAPHY
+     ------------------------------------------------------------------------ */
+  --font-serif: 'Fraunces', 'Fraunces Fallback', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', 'Plus Jakarta Sans Fallback', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Fluid Typography Scale (clamp min, preferred, max) */
+  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);      /* 11px - 13px */
+  --text-sm: clamp(0.8rem, 0.75rem + 0.3vw, 0.875rem);    /* 13px - 14px */
+  --text-base: clamp(0.95rem, 0.9rem + 0.35vw, 1.05rem);  /* 15px - 17px */
+  --text-lg: clamp(1.1rem, 1.02rem + 0.45vw, 1.25rem);    /* 17.5px - 20px */
+  --text-xl: clamp(1.3rem, 1.18rem + 0.65vw, 1.55rem);    /* 21px - 25px */
+  --text-2xl: clamp(1.6rem, 1.4rem + 1.1vw, 2.05rem);     /* 25.5px - 33px */
+  --text-3xl: clamp(2.1rem, 1.75rem + 1.8vw, 2.75rem);    /* 33.5px - 44px */
+  --text-4xl: clamp(2.75rem, 2.2rem + 2.8vw, 3.85rem);    /* 44px - 62px */
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  /* Tracking (Letter Spacing) */
+  --tracking-tighter: -0.035em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.05em;
+  --tracking-widest: 0.08em;
+
+  /* ------------------------------------------------------------------------
+     3. SPACING & SIZING SCALE
+     ------------------------------------------------------------------------ */
+  --space-2xs: 0.25rem;  /* 4px */
+  --space-xs: 0.5rem;    /* 8px */
+  --space-sm: 0.75rem;   /* 12px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 2.75rem;  /* 44px */
+  --space-3xl: 3.75rem;  /* 60px */
+  --space-4xl: 5.5rem;   /* 88px */
+
+  /* Container Widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1220px;
+
+  /* ------------------------------------------------------------------------
+     4. BORDER RADII (Apple / Kolibri Curves)
+     ------------------------------------------------------------------------ */
+  --radius-xs: 6px;
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* ------------------------------------------------------------------------
+     5. ELEVATIONS & SHADOWS
+     ------------------------------------------------------------------------ */
+  --shadow-sm: 0 2px 8px rgba(76, 43, 36, 0.04);
+  --shadow-md: 0 10px 25px rgba(15, 8, 6, 0.05);
+  --shadow-card: 0 16px 40px -12px rgba(76, 43, 36, 0.06);
+  --shadow-card-hover: 0 24px 50px -12px rgba(184, 91, 53, 0.14);
+  --shadow-btn: 0 6px 20px rgba(184, 91, 53, 0.28);
+  --shadow-btn-hover: 0 10px 25px rgba(184, 91, 53, 0.35);
+
+  /* ------------------------------------------------------------------------
+     6. TRANSITIONS & TIMING
+     ------------------------------------------------------------------------ */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+
+  /* ------------------------------------------------------------------------
+     7. Z-INDEX SYSTEM
+     ------------------------------------------------------------------------ */
+  --z-canvas-bg: 0;
+  --z-base: 1;
+  --z-overlay: 10;
+  --z-nav: 100;
+  --z-modal: 1000;
+}
