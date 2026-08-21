@@ -3,27 +3,17 @@
 import Layout from "../../layouts/Layout.astro";
 import { sanityClient } from "sanity:client";
 import type { Project } from "../../types";
-import ProjectCard from "../../components/ProjectCard.astro";
-
-const ALL_PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
-  _id,
-  title,
-  "slug": slug.current,
-  category,
-  year,
-  description,
-  tags,
-  link,
-  isLarge,
-  coverImage
-}`;
+import ProjectCard from "../../components/Cards/ProjectCard.astro";
+import { ALL_PROJECTS_QUERY } from "../../assets/script/utils/api";
 
 const projects: Project[] = await sanityClient.fetch(ALL_PROJECTS_QUERY);
 
 // Extraction unique des catégories pour les filtres
 const allCategories = [
   "Tous",
-  ...new Set(projects.flatMap((p) => p.category || [])),
+  ...new Set(
+    projects.flatMap((p) => p.categories.map((cat) => cat.title))
+  ),
 ];
 ---
 
@@ -32,7 +22,7 @@ const allCategories = [
     <!-- En-tête de la page -->
     <section class="projects-hero">
       <span class="section-badge">[ Hub &bull; Travaux ]</span>
-      <h1 class="page-title">Projets & Expérimentations</h1>
+      <h1>Projets & Expérimentations</h1>
       <p class="page-subtitle">
         Découvrez l'ensemble de mes réalisations en développement Front-End,
         intégrations d'interfaces modulaires, design systems et projets R&D.
@@ -66,10 +56,12 @@ const allCategories = [
   }
 
   .page-title {
-    font-size: var(--text-4xl);
     font-family: var(--font-serif);
-    line-height: var(--leading-tight);
-    margin-bottom: var(--space-xs);
+    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: var(--tracking-tighter);
+    margin-bottom: var(--space-l);
   }
 
   .page-subtitle {
@@ -103,7 +95,7 @@ const allCategories = [
 
   .filter-btn:hover,
   .filter-btn.active {
-    background: var(--color-brown);
+    background: var(--color-copper);
     color: var(--bg-main);
     border-color: var(--color-brown);
   }
@@ -113,6 +105,7 @@ const allCategories = [
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-l);
+    margin-bottom: var(--space-4xl);
   }
 
   .project-card {
@@ -181,14 +174,14 @@ const allCategories = [
 <!-- Script de filtrage dynamique côté client -->
 <script>
   const filterButtons = document.querySelectorAll(".filter-btn");
-  const projectCards = document.querySelectorAll<HTMLElement>(".project-card");
+  const projectCards = document.querySelectorAll<HTMLElement>(".card");
 
   filterButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       filterButtons.forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
 
-      const filter = btn.getAttribute("data-filter");
+      const filter = btn.getAttribute("data-filter");      
 
       projectCards.forEach((card) => {
         const categories = JSON.parse(
