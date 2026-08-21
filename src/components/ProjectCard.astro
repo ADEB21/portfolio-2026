@@ -18,7 +18,7 @@ const coverImageUrl = p.coverImage?.asset
   : null;
 ---
 
-<article class={`bento-card ${p.isLarge ? 'span-2' : ''} `}>
+<article class={`bento-card ${p.isLarge ? 'span-2' : ''} card`}>
   <div class="project-content">
     <div class="project-top-meta">
       <div class="category-meta-group">
@@ -209,16 +209,16 @@ const coverImageUrl = p.coverImage?.asset
     transition: transform 0.4s ease;
   }
 
-  .project-card:hover .project-image {
+  .card:hover .project-image {
     transform: scale(1.03);
   }
 
   /* Responsive */
-  @media (max-width: 1024px) {
-    .project-card.span-2 {
+  @media (max-width: 768px) {
+    .card.span-2 {
       grid-column: span 1;
       grid-template-columns: 1fr;
-      gap: 1.5rem;
+      gap: var(--space-md);;
     }
 
     .project-image-wrapper {
