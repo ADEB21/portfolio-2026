@@ -1,8 +1,9 @@
 ---
 // src/components/ProjectCard.astro
 import { Image } from 'astro:assets';
-import { urlFor } from '../assets/script/utils/image';
-import type { Project } from '../types';
+import { urlFor } from '../../assets/script/utils/image';
+import type { Project } from '../../types';
+import CircleButton from '../CircleButton.astro';
 
 interface Props {
   project: Project;
@@ -43,15 +44,7 @@ const coverImageUrl = p.coverImage?.asset
       </div>
 
       {p.link && (
-        <a
-          href={p.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-circle-action"
-          aria-label={`Voir le projet ${p.title}`}
-        >
-          ↗
-        </a>
+        <CircleButton link={p.link} isBlank={true} ariaLabel={`Voir le projet ${p.title}`}/>
       )}
     </div>
   </div>
@@ -167,26 +160,6 @@ const coverImageUrl = p.coverImage?.asset
     border-radius: 9999px;
     color: #2B1810;
     font-weight: 500;
-  }
-
-  .btn-circle-action {
-    width: 38px;
-    height: 38px;
-    min-width: 38px;
-    border-radius: 50%;
-    background: #2B1810;
-    color: #FBF7EE;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: transform 0.15s ease, background-color 0.15s ease;
-  }
-
-  .btn-circle-action:hover {
-    background: #B85B35;
-    transform: scale(1.08);
   }
 
   /* Image Span-2 intégrée */
