@@ -1,9 +1,12 @@
 import { defineField, defineType } from "sanity";
 
+import { CaseIcon } from "@sanity/icons/Case";
+
 export const projectType = defineType({
   name: "project",
   title: "Projets",
   type: "document",
+  icon: CaseIcon,
   fields: [
     defineField({
       name: "title",
@@ -30,13 +33,11 @@ export const projectType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "category",
+      name: "categories",
       title: "Catégorie(s)",
       type: "array",
-      of: [{ type: "string" }],
-      options: {
-        layout: "tags",
-      },
+      of: [{ type: "reference", to: [{ type: "category" }] }],
+      validation: (rule) => rule.required().min(1),
     }),
     defineField({
       name: "year",
