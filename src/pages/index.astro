@@ -1,11 +1,21 @@
 ---
-// src/pages/index.astro
-import Layout from "../layouts/Layout.astro";
-import ProjectCard from "../components/ProjectCard.astro";
-import TechIcon from "../components/TechIcon";
 import { sanityClient } from "sanity:client";
 import type { Profile, Project } from "../types";
-import SkillCard from "../components/SkillCard.astro";
+
+// Components
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import HubProjectsRedirection from "../components/HubProjectsRedirection.astro";
+
+// Buttons
+import PrimaryButton from "../components/PrimaryButton.astro";
+import SecondaryButton from "../components/SecondaryButton.astro"
+
+// Cards
+import ProjectCard from "../components/Cards/ProjectCard.astro";
+import SkillCategoryCard from "../components/Cards/SkillCategoryCard.astro";
+import ExperienceCard from "../components/Cards/ExperienceCard.astro";
+import CertificateCard from "../components/Cards/CertificateCard.astro";
 
 // 3. COMPÉTENCES & STACK (4 Blocs équilibrés avec slugs Iconify)
 const skillsCategories = [
@@ -13,7 +23,7 @@ const skillsCategories = [
     tag: "FRAMEWORKS & RUNTIME",
     title: "Langages et Frameworks",
     description: "Architecture d'applications modulaires, typées et réactives.",
-    technologies: [
+    skills: [
       { name: "React.js", slug: "react" },
       { name: "Next.js", slug: "nextjs" },
       { name: "Astro", slug: "astro" },
@@ -28,7 +38,7 @@ const skillsCategories = [
     tag: "UI & DESIGN SYSTEM",
     title: "Design et Intégration",
     description: "Fidélité au pixel près, ergonomie et accessibilité.",
-    technologies: [
+    skills: [
       { name: "Tailwind CSS", slug: "tailwind" },
       { name: "Figma", slug: "figma" },
       { name: "Storybook", slug: "storybook" },
@@ -40,7 +50,7 @@ const skillsCategories = [
     tag: "TOOLING & DEVOPS",
     title: "Outillage et Déploiement",
     description: "Pipelines de livraison continue, bundling et hébergement.",
-    technologies: [
+    skills: [
       { name: "Git", slug: "git" },
       { name: "GitHub", slug: "github" },
       { name: "Vite", slug: "vite" },
@@ -54,7 +64,7 @@ const skillsCategories = [
     title: "Méthodologie et IA",
     description:
       "Standards de code, gestion agile et intégration de workflows IA.",
-    technologies: [
+    skills: [
       { name: "Agile / Scrum", slug: "agile" },
       { name: "Revue de code", slug: "codereview" },
       { name: "API REST", slug: "api" },
@@ -94,16 +104,20 @@ const experiences = [
 // 5. DIPLÔMES & CERTIFICATIONS META
 const educationList = [
   {
-    years: "2023 — 2025",
-    degree: "Master Expert du Design Numérique",
-    school: "ESADD",
+    _type: "degree",
+    title: "Master Expert du Design Numérique",
+    issuer: "ESADD",
+    date: "2023 — 2025",
+    credentialId: "RNCP39855",
     summary:
       "Mémoire de recherche appliquée sur l'intégration de technologies innovantes (blockchain) comme levier d'innovation en entreprise.",
   },
   {
-    years: "2020 — 2023",
-    degree: "Bachelor Designer Numérique",
-    school: "ESADD",
+    _type: "degree",
+    title: "Bachelor Designer Numérique",
+    issuer: "ESADD",
+    date: "2020 — 2023",
+    credentialId: "RNCP39764",
     summary:
       "Formation complète en design numérique, conception d'interfaces, ergonomie UX/UI et fondamentaux du développement web front-end.",
   },
@@ -111,25 +125,40 @@ const educationList = [
 
 const certificationsList = [
   {
+    _type: "certificate",
     title: "Version Control",
     issuer: "Meta",
     date: "Juil. 2026",
     credentialId: "MSP1Y6GT2P35",
-    skills: ["Git", "GitHub", "Branching Workflows"],
+    skills: [
+      { name: "Git", slug: "git" },
+      { name: "GitHub", slug: "github" },
+      { name: "Branching Workflows", slug: "branch" },
+    ],
   },
   {
+    _type: "certificate",
     title: "Programming with JavaScript",
     issuer: "Meta",
     date: "Juin 2026",
     credentialId: "G3I3KAJ6OFQV",
-    skills: ["JavaScript (ES6+)", "DOM Manipulation", "Testing"],
+    skills: [
+      { name: "JavaScript", slug: "javascript" },
+      { name: "DOM Manipulation", slug: "dom" },
+      { name: "Testing", slug: "testing" },
+    ],
   },
   {
+    _type: "certificate",
     title: "Introduction to Front-End Development",
     issuer: "Meta",
     date: "Avr. 2026",
     credentialId: "SK55GTXOP01T",
-    skills: ["HTML5", "CSS3", "UI Architecture"],
+    skills: [
+      { name: "HTML5", slug: "html5" },
+      { name: "CSS3", slug: "css3" },
+      { name: "UI Architecture", slug: "ui" },
+    ],
   },
 ];
 
@@ -150,10 +179,14 @@ const featuredProjects: Project[] = await sanityClient.fetch(
 );
 ---
 
-<Layout title={`${profile.name} — ${profile.role}`} description="Bienvenue sur mon Portfolio">
+<Layout
+  title={`${profile.name} — ${profile.role}`}
+  description="Bienvenue sur mon Portfolio"
+>
+  <Navigation />
   <main>
     <!-- HERO -->
-    <section class="hero-editorial">
+    <section id="hero" class="hero">
       <div class="hero-top-row">
         <div class="hero-status-tag">
           <span class="status-indicator"></span>
@@ -173,18 +206,13 @@ const featuredProjects: Project[] = await sanityClient.fetch(
 
       <div class="hero-footer-row">
         <div class="hero-actions">
-          <a href="#projets" class="btn-pill-primary">
-            <span>Explorer les projets</span>
-            <span>↓</span>
-          </a>
-          <a href="mailto:arthurdebruille@proton.me" class="btn-pill-secondary">
-            <span>Prendre contact</span>
-          </a>
+          <PrimaryButton label="Explorer les projets ↓" link="#projets" ariaLabel="Aller à la page projets" />
+          <SecondaryButton label="Prendre contact" link="mailto:arthurdebruille@proton.me" ariaLabel="Envoyer un mail" />
         </div>
       </div>
     </section>
     <!-- PROJETS -->
-    <section id="projets" style="margin-bottom: var(--space-l);">
+    <section id="projets">
       <div class="section-header">
         <div>
           <span class="section-badge">// Réalisations</span>
@@ -201,22 +229,10 @@ const featuredProjects: Project[] = await sanityClient.fetch(
       </div>
 
       <!-- Redirection Hub Projets -->
-      <div class="hub-redirect-card">
-        <div class="hub-content">
-          <h4>Envie d'explorer plus d'études de cas ?</h4>
-          <p>
-            Accédez à l'ensemble des projets, prototypes interactifs et dépôts
-            GitHub.
-          </p>
-        </div>
-        <a href="/projects" class="btn-pill-primary">
-          <span>Consulter le Hub Projets</span>
-          <span>&rarr;</span>
-        </a>
-      </div>
+      <HubProjectsRedirection />
     </section>
     <!-- COMPÉTENCES & STACK -->
-    <section id="competences" style="margin-bottom: var(--space-4xl);">
+    <section id="competences">
       <div class="section-header">
         <div>
           <span class="section-badge">// Savoir-faire</span>
@@ -230,13 +246,12 @@ const featuredProjects: Project[] = await sanityClient.fetch(
         </div>
       </div>
 
-      <div class="skills-bento-grid">
-        {skillsCategories.map((skill) => <SkillCard skill={skill} />)}
+      <div class="skills-catergories-grid">
+        {skillsCategories.map((cat) => <SkillCategoryCard cat={cat} />)}
       </div>
     </section>
-
     <!-- EXPÉRIENCES PRO -->
-    <section id="experiences" style="margin-bottom: var(--space-4xl);">
+    <section id="experiences">
       <div class="section-header">
         <div>
           <span class="section-badge">// Parcours</span>
@@ -248,29 +263,12 @@ const featuredProjects: Project[] = await sanityClient.fetch(
         </div>
       </div>
 
-      <div class="experiences-wrapper">
-        {
-          experiences.map((exp) => (
-            <article class="bento-card exp-card">
-              <div>
-                <div class="exp-dates">{exp.dates}</div>
-                <div class="exp-company">{exp.company}</div>
-              </div>
-              <div>
-                <h3 class="exp-role">{exp.role}</h3>
-                <p class="exp-details">{exp.details}</p>
-              </div>
-              <div>
-                <span class="exp-contract">{exp.contract}</span>
-              </div>
-            </article>
-          ))
-        }
+      <div class="experiences-grid">
+        {experiences.map((exp) => <ExperienceCard experience={exp} />)}
       </div>
     </section>
-
     <!-- FORMATIONS & CERTIFICATIONS -->
-    <section id="formations" style="margin-bottom: var(--space-4xl);">
+    <section id="formations">
       <div class="section-header">
         <div>
           <span class="section-badge">// Formations</span>
@@ -282,42 +280,15 @@ const featuredProjects: Project[] = await sanityClient.fetch(
         </div>
       </div>
       <div class="education-grid">
-        {
-          educationList.map((edu) => (
-            <article class="bento-card edu-card">
-              <div>
-                <div class="edu-year">{edu.years}</div>
-                <h3 class="edu-degree">{edu.degree}</h3>
-                <p class="edu-school">{edu.school}</p>
-              </div>
-              <p class="edu-summary">{edu.summary}</p>
-            </article>
-          ))
-        }
+        {educationList.map((edu) => <CertificateCard certification={edu} />)}
       </div>
+      <hr
+        style="margin: var(--space-xl) 0; border-color: var(--border-light);"
+      />
       <div class="certifications-grid">
         {
           certificationsList.map((cert) => (
-            <article class="bento-card cert-card-modern">
-              <div class="cert-top-bar">
-                <div class="meta-logo-box">
-                  <TechIcon name="meta" size={18} client:idle />
-                  <span>{cert.issuer}</span>
-                </div>
-                <span class="cert-date-badge">{cert.date}</span>
-              </div>
-
-              <div>
-                <h4 class="cert-title">{cert.title}</h4>
-                <span class="cert-id-tag">ID : {cert.credentialId}</span>
-              </div>
-
-              <div class="cert-skills-pills">
-                {cert.skills.map((skill) => (
-                  <span class="tag-pill">{skill}</span>
-                ))}
-              </div>
-            </article>
+            <CertificateCard certification={cert} />
           ))
         }
       </div>
@@ -326,52 +297,14 @@ const featuredProjects: Project[] = await sanityClient.fetch(
 </Layout>
 
 <style>
-  /* 3. Bento Card Base */
-  .bento-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-xl);
-    padding: var(--space-2xl);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: var(--shadow-card);
-    transition:
-      transform var(--duration-base) var(--ease-spring),
-      border-color var(--duration-base) ease,
-      box-shadow var(--duration-base) ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .bento-card:hover {
-    border-color: var(--border-hover);
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-card-hover);
-  }
-
-  .card-halo {
-    position: absolute;
-    top: -120px;
-    right: -120px;
-    width: 260px;
-    height: 260px;
-    background: radial-gradient(
-      circle,
-      rgba(214, 194, 154, 0.4) 0%,
-      transparent 70%
-    );
-    pointer-events: none;
-    filter: blur(40px);
-  }
-
   /* Hero Pleine Largeur Éditorial (Sans Card) */
-  .hero-editorial {
+  .hero {
     width: 100%;
-    padding-bottom: var(--space-4xl);
     display: flex;
     flex-direction: column;
     gap: var(--space-2xl);
     position: relative;
+    margin-bottom: var(--space-4xl);
   }
 
   /* En-tête : Disponibilité & Localisation */
@@ -450,19 +383,6 @@ const featuredProjects: Project[] = await sanityClient.fetch(
     flex-wrap: wrap;
   }
 
-  /* Responsive */
-  @media (max-width: 768px) {
-    .hero-editorial {
-      padding: var(--space-l) 0 var(--space-3xl) 0;
-      gap: var(--space-l);
-    }
-
-    .hero-top-row {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  }
-
   /* 5. Projets */
   .featured-projects-grid {
     display: grid;
@@ -471,91 +391,24 @@ const featuredProjects: Project[] = await sanityClient.fetch(
     margin-bottom: var(--space-l);
   }
 
-  .hub-redirect-card {
-    background: linear-gradient(
-      135deg,
-      var(--bg-card-solid),
-      var(--color-sand-soft)
-    );
-    border: 1px dashed var(--border-dash);
-    border-radius: var(--radius-xl);
-    padding: var(--space-l) var(--space-3xl);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-4xl);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .hub-content h4 {
-    font-size: var(--text-xl);
-    font-weight: 600;
-    margin-bottom: var(--space-3xs);
-  }
-
-  .hub-content p {
-    color: var(--text-muted);
-    font-size: var(--text-sm);
-  }
-
   /* 6. Compétences (Grille 2x2 Bento avec Pastilles) */
-  .skills-bento-grid {
+  .skills-catergories-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-l);
+  }
+
+  section#projets,
+  section#competences,
+  section#experiences,
+  section#formations {
     margin-bottom: var(--space-4xl);
   }
 
   /* 7. Expériences */
-  .experiences-wrapper {
+  .experiences-grid {
     display: grid;
     gap: var(--space-s);
-    margin-bottom: var(--space-4xl);
-  }
-
-  .exp-card {
-    padding: var(--space-l) var(--space-2xl);
-    display: grid;
-    grid-template-columns: 240px 1fr auto;
-    gap: var(--space-l);
-    align-items: center;
-  }
-
-  .exp-dates {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-copper);
-    font-weight: 600;
-    margin-bottom: var(--space-3xs);
-  }
-
-  .exp-company {
-    font-family: var(--font-serif);
-    font-weight: 600;
-    font-size: var(--text-lg);
-  }
-
-  .exp-role {
-    font-family: var(--font-sans);
-    font-size: var(--text-lg);
-    font-weight: 700;
-    margin-bottom: var(--space-3xs);
-  }
-
-  .exp-details {
-    font-size: var(--text-base);
-    color: var(--text-muted);
-    line-height: var(--leading-relaxed);
-  }
-
-  .exp-contract {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    background: var(--bg-subtle);
-    border: 1px solid var(--border-light);
-    padding: 5px 14px;
-    border-radius: var(--radius-full);
-    color: var(--text-dim);
   }
 
   /* 8. Formations & Certifications */
@@ -566,160 +419,26 @@ const featuredProjects: Project[] = await sanityClient.fetch(
     margin-bottom: var(--space-md);
   }
 
-  .edu-card {
-    padding: var(--space-2xl);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .edu-year {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-copper);
-    font-weight: 600;
-    margin-bottom: var(--space-xs);
-  }
-
-  .edu-degree {
-    font-size: var(--text-xl);
-    font-weight: 600;
-    margin-bottom: var(--space-3xs);
-  }
-
-  .edu-school {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    margin-bottom: var(--space-md);
-  }
-
-  .edu-summary {
-    font-size: var(--text-sm);
-    color: var(--text-dim);
-    border-top: 1px solid var(--border-light);
-    padding-top: var(--space-md);
-    line-height: var(--leading-relaxed);
-  }
-
-  .certifications-wrapper {
-    margin-top: var(--space-2xl);
-  }
-
-  .certifications-heading {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-widest);
-    margin-bottom: var(--space-md);
-  }
-
   .certifications-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-md);
-  }
-
-  .cert-card-modern {
-    padding: var(--space-l);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: var(--space-md);
-    background: var(--bg-card-solid);
-  }
-
-  .cert-top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .meta-logo-box {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: var(--text-xs);
-    background: var(--bg-subtle);
-    padding: 4px 10px;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--border-light);
-  }
-
-  .cert-date-badge {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-dim);
-  }
-
-  .cert-title {
-    font-family: var(--font-serif);
-    font-size: var(--text-lg);
-    font-weight: 600;
-    color: var(--text-espresso);
-    line-height: var(--leading-snug);
-    margin-bottom: var(--space-3xs);
-  }
-
-  .cert-id-tag {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-dim);
-  }
-
-  .cert-skills-pills {
-    display: flex;
-    gap: var(--space-3xs);
-    flex-wrap: wrap;
-    border-top: 1px solid var(--border-light);
-    padding-top: var(--space-xs);
   }
 
   /* 10. Responsive */
-  @media (max-width: 1024px) {
-    .skills-bento-grid,
+  @media (max-width: 768px) {
+    .featured-projects-grid,
+    .skills-catergories-grid,
     .education-grid,
     .certifications-grid {
       grid-template-columns: 1fr;
     }
-    .project-card-large.span-2 {
-      grid-column: span 1;
-      grid-template-columns: 1fr;
-    }
-    .featured-projects-grid {
-      grid-template-columns: 1fr;
-    }
-    .exp-card {
-      grid-template-columns: 1fr;
-      gap: var(--space-s);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero-full-card {
-      padding: var(--space-l);
-    }
-    .hero-top-row,
-    .hero-footer-row {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+    /* A mettre dans la card spéciale exp */
     .hub-redirect-card {
       flex-direction: column;
       gap: var(--space-md);
       text-align: center;
       padding: var(--space-md);
-    }
-    footer.warm-footer {
-      flex-direction: column;
-      gap: var(--space-md);
-      text-align: center;
-      padding: var(--space-l);
-    }
-    .nav-links {
-      display: none;
     }
   }
 </style>
