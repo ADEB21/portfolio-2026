@@ -1,0 +1,52 @@
+import React from "react";
+
+const EsaddIcon = () => {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        width="2.60009"
+        height="2.60009"
+        transform="translate(6 3)"
+        fill="#FFA300"
+      />
+      <rect
+        width="3.90013"
+        height="2.60009"
+        transform="translate(8.6001 3)"
+        fill="#343434"
+      />
+      <rect
+        width="3.90013"
+        height="2.60009"
+        transform="translate(8.6001 8.19971)"
+        fill="#343434"
+      />
+      <rect
+        width="3.90013"
+        height="2.60009"
+        transform="translate(8.6001 13.3989)"
+        fill="#343434"
+      />
+      <rect
+        width="2.60009"
+        height="2.60009"
+        transform="translate(6 8.19971)"
+        fill="#46C0EF"
+      />
+      <rect
+        width="2.60009"
+        height="2.60009"
+        transform="translate(6 13.3989)"
+        fill="#EA445C"
+      />
+    </svg>
+  );
+};
+
+export default EsaddIcon;
