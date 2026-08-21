@@ -1,0 +1,48 @@
+---
+interface Props {
+  link: string;
+  isBlank?: boolean;
+  ariaLabel: string;
+}
+
+const { link, isBlank = false, ariaLabel } = Astro.props;
+---
+
+<a
+  href={link}
+  target={isBlank ? "_blank" : "_self"}
+  rel="noopener noreferrer"
+  class="btn-circle-action"
+  aria-label={ariaLabel}
+>
+  ↗
+</a>
+
+<style>
+  .btn-circle-action {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-full);
+    background: var(--color-black);
+    border: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    text-decoration: none;
+    font-size: var(--text-lg);
+    transition:
+      background var(--duration-base) ease,
+      color var(--duration-base) ease,
+      transform var(--duration-base) var(--ease-spring),
+      border-color var(--duration-base) ease;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .btn-circle-action:hover {
+    background: var(--color-copper);
+    color: var(--bg-main);
+    border-color: var(--color-copper);
+    transform: scale(1.08) rotate(45deg);
+  }
+</style>

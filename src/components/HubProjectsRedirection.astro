@@ -1,0 +1,41 @@
+---
+import PrimaryButton from "./PrimaryButton.astro";
+---
+
+<div class="hub-redirect-card">
+  <div class="hub-content">
+    <h4>Envie d'explorer plus d'études de cas ?</h4>
+    <p>
+      Accédez à l'ensemble des projets, prototypes interactifs et dépôts GitHub.
+    </p>
+  </div>
+  <PrimaryButton label=`Consulter le Hub Projets →` link="/projects" ariaLabel="Aller à la page projets" />
+</div>
+
+<style>
+  .hub-redirect-card {
+    background: linear-gradient(
+      135deg,
+      var(--bg-card-solid),
+      var(--color-sand-soft)
+    );
+    border: 1px dashed var(--border-dash);
+    border-radius: var(--radius-xl);
+    padding: var(--space-l) var(--space-3xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .hub-content h4 {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin-bottom: var(--space-3xs);
+  }
+
+  .hub-content p {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+</style>

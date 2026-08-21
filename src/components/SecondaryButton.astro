@@ -1,0 +1,39 @@
+---
+interface Props {
+  link: string;
+  label: string;
+  isBlank?: boolean;
+  ariaLabel: string
+}
+
+const { link, label, isBlank = false, ariaLabel } = Astro.props;
+---
+
+<a href={link} target={isBlank ? "_blank" : "_self"} aria-label={ariaLabel} class="btn-pill-secondary">
+  <span>{label}</span>
+</a>
+
+<style>
+  .btn-pill-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border-light);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--text-sm);
+    padding: 0.95rem 1.85rem;
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition:
+      border-color var(--duration-fast) ease,
+      transform var(--duration-base) var(--ease-spring);
+  }
+
+  .btn-pill-secondary:hover {
+    border-color: var(--color-brown-deep);
+    transform: translateY(-2px);
+  }
+</style>
