@@ -1,0 +1,103 @@
+---
+import type { SkillType, Certificate } from "../types";
+import EsaddIcon from "./EsaddIcon";
+import IconComponent from "./Icon";
+import Skill from "./Skill.astro";
+
+interface Props {
+  certification: Certificate;
+}
+
+const { certification } = Astro.props;
+---
+
+<article class="bento-card card">
+  <div class="cert-top-bar">
+    <div class="meta-logo-box">
+      {
+        certification._type == "certificate" ? <IconComponent name="meta" size={18} client:idle /> : <EsaddIcon />
+      }
+      <span>{certification.issuer}</span>
+    </div>
+    <span class="cert-date-badge">{certification.date}</span>
+  </div>
+
+  <div>
+    <h4 class="cert-title">{certification.title}</h4>
+    <span class="cert-id-tag">ID : {certification.credentialId}</span>
+  </div>
+
+  <div class="cert-skills-pills">
+    {
+      certification.skills ? (
+        certification.skills.map((skill: SkillType) => <Skill skill={skill} />)
+      ) : (
+        <p class="cert-summary">{certification.summary}</p>
+      )
+    }
+    {}
+  </div>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+
+  .cert-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .meta-logo-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: var(--text-xs);
+    background: var(--bg-subtle);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-light);
+  }
+
+  .cert-date-badge {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-dim);
+  }
+
+  .cert-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--text-espresso);
+    line-height: var(--leading-snug);
+    margin-bottom: var(--space-3xs);
+  }
+
+  .cert-id-tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+  }
+
+  .cert-summary {
+    font-size: var(--text-sm);
+    color: var(--text-dim);
+    line-height: var(--leading-relaxed);
+  }
+
+  .cert-skills-pills {
+    display: flex;
+    gap: var(--space-3xs);
+    flex-wrap: wrap;
+    border-top: 1px solid var(--border-light);
+    padding-top: var(--space-md);
+  }
+</style>

@@ -1,0 +1,77 @@
+---
+import type { Experience } from "../types";
+
+interface Props {
+  experience: Experience;
+}
+
+const { experience } = Astro.props;
+---
+
+<article class="bento-card card">
+  <div>
+    <div class="exp-dates">{experience.dates}</div>
+    <div class="exp-company">{experience.company}</div>
+  </div>
+  <div>
+    <h3 class="exp-role">{experience.role}</h3>
+    <p class="exp-details">{experience.details}</p>
+  </div>
+  <div>
+    <span class="exp-contract">{experience.contract}</span>
+  </div>
+</article>
+
+<style>
+  .card {
+    padding: var(--space-l) var(--space-2xl);
+    display: grid;
+    grid-template-columns: 240px 1fr auto;
+    gap: var(--space-l);
+    align-items: center;
+  }
+
+  .exp-dates {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-copper);
+    font-weight: 600;
+    margin-bottom: var(--space-3xs);
+  }
+
+  .exp-company {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: var(--text-lg);
+  }
+
+  .exp-role {
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-3xs);
+  }
+
+  .exp-details {
+    font-size: var(--text-base);
+    color: var(--text-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  .exp-contract {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-light);
+    padding: 5px 14px;
+    border-radius: var(--radius-full);
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 768px) {
+    .card {
+      grid-template-columns: 1fr;
+      gap: var(--space-s);
+    }
+  }
+</style>

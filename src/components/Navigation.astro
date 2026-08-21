@@ -1,0 +1,169 @@
+---
+// src/components/SectionNav.astro
+interface NavItem {
+  id: string;
+  label: string;
+}
+
+const navItems: NavItem[] = [
+  { id: "hero", label: "Hero" },
+  { id: "projets", label: "Projets" },
+  { id: "competences", label: "Compétences" },
+  { id: "experiences", label: "Expériences" },
+  { id: "formations", label: "Formations" },
+];
+---
+
+<aside class="section-nav-wrapper" aria-label="Navigation des sections">
+  <nav class="section-nav-panel">
+    <ul class="nav-links">
+      {
+        navItems.map((item) => (
+          <li>
+            <a href={`#${item.id}`} class="nav-link" data-section={item.id}>
+              <span class="nav-label">{item.label}</span>
+              <span class="nav-indicator" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</aside>
+
+<style>
+  .section-nav-wrapper {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
+    pointer-events: none;
+  }
+
+  .section-nav-panel {
+    pointer-events: auto;
+    background: rgba(251, 247, 238, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(76, 43, 36, 0.14);
+    border-radius: var(--radius-xl);
+    padding: 0.75rem 0.6rem;
+    box-shadow: 0 10px 25px -5px rgba(76, 43, 36, 0.08);
+  }
+
+  .nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    color: #6b5b54;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .nav-index {
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.68rem;
+    color: #8c7a70;
+    transition: color 0.2s ease;
+  }
+
+  .nav-label {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: inherit;
+    transition: transform 0.2s ease;
+  }
+
+  .nav-indicator {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: all 0.2s ease;
+    margin-left: auto;
+  }
+
+  /* Survol */
+  .nav-link:hover {
+    color: #b85b35;
+    background: rgba(184, 91, 53, 0.06);
+  }
+
+  .nav-link:hover .nav-index {
+    color: #b85b35;
+  }
+
+  /* Section Active */
+  .nav-link.active {
+    color: #2b1810;
+    background: rgba(76, 43, 36, 0.08);
+    font-weight: 600;
+  }
+
+  .nav-link.active .nav-index {
+    color: #b85b35;
+    font-weight: bold;
+  }
+
+  .nav-link.active .nav-indicator {
+    background-color: #b85b35;
+    box-shadow: 0 0 6px rgba(184, 91, 53, 0.6);
+  }
+
+  /* Masquer sur tablette/mobile pour préserver l'espace */
+  @media (max-width: 1200px) {
+    .section-nav-wrapper {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Détection automatique de la section visible au défilement
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>(
+    ".section-nav-panel .nav-link",
+  );
+  const sections = Array.from(navLinks).map((link) => {
+    const id = link.getAttribute("data-section");
+    return id ? document.getElementById(id) : null;
+  });
+
+  const observerOptions = {
+    root: null,
+    rootMargin: "-30% 0px -40% 0px",
+    threshold: 0,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        navLinks.forEach((link) => {
+          if (link.getAttribute("data-section") === entry.target.id) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((section) => {
+    if (section) observer.observe(section);
+  });
+</script>
