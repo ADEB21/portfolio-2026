@@ -9,53 +9,53 @@ interface Props {
   project: Project;
 }
 
-const { project: p } = Astro.props;
+const { project} = Astro.props;
 
-const coverImageUrl = p.coverImage?.asset
-  ? urlFor(p.coverImage.asset)
+const coverImageUrl = project.coverImage?.asset
+  ? urlFor(project.coverImage.asset)
       .width(800)
       .auto('format')
       .url()
   : null;
 ---
 
-<article class={`bento-card ${p.isLarge ? 'span-2' : ''} card`}>
+<article class={`bento-card ${project.isLarge ? 'span-2' : ''} card`} data-categories={JSON.stringify(project.categories.map((cat) => cat.title) || [])}>
   <div class="project-content">
     <div class="project-top-meta">
       <div class="category-meta-group">
         <span class="category-names">
-          {Array.isArray(p.category) ? p.category.join(' · ') : p.category}
+          {project.categories?.map((cat) => cat.title).join(' · ')}
         </span>
       </div>
 
-      <span class="project-year-badge">{p.year}</span>
+      <span class="project-year-badge">{project.year}</span>
     </div>
 
     <div class="project-body">
-      <h3 class="project-title">{p.title}</h3>
-      <p class="project-desc">{p.description}</p>
+      <h3 class="project-title">{project.title}</h3>
+      <p class="project-desc">{project.description}</p>
     </div>
 
     <div class="project-footer">
       <div class="tech-pills">
-        {p.tags?.map((tag: string) => (
+        {project.tags?.map((tag: string) => (
           <span class="tag-pill">{tag}</span>
         ))}
       </div>
 
-      {p.link && (
-        <CircleButton link={p.link} isBlank={true} ariaLabel={`Voir le projet ${p.title}`}/>
+      {project.link && (
+        <CircleButton link={project.link} isBlank={true} ariaLabel={`Voir le projet ${project.title}`}/>
       )}
     </div>
   </div>
 
-  {p.isLarge && coverImageUrl && (
+  {project.isLarge && coverImageUrl && (
     <div class="project-image-wrapper">
       <Image
         src={coverImageUrl}
         width={700}
         height={450}
-        alt={p.coverImage?.alt || `Aperçu du projet ${p.title}`}
+        alt={project.coverImage?.alt || `Aperçu du projet ${project.title}`}
         class="project-image"
       />
     </div>

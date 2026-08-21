@@ -78,7 +78,13 @@ small {
   color: var(--text-dim);
 }
 
-/* 4. Section Headers & Badges */
+section#projets,
+section#competences,
+section#experiences,
+section#formations {
+  margin-bottom: var(--space-4xl);
+}
+
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -111,7 +117,6 @@ small {
   margin-top: var(--space-3xs);
 }
 
-/* 6. Status & Tags Pills */
 .status-pill {
   display: inline-flex;
   align-items: center;

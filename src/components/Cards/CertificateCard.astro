@@ -15,7 +15,7 @@ const { certification } = Astro.props;
   <div class="cert-top-bar">
     <div class="meta-logo-box">
       {
-        certification._type == "certificate" ? <IconComponent name="meta" size={18} client:idle /> : <EsaddIcon />
+        certification._type == "certificate" ? <IconComponent name="logos:meta-icon" size={18} client:idle /> : <EsaddIcon />
       }
       <span>{certification.issuer}</span>
     </div>
@@ -76,7 +76,6 @@ const { certification } = Astro.props;
     font-family: var(--font-serif);
     font-size: var(--text-lg);
     font-weight: 600;
-    color: var(--text-espresso);
     line-height: var(--leading-snug);
     margin-bottom: var(--space-3xs);
   }

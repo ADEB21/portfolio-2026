@@ -1,6 +1,11 @@
 ---
+import type { Category } from "../../types";
 import type { SkillType } from "../../types/skill";
 import Skill from "../Skill.astro";
+
+interface Props {
+  cat: Category;
+}
 
 const { cat } = Astro.props;
 ---
@@ -13,11 +18,7 @@ const { cat } = Astro.props;
   </div>
 
   <div class="tech-icon-grid">
-    {
-      cat.skills.map((skill: SkillType) => (
-        <Skill skill={skill}/>
-      ))
-    }
+    {cat.skills.map((skill: SkillType) => <Skill skill={skill} />)}
   </div>
 </article>
 
@@ -43,7 +44,6 @@ const { cat } = Astro.props;
     font-family: var(--font-serif);
     font-size: var(--text-2xl);
     font-weight: 600;
-    color: var(--text-espresso);
     margin-bottom: var(--space-3xs);
   }
 
