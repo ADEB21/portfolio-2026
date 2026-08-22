@@ -4,3 +4,4 @@ export * from './certificate';
 export * from './skill';
 export * from "./experience"
 export * from "./category"
+export * from "./button"
