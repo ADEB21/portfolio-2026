@@ -37,7 +37,7 @@ export const projectType = defineType({
       title: "Catégorie(s)",
       type: "array",
       of: [{ type: "reference", to: [{ type: "category" }] }],
-      validation: (rule) => rule.required().min(1),
+      validation: (rule) => rule.required().min(1).max(4),
     }),
     defineField({
       name: "year",
