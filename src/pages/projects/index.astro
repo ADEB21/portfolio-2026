@@ -5,7 +5,9 @@ import { ALL_PROJECTS_QUERY } from "../../assets/script/utils/api";
 
 // Components
 import Layout from "@layout/Layout.astro";
+import Hero from "@components/organisms/Hero.astro";
 import ProjectCard from "@components/molecules/Cards/ProjectCard.astro";
+
 // Types
 import type { Project } from "@@types/index";
 
@@ -14,23 +16,28 @@ const projects: Project[] = await sanityClient.fetch(ALL_PROJECTS_QUERY);
 // Extraction unique des catégories pour les filtres
 const allCategories = [
   "Tous",
-  ...new Set(
-    projects.flatMap((p) => p.categories.map((cat) => cat.title))
-  ),
+  ...new Set(projects.flatMap((p) => p.categories.map((cat) => cat.title))),
 ];
 ---
 
-<Layout title="Projets & Études de cas — Arthur Debruille" description="Projets">
+<Layout
+  title="Projets & Études de cas — Arthur Debruille"
+  description="Projets"
+>
   <main>
     <!-- En-tête de la page -->
-    <section class="projects-hero">
-      <span class="section-badge">[ Hub &bull; Travaux ]</span>
-      <h1>Projets & Expérimentations</h1>
-      <p class="page-subtitle">
-        Découvrez l'ensemble de mes réalisations en développement Front-End,
-        intégrations d'interfaces modulaires, design systems et projets R&D.
-      </p>
 
+    <Hero
+      title="Projets & Expérimentations"
+      bio="Découvrez l'ensemble de mes réalisations en développement Front-End, intégrations d'interfaces modulaires, design systems et projets R&D."
+      primaryButton={{
+        label: "Explorer les projets ↓",
+        href: "#projets",
+        ariaLabel: "Voir les projets ci-dessous",
+      }}
+    />
+
+    <section id="projets" class="projects-hero">
       <!-- Filtres par catégorie -->
       <div class="category-filters">
         {
@@ -75,7 +82,6 @@ const allCategories = [
     margin-bottom: var(--space-2xl);
   }
 
-  /* Filtres */
   .category-filters {
     display: flex;
     gap: var(--space-xs);
@@ -103,7 +109,6 @@ const allCategories = [
     border-color: var(--color-brown);
   }
 
-  /* Grille des projets */
   .projects-grid-all {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -184,7 +189,7 @@ const allCategories = [
       filterButtons.forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
 
-      const filter = btn.getAttribute("data-filter");      
+      const filter = btn.getAttribute("data-filter");
 
       projectCards.forEach((card) => {
         const categories = JSON.parse(
