@@ -1,6 +1,6 @@
 ---
 import { sanityClient } from "sanity:client";
-import type { Category, Experience, Profile, Project } from "../types";
+import type { Category, Certificate, Experience, Profile, Project } from "@@types/index";
 import {
   CERTIFICATES_QUERY,
   DEGREES_QUERY,
@@ -8,22 +8,22 @@ import {
   PROFILE_QUERY,
   PROJECTS_HOME_QUERY,
   SKILLS_CATEGORIES_QUERY,
-} from "../assets/script/utils/api";
+} from "@assets/script/utils/api";
 
 // Components
-import Layout from "../layouts/Layout.astro";
-import Navigation from "../components/Navigation.astro";
-import HubProjectsRedirection from "../components/HubProjectsRedirection.astro";
+import Layout from "@layout/Layout.astro";
+import Navigation from "@components/molecules/Navigation.astro";
+import HubProjectsRedirection from "@components/molecules/HubProjectsRedirection.astro";
 
 // Buttons
-import PrimaryButton from "../components/PrimaryButton.astro";
-import SecondaryButton from "../components/SecondaryButton.astro";
+import PrimaryButton from "@components/atoms/Buttons/PrimaryButton.astro";
+import SecondaryButton from "@components/atoms/Buttons/SecondaryButton.astro";
 
 // Cards
-import ProjectCard from "../components/Cards/ProjectCard.astro";
-import SkillCategoryCard from "../components/Cards/SkillCategoryCard.astro";
-import ExperienceCard from "../components/Cards/ExperienceCard.astro";
-import CertificateCard from "../components/Cards/CertificateCard.astro";
+import ProjectCard from "@components/molecules/Cards/ProjectCard.astro";
+import SkillCategoryCard from "@components/molecules/Cards/SkillCategoryCard.astro";
+import ExperienceCard from "@components/molecules/Cards/ExperienceCard.astro";
+import CertificateCard from "@components/molecules/Cards/CertificateCard.astro";
 
 const profile: Profile = await sanityClient.fetch(PROFILE_QUERY);
 const featuredProjects: Project[] =
@@ -32,15 +32,14 @@ const skillsCategories: Category[] = await sanityClient.fetch(
   SKILLS_CATEGORIES_QUERY,
 );
 const experiences: Experience[] = await sanityClient.fetch(EXPERIENCES_QUERY);
-const educationList = await sanityClient.fetch(DEGREES_QUERY);
-const certificationsList = await sanityClient.fetch(CERTIFICATES_QUERY);
+const educationList: Certificate[] = await sanityClient.fetch(DEGREES_QUERY);
+const certificationsList: Certificate[] = await sanityClient.fetch(CERTIFICATES_QUERY);
 ---
 
 <Layout
   title={`${profile.name} — ${profile.role}`}
   description="Bienvenue sur mon Portfolio"
 >
-  <Navigation />
   <main>
     <!-- HERO -->
     <section id="hero" class="hero">
@@ -130,7 +129,7 @@ const certificationsList = await sanityClient.fetch(CERTIFICATES_QUERY);
         {experiences.map((exp) => <ExperienceCard experience={exp} />)}
       </div>
     </section>
-    <!-- FORMATIONS & CERTIFICATIONS -->
+    <!-- DIPLÔMES & CERTIFICATIONS -->
     <section id="formations">
       <div class="section-header">
         <div>
@@ -251,7 +250,7 @@ const certificationsList = await sanityClient.fetch(CERTIFICATES_QUERY);
     gap: var(--space-s);
   }
 
-  /* 5. Formations & Certifications */
+  /* 5. Diplômes & Certifications */
   .education-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;

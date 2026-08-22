@@ -1,9 +1,10 @@
 ---
-// src/components/ProjectCard.astro
+import { urlFor } from '@assets/script/utils/image';
+import type { Project } from '@@types/index';
+
+// Components
 import { Image } from 'astro:assets';
-import { urlFor } from '../../assets/script/utils/image';
-import type { Project } from '../../types';
-import CircleButton from '../CircleButton.astro';
+import CircleButton from '@components/atoms/Buttons/CircleButton.astro';
 
 interface Props {
   project: Project;

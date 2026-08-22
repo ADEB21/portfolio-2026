@@ -1,11 +1,16 @@
 ---
-import TechIcon from "./Icon";
+import type { Skill } from "@@types/index";
+import Icons from "@components/atoms/Icons/Icons";
+
+interface Props {
+  skill: Skill
+}
 
 const { skill } = Astro.props;
 ---
 
 <div class="tech-pill-item" title={skill.name}>
-  <TechIcon name={skill.id} size={20} client:idle />
+  <Icons name={skill.id} size={20} client:idle />
   <span class="tech-name">{skill.name}</span>
 </div>
 

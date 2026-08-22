@@ -1,28 +1,13 @@
 ---
-// src/components/Footer.astro
+import { navigationLinks, socialLinks } from "../../consts";
+
 const currentYear = new Date().getFullYear();
-
-const socialLinks = [
-  { name: 'LinkedIn', url: 'https://linkedin.com/in/arthurdebruille' },
-  { name: 'GitHub', url: 'https://github.com/ADEB21' },
-  { name: 'Email direct', url: 'mailto:arthurdebruille@proton.me' },
-];
-
-const navigationLinks = [
-  { label: 'Projets', href: '#projets' },
-  { label: 'Compétences', href: '#competences' },
-  { label: 'Expériences', href: '#experiences' },
-  { label: 'Formations & Certifications', href: '#formations' },
-  { label: 'Hub Projets', href: '/projets' },
-];
 ---
 
 <footer class="footer">
   <div class="footer-inner">
 
-    <!-- 2. Grille Principale (4 Colonnes) -->
     <div class="footer-grid">
-      <!-- Colonne 1 : Profil -->
       <div class="footer-col brand-col">
         <div class="footer-brand">Arthur Debruille</div>
         <p class="footer-tagline">
@@ -34,7 +19,6 @@ const navigationLinks = [
         </div>
       </div>
 
-      <!-- Colonne 2 : Navigation -->
       <div class="footer-col">
         <h3 class="col-title">Navigation</h3>
         <ul class="footer-links-list">
@@ -46,7 +30,6 @@ const navigationLinks = [
         </ul>
       </div>
 
-      <!-- Colonne 3 : Réseaux -->
       <div class="footer-col">
         <h3 class="col-title">Connexions</h3>
         <ul class="footer-links-list">
@@ -61,7 +44,6 @@ const navigationLinks = [
         </ul>
       </div>
 
-      <!-- Colonne 4 : Infos -->
       <div class="footer-col">
         <h3 class="col-title">Détails</h3>
         <div class="details-stack">
@@ -77,7 +59,6 @@ const navigationLinks = [
       </div>
     </div>
 
-    <!-- 3. Bas de page / Copyright -->
     <div class="footer-bottom-bar">
       <p class="copyright-text">
         &copy; {currentYear} Arthur Debruille &bull; Développeur Front-End React
@@ -106,7 +87,6 @@ const navigationLinks = [
     box-sizing: border-box;
   }
 
-  /* Grille */
   .footer-grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
@@ -165,8 +145,6 @@ const navigationLinks = [
     background: #2E7D32;
     box-shadow: 0 0 6px rgba(46, 125, 50, 0.6);
   }
-
-  /* Listes */
   .footer-links-list {
     list-style: none;
     padding: 0;
@@ -202,7 +180,6 @@ const navigationLinks = [
     color: #B85B35;
   }
 
-  /* Colonne Détails */
   .details-stack {
     display: flex;
     flex-direction: column;
@@ -246,7 +223,6 @@ const navigationLinks = [
     color: #FBF7EE;
   }
 
-  /* Barre inférieure */
   .footer-bottom-bar {
     display: flex;
     justify-content: space-between;

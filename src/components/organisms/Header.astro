@@ -1,10 +1,12 @@
 ---
-
+import Navigation from "@components/molecules/Navigation.astro";
+import { navItems } from "../../consts";
 ---
 
-<!-- Navigation Flottante Style Apple Glass -->
 <header class="warm-nav">
   <a href="/" class="brand-group">Arthur Debruille</a>
+  <a href="/" class="brand-group-mobile">AD</a>
+  {Astro.url.pathname && Astro.url.pathname === "/" ? <Navigation /> : ""}
 
   <ul class="nav-links">
     <li><a href="/projects">Projets</a></li>
@@ -30,7 +32,8 @@
     margin-bottom: var(--space-3xl);
   }
 
-  .brand-group {
+  .brand-group,
+  .brand-group-mobile {
     display: flex;
     align-items: center;
     gap: var(--space-xs);
@@ -38,6 +41,10 @@
     font-weight: 600;
     font-size: 1.25rem;
     letter-spacing: var(--tracking-tight);
+  }
+
+  .brand-group-mobile {
+    display: none;
   }
 
   .nav-links {
@@ -49,8 +56,7 @@
 
   .nav-links a {
     color: var(--text-muted);
-    font-size: 0.92rem;
-    font-weight: 500;
+    font-size: var(--text-sm);
     transition: color var(--duration-fast) ease;
   }
 
@@ -58,9 +64,14 @@
     color: var(--color-copper);
   }
 
-  @media (max-width: 768px) {
-    .nav-links {
+  @media (max-width: 1024px) {
+    .brand-group {
       display: none;
+    }
+  }
+  @media (max-width: 768px) {
+    .brand-group-mobile {
+      display: flex;
     }
   }
 </style>

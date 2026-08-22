@@ -1,8 +1,8 @@
 ---
-import type { SkillType, Certificate } from "../../types";
-import EsaddIcon from "../EsaddIcon";
-import IconComponent from "../Icon";
-import Skill from "../Skill.astro";
+import type { Certificate } from "@@types/index";
+import EsaddIcon from "@components/atoms/Icons/EsaddIcon";
+import Icons from "@components/atoms/Icons/Icons";
+import SkillIcon from "../SkillIcon.astro";
 
 interface Props {
   certification: Certificate;
@@ -15,7 +15,7 @@ const { certification } = Astro.props;
   <div class="cert-top-bar">
     <div class="meta-logo-box">
       {
-        certification._type == "certificate" ? <IconComponent name="logos:meta-icon" size={18} client:idle /> : <EsaddIcon />
+        certification._type == "certificate" ? <Icons name="logos:meta-icon" size={18} client:idle /> : <EsaddIcon />
       }
       <span>{certification.issuer}</span>
     </div>
@@ -30,7 +30,7 @@ const { certification } = Astro.props;
   <div class="cert-skills-pills">
     {
       certification.skills ? (
-        certification.skills.map((skill: SkillType) => <Skill skill={skill} />)
+        certification.skills.map((skill) => <SkillIcon skill={skill} />)
       ) : (
         <p class="cert-summary">{certification.summary}</p>
       )

@@ -3,7 +3,7 @@ import { BookIcon } from "@sanity/icons/Book";
 
 export const degreeType = defineType({
   name: "degree",
-  title: "Diplômes & Formations",
+  title: "Diplômes",
   type: "document",
   icon: BookIcon,
   fields: [

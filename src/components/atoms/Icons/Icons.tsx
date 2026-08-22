@@ -11,7 +11,7 @@ interface TechIconProps {
   className?: string;
 }
 
-export default function IconComponent({
+export default function Icons({
   name,
   size = 20,
   className = "",

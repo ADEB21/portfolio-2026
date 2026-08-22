@@ -1,10 +1,10 @@
-import type { SkillType } from './skill';
+import type { Skill } from "./skill";
 
 export interface Category {
   _id?: string;
   tag: string;
   title: string;
   description?: string;
-  skills: SkillType[];
+  skills: Skill[];
   order?: number;
 }

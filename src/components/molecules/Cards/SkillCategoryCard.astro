@@ -1,7 +1,8 @@
 ---
-import type { Category } from "../../types";
-import type { SkillType } from "../../types/skill";
-import Skill from "../Skill.astro";
+
+import type { Category } from "@@types/index";
+
+import SkillIcon from "@components/molecules/SkillIcon.astro"
 
 interface Props {
   cat: Category;
@@ -18,7 +19,7 @@ const { cat } = Astro.props;
   </div>
 
   <div class="tech-icon-grid">
-    {cat.skills.map((skill: SkillType) => <Skill skill={skill} />)}
+    {cat.skills.map((skill) => <SkillIcon skill={skill} />)}
   </div>
 </article>
 
