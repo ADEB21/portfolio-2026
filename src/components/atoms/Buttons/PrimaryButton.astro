@@ -1,15 +1,16 @@
 ---
-interface Props {
-  link: string;
-  label: string;
-  isBlank?: boolean;
-  ariaLabel: string;
-}
+import type { Button } from "@@types/index";
 
-const { link, label, isBlank = false, ariaLabel } = Astro.props;
+type Props = Button;
+const { href, label, isBlank = false, ariaLabel } = Astro.props;
 ---
 
-<a href={link} target={isBlank ? "_blank" : "_self"} aria-label={ariaLabel} class="btn-pill-primary">
+<a
+  href={href}
+  target={isBlank ? "_blank" : "_self"}
+  aria-label={ariaLabel}
+  class="btn-pill-primary"
+>
   <span>{label}</span>
 </a>
 
