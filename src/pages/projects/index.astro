@@ -1,10 +1,13 @@
 ---
-// src/pages/projets/index.astro
-import Layout from "../../layouts/Layout.astro";
+// Sanity
 import { sanityClient } from "sanity:client";
-import type { Project } from "../../types";
-import ProjectCard from "../../components/Cards/ProjectCard.astro";
 import { ALL_PROJECTS_QUERY } from "../../assets/script/utils/api";
+
+// Components
+import Layout from "@layout/Layout.astro";
+import ProjectCard from "@components/molecules/Cards/ProjectCard.astro";
+// Types
+import type { Project } from "@@types/index";
 
 const projects: Project[] = await sanityClient.fetch(ALL_PROJECTS_QUERY);
 

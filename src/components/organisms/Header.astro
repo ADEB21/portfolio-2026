@@ -1,12 +1,12 @@
 ---
 import Navigation from "@components/molecules/Navigation.astro";
-import { navItems } from "../../consts";
 ---
 
 <header class="warm-nav">
   <a href="/" class="brand-group">Arthur Debruille</a>
   <a href="/" class="brand-group-mobile">AD</a>
-  {Astro.url.pathname && Astro.url.pathname === "/" ? <Navigation /> : ""}
+  {Astro.url.pathname && Astro.url.pathname === "/" && <Navigation />}
+  {Astro.url.pathname && Astro.url.pathname === "/" && "|"}
 
   <ul class="nav-links">
     <li><a href="/projects">Projets</a></li>
