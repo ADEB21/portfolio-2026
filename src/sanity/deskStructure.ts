@@ -1,3 +1,4 @@
+import UserIcon from "@sanity/icons/User";
 import { type StructureResolver } from "sanity/structure";
 
 export const structure: StructureResolver = (S) =>
@@ -6,6 +7,7 @@ export const structure: StructureResolver = (S) =>
     .items([
       S.listItem()
         .title("Profil")
+        .icon(UserIcon)
         .id("profile")
         .child(S.document().schemaType("profile").documentId("profile")),
       S.divider(),
