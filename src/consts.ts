@@ -5,7 +5,7 @@ export const SITE_TITLE = "Arthur DEBRUILLE Portfolio 2026";
 export const SITE_DESCRIPTION = "Portfolio 2026 — Product Designer & Design Engineer";
 
 export const navItems: {id: string; label: string;}[] = [
-  { id: "hero", label: "A propos" },
+  { id: "apropos", label: "A propos" },
   { id: "projets", label: "Projets" },
   { id: "competences", label: "Compétences" },
   { id: "experiences", label: "Expériences" },
