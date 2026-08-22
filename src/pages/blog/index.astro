@@ -1,47 +1,178 @@
 ---
-import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
-import Hero from "@components/organisms/Hero.astro";
+// src/pages/blog/index.astro
+import Layout from '@layout/Layout.astro';
+import Hero from '@components/organisms/Hero.astro';
+import PostCard from '@components/molecules/Cards/PostCard.astro';
+import Footer from '@components/organisms/Footer.astro';
+import { sanityClient } from 'sanity:client';
+import type { Post } from '@@types/index';
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
+  _id,
+  title,
+  "slug": slug.current,
+  publishedAt,
+  readTime,
+  excerpt,
+  categories[]->{ title },
+  tags,
+  coverImage,
+  isFeatured
+}`;
+
+const posts: Post[] = await sanityClient.fetch(POSTS_QUERY);
+
+const allCategories = [
+  'Tous',
+  ...new Set(posts.flatMap((p) => p.categories?.map((c) => c.title) ?? [])),
+];
 ---
 
-<Layout title="" description="">
-  <main>
+<Layout
+  title="Articles & Notes Techniques — Arthur Debruille"
+  description="Pensées, analyses et retours d'expérience sur l'écosystème React, le web moderne et l'architecture logicielle."
+>
+  <main class="blog-page-container">
+    <!-- HERO -->
     <Hero
-      title="Le Blog"
-      bio="Laboris ut consectetur labore fugiat nulla labore eu Lorem sit sint sit. Minim consequat eu commodo nisi nisi. Nisi in ullamco qui reprehenderit ullamco amet dolore laborum cupidatat consequat. Ipsum commodo adipisicing aliqua nisi anim commodo."
+      title="Écrits techniques &"
+      subtitle="Retours d'Expérience."
+      bio="Analyses approfondies sur l'écosystème React, les Design Systems, la performance web et l'accessibilité."
       primaryButton={{
-        label: "Explorer les différents articles ↓",
-        href: "#projets",
-        ariaLabel: "Voir les articles ci-dessous",
+        label: "Explorer les articles ↓",
+        link: "#articles",
+        ariaLabel: "Explorer les articles techniques"
+      }}
+      secondaryButton={{
+        label: "Retour à l'accueil",
+        link: "/",
+        ariaLabel: "Retourner à la page d'accueil"
       }}
     />
 
-    <section>
-      <ul>
-        {
-          posts.map((post) => (
-            <li>
-              <a href={`/blog/${post.id}/`}>
-                {post.data.heroImage && (
-                  <Image
-                    width={720}
-                    height={360}
-                    src={post.data.heroImage}
-                    alt=""
-                  />
-                )}
-                <h4 class="title">{post.data.title}</h4>
-                <p class="date">{post.data.pubDate}</p>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+    <!-- SECTION ARTICLES -->
+    <section id="articles" class="blog-section">
+      <div class="section-header">
+        <div>
+          <span class="section-badge">// Veille &amp; R&amp;D</span>
+          <h2 class="section-title">Tous les articles</h2>
+          <p class="section-subtitle">
+            Une sélection de réflexions sur le code moderne, l'architecture front-end et la conception d'interfaces durables.
+          </p>
+        </div>
+      </div>
+
+      <!-- Filtres par catégorie -->
+      <div class="filters-bar" role="tablist" aria-label="Filtrer les articles">
+        {allCategories.map((cat, i) => (
+          <button
+            class={`filter-pill ${i === 0 ? 'active' : ''}`}
+            data-filter={cat}
+            type="button"
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      <!-- Grille des articles -->
+      <div class="posts-grid" id="posts-container">
+        {posts.map((post) => (
+          <div
+            class={`post-wrapper ${post.isFeatured ? 'featured-span' : ''}`}
+            data-categories={JSON.stringify(post.categories?.map((c) => c.title) ?? [])}
+          >
+            <PostCard post={post} />
+          </div>
+        ))}
+      </div>
     </section>
   </main>
+  <Footer />
 </Layout>
+
+<style>
+  .blog-page-container {
+    width: 100%;
+  }
+
+  .blog-section {
+    margin-top: 3rem;
+  }
+
+  /* Barre de filtres : séparation nette sans décoloration */
+  .filters-bar {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    padding-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid #2B1810;
+  }
+
+  .filter-pill {
+    background: transparent;
+    border: 1px solid #2B1810;
+    padding: 0.45rem 1.1rem;
+    border-radius: 9999px;
+    font-family: ui-monospace, monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #2B1810;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .filter-pill:hover,
+  .filter-pill.active {
+    background: #2B1810;
+    color: #FBF7EE;
+  }
+
+  /* Grille des articles */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .post-wrapper.featured-span {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 900px) {
+    .posts-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .post-wrapper.featured-span {
+      grid-column: span 1;
+    }
+  }
+</style>
+
+<script>
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>('.filter-pill');
+  const postWrappers = document.querySelectorAll<HTMLElement>('.post-wrapper');
+
+  filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const selectedFilter = btn.getAttribute('data-filter');
+
+      postWrappers.forEach((wrapper) => {
+        const categories: string[] = JSON.parse(
+          wrapper.getAttribute('data-categories') || '[]'
+        );
+
+        if (selectedFilter === 'Tous' || categories.includes(selectedFilter || '')) {
+          wrapper.style.display = '';
+        } else {
+          wrapper.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
