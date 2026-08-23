@@ -1,15 +1,15 @@
 ---
 interface Props {
-  link: string;
+  href: string;
   isBlank?: boolean;
   ariaLabel: string;
 }
 
-const { link, isBlank = false, ariaLabel } = Astro.props;
+const { href, isBlank = false, ariaLabel } = Astro.props;
 ---
 
 <a
-  href={link}
+  href={href}
   target={isBlank ? "_blank" : "_self"}
   rel="noopener noreferrer"
   class="btn-circle-action"

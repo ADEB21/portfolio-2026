@@ -41,22 +41,13 @@ const coverImageUrl = project.coverImage?.asset
 
     <div class="project-footer">
       <div class="tech-pills">
-        {
-          project.tags?.map((tag: string) => (
-            <span class="tag-pill">{tag}</span>
-          ))
-        }
+        {project.tags?.map((tag: string) => <span class="tag-pill">{tag}</span>)}
       </div>
-
-      {
-        project.link && (
-          <CircleButton
-            link={project.link}
-            isBlank={true}
-            ariaLabel={`Voir le projet ${project.title}`}
-          />
-        )
-      }
+      <CircleButton
+        href={project.link}
+        isBlank={true}
+        ariaLabel={`Voir le projet ${project.title}`}
+      />
     </div>
   </div>
 
@@ -78,6 +69,7 @@ const coverImageUrl = project.coverImage?.asset
 <style>
   .card {
     display: grid;
+    height: 400px;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-l);
     align-items: stretch;
@@ -92,7 +84,11 @@ const coverImageUrl = project.coverImage?.asset
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    gap: 1.5rem;
+    gap: var(--space-l);
+  }
+
+  .card:not(.featured) .project-content {
+    grid-column: span 2;
   }
 
   /* Catégories & Année */

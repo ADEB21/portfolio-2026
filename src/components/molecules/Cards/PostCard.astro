@@ -3,6 +3,7 @@
 import { Image } from "astro:assets";
 import { urlFor } from "@assets/script/utils/image";
 import type { Post } from "@@types/index";
+import CircleButton from "@components/atoms/Buttons/CircleButton.astro"
 
 interface Props {
   post: Post;
@@ -46,13 +47,8 @@ const coverImageUrl = post.coverImage?.asset
       <div class="tech-pills">
         {post.tags?.map((tag) => <span class="tag-pill">{tag}</span>)}
       </div>
-      <a
-        href={`/blog/${post.slug}`}
-        class="btn-circle-action"
-        aria-label={`Lire l'article : ${post.title}`}
-      >
-        &rarr;
-      </a>
+      <CircleButton href={`/blog/${post.slug}`} isBlank={true} ariaLabel={`Lire l'article : ${post.title}`}
+      />
     </div>
   </div>
 
@@ -74,6 +70,7 @@ const coverImageUrl = post.coverImage?.asset
 <style>
   .card {
     display: grid;
+    height: 400px;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-l);
     align-items: stretch;
@@ -88,7 +85,11 @@ const coverImageUrl = post.coverImage?.asset
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    gap: 1.5rem;
+    gap: var(--space-l);
+  }
+
+  .card:not(.featured) .card-content {
+    grid-column: span 2;
   }
 
   .post-top-meta {
@@ -177,28 +178,6 @@ const coverImageUrl = post.coverImage?.asset
     padding: 3px 9px;
     border-radius: 9999px;
     color: #2b1810;
-  }
-
-  .btn-circle-action {
-    width: 38px;
-    height: 38px;
-    min-width: 38px;
-    border-radius: 50%;
-    background: #2b1810;
-    color: #fbf7ee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition:
-      transform 0.15s ease,
-      background 0.15s ease;
-  }
-
-  .btn-circle-action:hover {
-    background: #b85b35;
-    transform: scale(1.08);
   }
 
   .post-cover-wrapper {
