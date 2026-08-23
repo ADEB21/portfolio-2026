@@ -89,7 +89,7 @@ section#formations {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: var(--space-l);
+  margin-bottom: var(--space-xl);
   gap: var(--space-s);
   flex-wrap: wrap;
 }
