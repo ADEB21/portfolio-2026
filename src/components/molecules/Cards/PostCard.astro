@@ -1,8 +1,8 @@
 ---
 // src/components/PostCard.astro
-import { Image } from 'astro:assets';
-import { urlFor } from '@assets/script/utils/image';
-import type { Post } from '@@types/index';
+import { Image } from "astro:assets";
+import { urlFor } from "@assets/script/utils/image";
+import type { Post } from "@@types/index";
 
 interface Props {
   post: Post;
@@ -11,23 +11,27 @@ interface Props {
 const { post } = Astro.props;
 
 const coverImageUrl = post.coverImage?.asset
-  ? urlFor(post.coverImage.asset).width(700).auto('format').url()
+  ? urlFor(post.coverImage.asset).width(700).auto("format").url()
   : null;
 ---
 
-<article class={`bento-card blog-card ${post.isFeatured ? 'featured' : ''}`}>
+<article
+  class={`bento-card card ${post.isFeatured ? "featured" : ""}`}
+  data-categories={JSON.stringify(
+    post.categories.map((cat) => cat.title) || [],
+  )}
+>
   <div class="card-content">
     <div class="post-top-meta">
       <div class="category-meta-group">
-        <span class="category-prefix">//</span>
         <span class="category-names">
-          {post.categories?.map((c) => c.title).join(' · ') || 'Article'}
+          {post.categories?.map((c) => c.title).join(" · ") || "Article"}
         </span>
       </div>
       <div class="post-read-meta">
         <span class="post-date">{post.publishedAt}</span>
         <span class="meta-separator">&bull;</span>
-        <span class="post-read-time">{post.readTime || '5 min'}</span>
+        <span class="post-read-time">{post.readTime || "5 min"}</span>
       </div>
     </div>
 
@@ -40,9 +44,7 @@ const coverImageUrl = post.coverImage?.asset
 
     <div class="post-footer">
       <div class="tech-pills">
-        {post.tags?.map((tag) => (
-          <span class="tag-pill">{tag}</span>
-        ))}
+        {post.tags?.map((tag) => <span class="tag-pill">{tag}</span>)}
       </div>
       <a
         href={`/blog/${post.slug}`}
@@ -54,44 +56,31 @@ const coverImageUrl = post.coverImage?.asset
     </div>
   </div>
 
-  {post.isFeatured && coverImageUrl && (
-    <div class="post-cover-wrapper">
-      <Image
-        src={coverImageUrl}
-        width={700}
-        height={400}
-        alt={post.coverImage?.alt || post.title}
-        class="post-cover-img"
-      />
-    </div>
-  )}
+  {
+    post.isFeatured && coverImageUrl && (
+      <div class="post-cover-wrapper">
+        <Image
+          src={coverImageUrl}
+          width={700}
+          height={400}
+          alt={post.coverImage?.alt || post.title}
+          class="post-cover-img"
+        />
+      </div>
+    )
+  }
 </article>
 
 <style>
-  .blog-card {
-    background: #FBF7EE;
-    border: 1px solid rgba(76, 43, 36, 0.16);
-    border-radius: 24px;
-    padding: var(--space-2xl, 2rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 360px;
-    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-  }
-
-  .blog-card:hover {
-    transform: translateY(-4px);
-    border-color: #B85B35;
-    box-shadow: 0 16px 32px -8px rgba(76, 43, 36, 0.12);
-  }
-
-  .blog-card.featured {
-    grid-column: span 2;
+  .card {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-l);
     align-items: stretch;
+  }
+
+  .card.featured {
+    grid-column: span 2;
   }
 
   .card-content {
@@ -120,20 +109,15 @@ const coverImageUrl = post.coverImage?.asset
     text-transform: uppercase;
   }
 
-  .category-prefix {
-    color: #B85B35;
-    font-weight: 700;
-  }
-
   .category-names {
-    color: #6B5B54;
+    color: #6b5b54;
     font-weight: 600;
   }
 
   .post-read-meta {
     font-family: ui-monospace, monospace;
     font-size: 0.75rem;
-    color: #8C7A70;
+    color: #8c7a70;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -154,17 +138,17 @@ const coverImageUrl = post.coverImage?.asset
   }
 
   .post-title a {
-    color: #2B1810;
+    color: #2b1810;
     text-decoration: none;
     transition: color 0.15s ease;
   }
 
   .post-title a:hover {
-    color: #B85B35;
+    color: #b85b35;
   }
 
   .post-excerpt {
-    color: #5A4A42;
+    color: #5a4a42;
     font-size: 0.95rem;
     line-height: 1.6;
     margin: 0;
@@ -188,11 +172,11 @@ const coverImageUrl = post.coverImage?.asset
   .tag-pill {
     font-family: ui-monospace, monospace;
     font-size: 0.72rem;
-    background: #FFFFFF;
+    background: #ffffff;
     border: 1px solid rgba(76, 43, 36, 0.14);
     padding: 3px 9px;
     border-radius: 9999px;
-    color: #2B1810;
+    color: #2b1810;
   }
 
   .btn-circle-action {
@@ -200,18 +184,20 @@ const coverImageUrl = post.coverImage?.asset
     height: 38px;
     min-width: 38px;
     border-radius: 50%;
-    background: #2B1810;
-    color: #FBF7EE;
+    background: #2b1810;
+    color: #fbf7ee;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
     font-size: 1.1rem;
-    transition: transform 0.15s ease, background 0.15s ease;
+    transition:
+      transform 0.15s ease,
+      background 0.15s ease;
   }
 
   .btn-circle-action:hover {
-    background: #B85B35;
+    background: #b85b35;
     transform: scale(1.08);
   }
 

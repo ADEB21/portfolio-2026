@@ -1,31 +1,33 @@
 ---
-import { urlFor } from '@assets/script/utils/image';
-import type { Project } from '@@types/index';
+import { urlFor } from "@assets/script/utils/image";
+import type { Project } from "@@types/index";
 
 // Components
-import { Image } from 'astro:assets';
-import CircleButton from '@components/atoms/Buttons/CircleButton.astro';
+import { Image } from "astro:assets";
+import CircleButton from "@components/atoms/Buttons/CircleButton.astro";
 
 interface Props {
   project: Project;
 }
 
-const { project} = Astro.props;
+const { project } = Astro.props;
 
 const coverImageUrl = project.coverImage?.asset
-  ? urlFor(project.coverImage.asset)
-      .width(800)
-      .auto('format')
-      .url()
+  ? urlFor(project.coverImage.asset).width(800).auto("format").url()
   : null;
 ---
 
-<article class={`bento-card ${project.isLarge ? 'span-2' : ''} card`} data-categories={JSON.stringify(project.categories.map((cat) => cat.title) || [])}>
+<article
+  class={`bento-card card ${project.isFeatured ? "featured" : ""}`}
+  data-categories={JSON.stringify(
+    project.categories.map((cat) => cat.title) || [],
+  )}
+>
   <div class="project-content">
     <div class="project-top-meta">
       <div class="category-meta-group">
         <span class="category-names">
-          {project.categories?.map((cat) => cat.title).join(' · ')}
+          {project.categories?.map((cat) => cat.title).join(" · ")}
         </span>
       </div>
 
@@ -39,38 +41,50 @@ const coverImageUrl = project.coverImage?.asset
 
     <div class="project-footer">
       <div class="tech-pills">
-        {project.tags?.map((tag: string) => (
-          <span class="tag-pill">{tag}</span>
-        ))}
+        {
+          project.tags?.map((tag: string) => (
+            <span class="tag-pill">{tag}</span>
+          ))
+        }
       </div>
 
-      {project.link && (
-        <CircleButton link={project.link} isBlank={true} ariaLabel={`Voir le projet ${project.title}`}/>
-      )}
+      {
+        project.link && (
+          <CircleButton
+            link={project.link}
+            isBlank={true}
+            ariaLabel={`Voir le projet ${project.title}`}
+          />
+        )
+      }
     </div>
   </div>
 
-  {project.isLarge && coverImageUrl && (
-    <div class="project-image-wrapper">
-      <Image
-        src={coverImageUrl}
-        width={700}
-        height={450}
-        alt={project.coverImage?.alt || `Aperçu du projet ${project.title}`}
-        class="project-image"
-      />
-    </div>
-  )}
+  {
+    project.isFeatured && coverImageUrl && (
+      <div class="project-image-wrapper">
+        <Image
+          src={coverImageUrl}
+          width={700}
+          height={450}
+          alt={project.coverImage?.alt || `Aperçu du projet ${project.title}`}
+          class="project-image"
+        />
+      </div>
+    )
+  }
 </article>
 
 <style>
-  /* Version Pleine Largeur (Span-2) */
-  .span-2 {
-    grid-column: span 2;
+  .card {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-l);
     align-items: stretch;
+  }
+
+  .card.featured {
+    grid-column: span 2;
   }
 
   .project-content {
@@ -99,7 +113,7 @@ const coverImageUrl = project.coverImage?.asset
   }
 
   .category-names {
-    color: #6B5B54;
+    color: #6b5b54;
     font-weight: 600;
   }
 
@@ -107,7 +121,7 @@ const coverImageUrl = project.coverImage?.asset
     font-family: var(--font-mono, ui-monospace, monospace);
     font-size: 0.75rem;
     font-weight: 600;
-    color: #B85B35;
+    color: #b85b35;
     background: rgba(184, 91, 53, 0.1);
     padding: 3px 9px;
     border-radius: 6px;
@@ -124,13 +138,13 @@ const coverImageUrl = project.coverImage?.asset
     font-family: var(--font-serif, "Fraunces", Georgia, serif);
     font-size: 1.75rem;
     font-weight: 600;
-    color: #2B1810;
+    color: #2b1810;
     line-height: 1.2;
     margin: 0;
   }
 
   .project-desc {
-    color: #5A4A42;
+    color: #5a4a42;
     font-size: 0.95rem;
     line-height: 1.6;
     margin: 0;
@@ -155,11 +169,11 @@ const coverImageUrl = project.coverImage?.asset
   .tag-pill {
     font-family: var(--font-mono, ui-monospace, monospace);
     font-size: 0.72rem;
-    background: #FFFFFF;
+    background: #ffffff;
     border: 1px solid rgba(76, 43, 36, 0.14);
     padding: 3px 9px;
     border-radius: 9999px;
-    color: #2B1810;
+    color: #2b1810;
     font-weight: 500;
   }
 
@@ -192,7 +206,7 @@ const coverImageUrl = project.coverImage?.asset
     .card.span-2 {
       grid-column: span 1;
       grid-template-columns: 1fr;
-      gap: var(--space-md);;
+      gap: var(--space-md);
     }
 
     .project-image-wrapper {
