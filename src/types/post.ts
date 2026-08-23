@@ -8,7 +8,7 @@ export interface Post {
   publishedAt: string;
   readTime: string;
   excerpt: string;
-  categories?: Category[];
+  categories: Category[];
   tags?: string[];
   coverImage?: {
     asset: {
@@ -17,4 +17,5 @@ export interface Post {
     alt?: string;
   };
   isFeatured?: boolean;
+  body: [];
 }

@@ -8,7 +8,7 @@ export interface Project {
   description: string;
   tags: string[];
   link?: string;
-  isLarge: boolean;
+  isFeatured: boolean;
   coverImage: {
     _type: string,
     alt: string,
