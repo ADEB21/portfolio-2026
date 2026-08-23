@@ -9,7 +9,7 @@ export const PROJECTS_HOME_QUERY = `*[_type == "project" && isFeatured == true] 
   description,
   tags,
   link,
-  isLarge,
+  isFeatured,
   coverImage
 }`;
 
@@ -65,6 +65,36 @@ export const ALL_PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
   description,
   tags,
   link,
-  isLarge,
+  isFeatured,
   coverImage
+}`;
+
+export const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
+  _id,
+  title,
+  "slug": slug.current,
+  publishedAt,
+  readTime,
+  excerpt,
+  categories[]->{ title },
+  tags,
+  coverImage,
+  isFeatured
+}`;
+
+export const POSTS_SLUGS_QUERY = `*[_type == "post" && defined(slug.current)]{
+    "slug": slug.current
+  }`;
+
+export const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
+  _id,
+  title,
+  "slug": slug.current,
+  publishedAt,
+  readTime,
+  excerpt,
+  categories[]->{ title },
+  tags,
+  coverImage,
+  body
 }`;
