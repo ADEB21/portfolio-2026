@@ -1,0 +1,36 @@
+---
+interface Props {
+    filter: string;
+    index: number
+}
+
+const { filter, index } = Astro.props;
+---
+
+<button
+  class={`filter-btn ${index === 0 ? "active" : ""}`}
+  data-filter={filter}
+>
+  {filter}
+</button>
+
+<style>
+  .filter-btn {
+    background: var(--bg-card-solid);
+    border: 1px solid var(--border-light);
+    padding: 6px 16px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--duration-fast) ease;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--color-copper);
+    color: var(--bg-main);
+    border-color: var(--color-brown);
+  }
+</style>

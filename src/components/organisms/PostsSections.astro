@@ -1,0 +1,90 @@
+---
+import FilterButton from "@components/atoms/Buttons/FilterButton.astro";
+
+interface Props {
+  badge: string;
+  title: string;
+  summary: string;
+  filters: string[];
+}
+
+const { badge, title, summary, filters } = Astro.props;
+
+console.log(filters);
+---
+
+<section id="posts" class="posts-section">
+  <header class="section-header">
+    <div>
+      <span class="section-badge">// {badge}</span>
+      <h2 class="section-title">{title}</h2>
+      <p class="section-subtitle">
+        {summary}
+      </p>
+    </div>
+  </header>
+
+  <ul class="filters" role="tablist" aria-label="Filtrer les articles">
+    {
+      filters.map((filter, i) => (
+        <li>
+          <FilterButton filter={filter} index={i} />
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="posts-grid">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .filters {
+    display: flex;
+    gap: var(--space-xs);
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-4xl);
+    list-style: none;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-l);
+    margin-bottom: var(--space-4xl);
+  }
+
+  @media (max-width: 768px) {
+    .posts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const filters = document.querySelectorAll("ul li .filter-btn");
+  const posts = document.querySelectorAll<HTMLElement>(".card");
+
+  filters.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filters.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const filter = btn.getAttribute("data-filter");
+
+      posts.forEach((card) => {
+        const categories = JSON.parse(
+          card.getAttribute("data-categories") || "[]",
+        );
+        if (filter === "Tous" || categories.includes(filter)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  });
+</script>
