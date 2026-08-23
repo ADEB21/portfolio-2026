@@ -174,7 +174,7 @@ section#formations {
 }
 
 .bento-card {
-  background: var(--bg-card);
+  background: var(--bg-card-solid);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-xl);
   padding: var(--space-2xl);
