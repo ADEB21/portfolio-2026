@@ -10,11 +10,12 @@ import ProjectCard from "@components/molecules/Cards/ProjectCard.astro";
 
 // Types
 import type { Project } from "@@types/index";
+import PostsSections from "@components/organisms/PostsSections.astro";
 
 const projects: Project[] = await sanityClient.fetch(ALL_PROJECTS_QUERY);
 
 // Extraction unique des catégories pour les filtres
-const allCategories = [
+const allFilters = [
   "Tous",
   ...new Set(projects.flatMap((p) => p.categories.map((cat) => cat.title))),
 ];
@@ -25,182 +26,24 @@ const allCategories = [
   description="Projets"
 >
   <main>
-    <!-- En-tête de la page -->
-
     <Hero
-      title="Projets & Expérimentations"
-      bio="Découvrez l'ensemble de mes réalisations en développement Front-End, intégrations d'interfaces modulaires, design systems et projets R&D."
+      title="Projets &"
+      subtitle="Expérimentations"
+      summary="Découvrez l'ensemble de mes réalisations en développement Front-End, intégrations d'interfaces modulaires, design systems et projets R&D."
       primaryButton={{
         label: "Explorer les projets ↓",
-        href: "#projets",
+        href: "#posts",
         ariaLabel: "Voir les projets ci-dessous",
       }}
     />
 
-    <section id="projets" class="projects-hero">
-      <!-- Filtres par catégorie -->
-      <div class="category-filters">
-        {
-          allCategories.map((cat, i) => (
-            <button
-              class={`filter-btn ${i === 0 ? "active" : ""}`}
-              data-filter={cat}
-            >
-              {cat}
-            </button>
-          ))
-        }
-      </div>
-    </section>
-
-    <!-- Grille complète des projets -->
-    <section class="projects-grid-all">
+    <PostsSections
+      badge="Projets Profesionnel et Perso"
+      title="Tous les projets"
+      summary="Une sélection de travaux récents alliant architecture modulaire, performance extrême et accessibilité soignée"
+      filters={allFilters}
+    >
       {projects.map((p) => <ProjectCard project={p} />)}
-    </section>
+    </PostsSections>
   </main>
 </Layout>
-
-<style>
-  .projects-hero {
-    margin-bottom: var(--space-3xl);
-  }
-
-  .page-title {
-    font-family: var(--font-serif);
-    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
-    font-weight: 600;
-    line-height: 1.08;
-    letter-spacing: var(--tracking-tighter);
-    margin-bottom: var(--space-l);
-  }
-
-  .page-subtitle {
-    font-size: var(--text-lg);
-    color: var(--text-muted);
-    max-width: 700px;
-    line-height: var(--leading-relaxed);
-    margin-bottom: var(--space-2xl);
-  }
-
-  .category-filters {
-    display: flex;
-    gap: var(--space-xs);
-    flex-wrap: wrap;
-    border-bottom: 1px solid var(--border-light);
-    padding-bottom: var(--space-md);
-  }
-
-  .filter-btn {
-    background: var(--bg-card-solid);
-    border: 1px solid var(--border-light);
-    padding: 6px 16px;
-    border-radius: var(--radius-full);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all var(--duration-fast) ease;
-  }
-
-  .filter-btn:hover,
-  .filter-btn.active {
-    background: var(--color-copper);
-    color: var(--bg-main);
-    border-color: var(--color-brown);
-  }
-
-  .projects-grid-all {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-l);
-    margin-bottom: var(--space-4xl);
-  }
-
-  .project-card {
-    padding: var(--space-2xl);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 380px;
-    gap: var(--space-l);
-  }
-
-  .project-top-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-s);
-  }
-
-  .project-year {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--color-copper);
-    font-weight: 600;
-  }
-
-  .project-title {
-    font-family: var(--font-serif);
-    font-size: var(--text-2xl);
-    font-weight: 600;
-    margin-bottom: var(--space-xs);
-  }
-
-  .project-desc {
-    color: var(--text-muted);
-    font-size: var(--text-base);
-    line-height: var(--leading-normal);
-  }
-
-  .project-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--border-light);
-    padding-top: var(--space-md);
-  }
-
-  .nav-page-title {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-dim);
-  }
-
-  .tech-pills {
-    display: flex;
-    gap: var(--space-xs);
-    flex-wrap: wrap;
-  }
-
-  @media (max-width: 768px) {
-    .projects-grid-all {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
-
-<!-- Script de filtrage dynamique côté client -->
-<script>
-  const filterButtons = document.querySelectorAll(".filter-btn");
-  const projectCards = document.querySelectorAll<HTMLElement>(".card");
-
-  filterButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      filterButtons.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      const filter = btn.getAttribute("data-filter");
-
-      projectCards.forEach((card) => {
-        const categories = JSON.parse(
-          card.getAttribute("data-categories") || "[]",
-        );
-        if (filter === "Tous" || categories.includes(filter)) {
-          card.style.display = "flex";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    });
-  });
-</script>
