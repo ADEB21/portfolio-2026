@@ -7,7 +7,7 @@ export interface Project {
   year: string;
   description: string;
   tags: string[];
-  link?: string;
+  link: string;
   isFeatured: boolean;
   coverImage: {
     _type: string,
