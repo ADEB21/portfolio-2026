@@ -1,20 +1,22 @@
+import type { Category } from "./category";
+
 // src/types/project.ts
 export interface Project {
+  _type: "project";
   _id: string;
   title: string;
   slug: string;
-  categories: {title: string;}[];
-  year: string;
-  description: string;
+  categories: Category[];
+  publishedAt: string;
+  summary: string;
   tags: string[];
-  link: string;
   isFeatured: boolean;
   coverImage: {
-    _type: string,
-    alt: string,
+    alt: string;
     asset: {
-        _ref: string,
-        _type: string
-    }
-};
+      _ref: string;
+      _type: string;
+    };
+  };
+  link: string;
 }

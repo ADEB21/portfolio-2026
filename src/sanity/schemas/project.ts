@@ -44,16 +44,20 @@ export const projectType = defineType({
       title: "Catégorie(s)",
       type: "array",
       of: [{ type: "reference", to: [{ type: "category" }] }],
-      validation: (rule) => rule.required().min(1).max(4),
+      validation: (rule) => rule.required().min(1).error("Associez au moins une catégorie").max(4),
     }),
     defineField({
-      name: "year",
-      title: "Année",
-      type: "string",
-      initialValue: "2026",
+      name: "publishedAt",
+      title: "Date de publication",
+      type: "date",
+      options: {
+        dateFormat: "YYYY",
+      },
+      initialValue: () => new Date().toISOString().split("T")[0],
+      validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "description",
+      name: "summary",
       title: "Description courte",
       type: "text",
       rows: 3,
@@ -91,7 +95,7 @@ export const projectType = defineType({
   preview: {
     select: {
       title: "title",
-      date: "year",
+      date: "publishedAt",
       media: "coverImage",
       isFeatured: "isFeatured",
     },

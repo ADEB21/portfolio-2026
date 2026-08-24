@@ -48,14 +48,13 @@ export const postType = defineType({
     defineField({
       name: "readTime",
       title: "Temps de lecture estimé",
-      description: "Ex: '5 min' ou '8 min de lecture'",
-      type: "string",
-      initialValue: "5 min",
+      type: "number",
+      initialValue: 5,
       validation: (rule) => rule.required(),
     }),
 
     defineField({
-      name: "excerpt",
+      name: "summary",
       title: "Résumé court (Chôpo / Extrait)",
       description:
         "Affiché sur les cartes du Hub Blog et pour les balises SEO.",
@@ -75,8 +74,7 @@ export const postType = defineType({
       title: "Catégorie(s)",
       type: "array",
       of: [{ type: "reference", to: [{ type: "category" }] }],
-      validation: (rule) =>
-        rule.required().min(1).error("Associez au moins une catégorie").max(4),
+      validation: (rule) => rule.required().min(1).error("Associez au moins une catégorie").max(4),
     }),
 
     defineField({
