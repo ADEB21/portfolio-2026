@@ -30,35 +30,39 @@ const coverUrl = post.coverImage
   <main>
     <Hero
       title={post.title}
-      summary={post.excerpt}
+      summary={post.summary}
       primaryButton={{
         label: "Lire l'article ↓",
         href: "#article",
         ariaLabel: "Défiler vers le contenu de l'article",
       }}
     />
-
-    {/* BLOC COVER IMAGE STYLE ÉDITORIAL */}
-    {coverUrl && (
-      <div class="article-cover-wrapper">
-        <div class="cover-frame">
-          <div class="cover-header">
-            <span class="cover-tag">// ASSET · {categoriesString}</span>
-            <span class="cover-format">16:9 · Hi-Res</span>
-          </div>
-          <div class="cover-image-container">
-            <img
-              src={coverUrl}
-              alt={post.coverImage?.alt || post.title}
-              class="cover-img"
-              loading="eager"
-            />
+    {
+      coverUrl && (
+        <div class="article-cover-wrapper">
+          <div class="cover-frame">
+            <div class="cover-header">
+              <div class="dots">
+                <span class="red" />
+                <span class="orange" />
+                <span class="green" />
+              </div>
+              <span class="cover-format">16:9</span>
+            </div>
+            <div class="cover-image-container">
+              <img
+                src={coverUrl}
+                alt={post.coverImage?.alt || post.title}
+                class="cover-img"
+                loading="eager"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    )}
-
-    <article id="article" class="article-body">
+      )
+    }
+    <p class="eyebrow" id="article">// Début de l'article</p>
+    <article class="article-body">
       <PortableTextRenderer value={post.body} client:load />
     </article>
   </main>
@@ -71,12 +75,12 @@ const coverUrl = post.coverImage
   }
 
   .cover-frame {
-    background: #FBF7EE;
-    border: 1px solid #2B1810;
+    background: #fbf7ee;
+    border: 1px solid #2b1810;
     border-radius: 12px;
     overflow: hidden;
     /* Ombre portée franche et chaude (aucun flou terne) */
-    box-shadow: 6px 6px 0px #2B1810;
+    box-shadow: 6px 6px 0px #2b1810;
   }
 
   .cover-header {
@@ -84,26 +88,49 @@ const coverUrl = post.coverImage
     justify-content: space-between;
     align-items: center;
     padding: 0.6rem 1rem;
-    background: #2B1810;
-    color: #FBF7EE;
+    background: #2b1810;
+    color: #fbf7ee;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     letter-spacing: 0.05em;
   }
 
+  .dots {
+    display: flex;
+    gap: var(--space-2xs);
+  }
+
+  .red,
+  .green,
+  .orange {
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-color: #fe5f56;
+    border-radius: 8px;
+  }
+
+  .orange {
+    background-color: #febb30;
+  }
+
+  .green {
+    background-color: #2bc840;
+  }
+
   .cover-tag {
-    color: #FBF7EE;
+    color: #fbf7ee;
   }
 
   .cover-format {
-    color: #B85B35;
+    color: #b85b35;
     font-weight: 600;
   }
 
   .cover-image-container {
     width: 100%;
     aspect-ratio: 16 / 9;
-    background: #140C09;
+    background: #140c09;
     overflow: hidden;
   }
 
@@ -123,6 +150,6 @@ const coverUrl = post.coverImage
   .article-body {
     padding: 1rem 0 4rem 0;
     font-size: 1.05rem;
-    color: #2B1810;
+    color: #2b1810;
   }
 </style>
