@@ -1,12 +1,13 @@
 export const PROFILE_QUERY = `*[_type == "profile"][0]`;
 
 export const PROJECTS_HOME_QUERY = `*[_type == "project" && isFeatured == true] | order(order asc) {
+  _type,
   _id,
   title,
   "slug": slug.current,
   categories[]->{title},
-  year,
-  description,
+  publishedAt,
+  summary,
   tags,
   link,
   isFeatured,
@@ -57,12 +58,13 @@ export const CERTIFICATES_QUERY = `*[_type == "certificate"] | order(order asc) 
 }`;
 
 export const ALL_PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
+  _type,
   _id,
   title,
   "slug": slug.current,
   categories[]->{title},
-  year,
-  description,
+  publishedAt,
+  summary,
   tags,
   link,
   isFeatured,
@@ -70,12 +72,13 @@ export const ALL_PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
 }`;
 
 export const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
+  _type,
   _id,
   title,
   "slug": slug.current,
   publishedAt,
   readTime,
-  excerpt,
+  summary,
   categories[]->{ title },
   tags,
   coverImage,
@@ -87,12 +90,13 @@ export const POSTS_SLUGS_QUERY = `*[_type == "post" && defined(slug.current)]{
   }`;
 
 export const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
+  _type,
   _id,
   title,
   "slug": slug.current,
   publishedAt,
   readTime,
-  excerpt,
+  summary,
   categories[]->{ title },
   tags,
   coverImage,
