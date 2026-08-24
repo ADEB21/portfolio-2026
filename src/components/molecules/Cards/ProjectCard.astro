@@ -18,7 +18,7 @@ const coverImageUrl = project.coverImage?.asset
 ---
 
 <article
-  class={`bento-card card ${project.isFeatured ? "featured" : ""}`}
+  class={`card ${project.isFeatured ? "featured" : ""}`}
   data-categories={JSON.stringify(
     project.categories.map((cat) => cat.title) || [],
   )}
@@ -44,7 +44,7 @@ const coverImageUrl = project.coverImage?.asset
         {project.tags?.map((tag: string) => <span class="tag-pill">{tag}</span>)}
       </div>
       <CircleButton
-        href={project.link}
+        href={`/projects/${project.slug}`}
         isBlank={true}
         ariaLabel={`Voir le projet ${project.title}`}
       />
@@ -102,8 +102,8 @@ const coverImageUrl = project.coverImage?.asset
     display: flex;
     align-items: center;
     gap: 0.45rem;
-    font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
@@ -114,8 +114,8 @@ const coverImageUrl = project.coverImage?.asset
   }
 
   .project-year-badge {
-    font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
     font-weight: 600;
     color: #b85b35;
     background: rgba(184, 91, 53, 0.1);
@@ -163,7 +163,7 @@ const coverImageUrl = project.coverImage?.asset
   }
 
   .tag-pill {
-    font-family: var(--font-mono, ui-monospace, monospace);
+    font-family: var(--font-mono);
     font-size: 0.72rem;
     background: #ffffff;
     border: 1px solid rgba(76, 43, 36, 0.14);

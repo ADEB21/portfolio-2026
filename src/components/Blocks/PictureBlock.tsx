@@ -32,7 +32,7 @@ export function PictureBlock({ value }: PictureBlockProps) {
       {value.caption && (
         <figcaption
           style={{
-            fontFamily: 'ui-monospace, monospace',
+            fontFamily: "var(--font-mono)",
             fontSize: '0.78rem',
             color: '#6B5B54',
             textAlign: 'center',

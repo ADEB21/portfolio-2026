@@ -41,7 +41,7 @@ export function CodeBlock({ value }: CodeBlockProps) {
           padding: '0.6rem 1rem',
           backgroundColor: '#1D120D',
           borderBottom: '1px solid rgba(251, 247, 238, 0.08)',
-          fontFamily: 'ui-monospace, monospace',
+          fontFamily: "var(--font-mono)",
           fontSize: '0.75rem',
         }}
       >
@@ -74,7 +74,7 @@ export function CodeBlock({ value }: CodeBlockProps) {
           margin: 0,
           padding: '1.25rem',
           overflowX: 'auto',
-          fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+          fontFamily: "var(--font-mono)",
           fontSize: '0.88rem',
           lineHeight: 1.6,
           color: '#FBF7EE',

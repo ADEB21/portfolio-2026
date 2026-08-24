@@ -70,7 +70,7 @@ const components: PortableTextComponents = {
     code: ({ children }) => (
       <code
         style={{
-          fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+          fontFamily: "var(--font-mono)",
           fontSize: '0.88em',
           backgroundColor: 'rgba(43, 24, 16, 0.07)',
           padding: '0.15rem 0.4rem',
