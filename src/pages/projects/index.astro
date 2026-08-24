@@ -6,11 +6,11 @@ import { ALL_PROJECTS_QUERY } from "../../assets/script/utils/api";
 // Components
 import Layout from "@layout/Layout.astro";
 import Hero from "@components/organisms/Hero.astro";
-import ProjectCard from "@components/molecules/Cards/ProjectCard.astro";
 
 // Types
 import type { Project } from "@@types/index";
 import PostsSections from "@components/organisms/PostsSections.astro";
+import PostCard from "@components/molecules/Cards/PostCard.astro";
 
 const projects: Project[] = await sanityClient.fetch(ALL_PROJECTS_QUERY);
 
@@ -43,7 +43,7 @@ const allFilters = [
       summary="Une sélection de travaux récents alliant architecture modulaire, performance extrême et accessibilité soignée"
       filters={allFilters}
     >
-      {projects.map((p) => <ProjectCard project={p} />)}
+      {projects.map((p) => <PostCard post={p} />)}
     </PostsSections>
   </main>
 </Layout>

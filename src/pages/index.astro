@@ -26,11 +26,11 @@ import PrimaryButton from "@components/atoms/Buttons/PrimaryButton.astro";
 import SecondaryButton from "@components/atoms/Buttons/SecondaryButton.astro";
 
 // Cards
-import ProjectCard from "@components/molecules/Cards/ProjectCard.astro";
 import SkillCategoryCard from "@components/molecules/Cards/SkillCategoryCard.astro";
 import ExperienceCard from "@components/molecules/Cards/ExperienceCard.astro";
 import CertificateCard from "@components/molecules/Cards/CertificateCard.astro";
 import Hero from "@components/organisms/Hero.astro";
+import PostCard from "@components/molecules/Cards/PostCard.astro";
 
 const profile: Profile = await sanityClient.fetch(PROFILE_QUERY);
 const featuredProjects: Project[] =
@@ -71,7 +71,7 @@ const certificationsList: Certificate[] =
       </div>
 
       <div class="featured-projects-grid">
-        {featuredProjects.map((p) => <ProjectCard project={p} />)}
+        {featuredProjects.map((p) => <PostCard post={p} />)}
       </div>
       <HubProjectsRedirection />
     </section>
