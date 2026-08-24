@@ -38,7 +38,7 @@ const components: PortableTextComponents = {
       </h3>
     ),
     normal: ({ children }) => (
-      <p style={{ margin: '0 0 1.5rem 0', lineHeight: 1.8 }}>{children}</p>
+      <p style={{ margin: '0 0 1.5rem 0', lineHeight: 1.8, textAlign: "justify" }}>{children}</p>
     ),
     blockquote: ({ children }) => (
       <blockquote

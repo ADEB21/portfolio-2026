@@ -51,17 +51,26 @@ const certificationsList: Certificate[] =
   <main>
     <!-- A PROPOS -->
     <Hero
+      id="apropos"
       title="Développeur Front-End &"
       subtitle="Architecte d'Interfaces React."
       summary={profile.bio}
-      primaryButton={{label: "Explorer les projets ↓", href: "#projets", ariaLabel: "Explorer les projets mis en avant"}}
-      secondaryButton={{label: "Prendre contact", href: "mailto:arthurdebruille@proton.me", ariaLabel: "Prendre contact"}}
+      primaryButton={{
+        label: "Explorer les projets ↓",
+        href: "#projets",
+        ariaLabel: "Explorer les projets mis en avant",
+      }}
+      secondaryButton={{
+        label: "Prendre contact",
+        href: "mailto:arthurdebruille@proton.me",
+        ariaLabel: "Prendre contact",
+      }}
     />
     <!-- PROJETS -->
     <section id="projets">
       <div class="section-header">
         <div>
-          <span class="section-badge">// Réalisations</span>
+          <span class="eyebrow">// Réalisations</span>
           <h2 class="section-title">Projets</h2>
           <p class="section-subtitle">
             Une sélection de travaux récents alliant architecture modulaire,
@@ -79,7 +88,7 @@ const certificationsList: Certificate[] =
     <section id="competences">
       <div class="section-header">
         <div>
-          <span class="section-badge">// Savoir-faire</span>
+          <span class="eyebrow">// Savoir-faire</span>
           <h2 class="section-title">Compétences & Écosystème</h2>
           <p class="section-subtitle">
             Un socle technique axé sur l’écosystème React et le web moderne,
@@ -98,7 +107,7 @@ const certificationsList: Certificate[] =
     <section id="experiences">
       <div class="section-header">
         <div>
-          <span class="section-badge">// Parcours</span>
+          <span class="eyebrow">// Parcours</span>
           <h2 class="section-title">Expériences Professionnelles</h2>
           <p class="section-subtitle">
             Mon parcours en agence, missions freelance et accompagnement
@@ -115,7 +124,7 @@ const certificationsList: Certificate[] =
     <section id="formations">
       <div class="section-header">
         <div>
-          <span class="section-badge">// Formations</span>
+          <span class="eyebrow">// Formations</span>
           <h2 class="section-title">Diplômes & Certifications</h2>
           <p class="section-subtitle">
             Double cursus universitaire en design numérique complété par des

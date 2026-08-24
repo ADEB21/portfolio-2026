@@ -4,6 +4,7 @@ import PrimaryButton from "@components/atoms/Buttons/PrimaryButton.astro";
 import SecondaryButton from "@components/atoms/Buttons/SecondaryButton.astro";
 
 interface Props {
+  id?: string;
   title: string;
   subtitle?: string;
   summary: string;
@@ -11,12 +12,12 @@ interface Props {
   secondaryButton?: Button
 }
 
-const { title, subtitle, summary, primaryButton,  secondaryButton} = Astro.props;
+const { id, title, subtitle, summary, primaryButton,  secondaryButton} = Astro.props;
 
 
 ---
 
-<section id="apropos" class="hero">
+<section id={id} class="hero">
   <div class="hero-body">
     <h1 class="hero-title">
       {title}{subtitle && <br />
