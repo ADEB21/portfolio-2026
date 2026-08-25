@@ -1,5 +1,6 @@
 // src/types/post.ts
 import type { Category } from "./category";
+import type { Skill } from "./skill";
 
 export interface Post {
   _type: string;
@@ -7,6 +8,7 @@ export interface Post {
   title: string;
   slug: string;
   categories: Category[];
+  stack: Skill[];
   publishedAt: string;
   summary: string;
   tags: string[];
@@ -18,6 +20,8 @@ export interface Post {
     };
   };
   readTime?: number;
-  body?: [];
+  body: [];
   link?: string;
+  role: string;
+
 }
