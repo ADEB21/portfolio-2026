@@ -1,0 +1,83 @@
+---
+import type { Post } from "@@types/post";
+import SkillIcon from "../SkillIcon.astro"
+
+interface Props {
+    post: Post
+}
+
+const {post} = Astro.props
+
+const categoriesLabel =
+  post.categories.map((c) => c.title).join(" · ") || "Étude de cas";
+---
+
+<div class="hero-bottom">
+  <div class="spec-cell">
+    <span class="eyebrow">// Année</span>
+    <p class="spec-value">{post.publishedAt.split("-")[0]}</p>
+  </div>
+
+  <div class="spec-cell">
+    <span class="eyebrow">// Rôle & Périmètre</span>
+    <p class="spec-value">{post.role}</p>
+  </div>
+
+  <div class="spec-cell">
+    <span class="eyebrow">// Catégories</span>
+    <p class="spec-value">{categoriesLabel}</p>
+  </div>
+
+  <div class="spec-cell spec-cell--wide">
+    <span class="eyebrow">// Stack Technique</span>
+    <ul style="" class="spec-tags">
+      {
+        post.stack.map((tech) => (
+          <li>
+            <SkillIcon skill={tech} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<style>
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    background: var(--bg-cream-light, #f5efe0);
+    border: 1px solid var(--color-brown, #2b1810);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 4px 4px 0px var(--color-brown, #2b1810);
+  }
+
+  .spec-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .spec-cell--wide {
+    grid-column: span 3;
+    border-top: 1px solid rgba(43, 24, 16, 0.12);
+    padding-top: 1rem;
+    margin-top: 0.25rem;
+  }
+
+  .spec-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-brown, #2b1810);
+  }
+
+  .spec-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.25rem;
+    list-style: none;
+  }
+</style>

@@ -1,0 +1,156 @@
+---
+// src/components/organisms/ProjectHero.astro
+import PrimaryButton from "@components/atoms/Buttons/PrimaryButton.astro";
+import { urlFor } from "@assets/script/utils/image";
+import type { Post } from "@@types/index";
+import PostCoverCard from "@components/molecules/Cards/PostCoverCard.astro";
+import SpecCard from "@components/molecules/Cards/SpecCard.astro";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+
+const coverUrl = post.coverImage?.asset
+  ? urlFor(post.coverImage.asset).width(1000).height(650).auto("format").url()
+  : null;
+
+const year = post.publishedAt.split("-")[0];
+---
+
+<header class="hero">
+  <div class="hero-top">
+    <div class="hero-top-left">
+      <div class="hero-eyebrow">
+        <span class="project-tag">// PROJET · {year}</span>
+        {
+          post.link && (
+            <div class="site-status">
+              <span class="status-indicator" />
+              <p class="status-text">En Production</p>
+            </div>
+          )
+        }
+      </div>
+
+      <h1 class="hero-title">{post.title}</h1>
+
+      {post.summary && <p class="hero-summary">{post.summary}</p>}
+
+      <!-- Actions rapides -->
+      <div class="hero-actions">
+        {
+          post.link && (
+            <PrimaryButton
+              label="Visiter le site ↗"
+              href={post.link}
+              ariaLabel={`Ouvrir le site ${post.link} dans un nouvel onglet`}
+              isBlank={true}
+            />
+          )
+        }
+      </div>
+    </div>
+    {coverUrl && <PostCoverCard post={post} />}
+  </div>
+
+  <SpecCard post={post} />
+</header>
+
+<style>
+  .hero {
+    width: 100%;
+    padding: var(--space-3xl, 3rem) 0 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    border-bottom: 1px solid var(--color-brown, #2b1810);
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-top {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--space-2xl, 2.5rem);
+    align-items: center;
+  }
+
+  .hero-top-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: var(--text-xs, 0.78rem);
+  }
+
+  .project-tag {
+    color: var(--color-copper, #b85b35);
+    font-weight: 600;
+  }
+
+  .site-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: rgba(46, 125, 50, 0.08);
+    border: 1px solid rgba(46, 125, 50, 0.25);
+    padding: 3px 9px;
+    border-radius: 9999px;
+    color: #2e7d32;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .status-indicator {
+    width: 6px;
+    height: 6px;
+    background: #2e7d32;
+    border-radius: 50%;
+  }
+
+  .hero-title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: var(--tracking-tighter);
+    margin-bottom: var(--space-l);
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 0.5rem;
+  }
+
+  /* Colonne Droite : Cover Card */
+  .hero-cover-column {
+    width: 100%;
+  }
+
+  /* Responsive Mobile / Tablette */
+  @media (max-width: 900px) {
+    .hero-top {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .hero-bottom {
+      grid-template-columns: 1fr;
+    }
+
+    .spec-cell--wide {
+      grid-column: span 1;
+    }
+  }
+</style>
