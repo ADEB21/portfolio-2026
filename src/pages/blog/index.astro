@@ -6,9 +6,9 @@ import PostCard from "@components/molecules/Cards/PostCard.astro";
 import { sanityClient } from "sanity:client";
 import type { Post } from "@@types/index";
 import PostsSections from "@components/organisms/PostsSections.astro";
-import { POSTS_QUERY } from "@assets/script/utils/api";
+import { ALL_POSTS_QUERY } from "@assets/script/utils/api";
 
-const posts: Post[] = await sanityClient.fetch(POSTS_QUERY);
+const posts: Post[] = await sanityClient.fetch(ALL_POSTS_QUERY);
 
 const allFilters = [
   "Tous",
