@@ -1,4 +1,5 @@
 import type { Category } from "./category";
+import type { Skill } from "./skill";
 
 // src/types/project.ts
 export interface Project {
@@ -19,4 +20,7 @@ export interface Project {
     };
   };
   link: string;
+  stack: Skill[];
+  body: any;
+  role: string;
 }
