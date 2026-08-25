@@ -1,19 +1,5 @@
 export const PROFILE_QUERY = `*[_type == "profile"][0]`;
 
-export const PROJECTS_HOME_QUERY = `*[_type == "project" && isFeatured == true] | order(order asc) {
-  _type,
-  _id,
-  title,
-  "slug": slug.current,
-  categories[]->{title},
-  publishedAt,
-  summary,
-  tags,
-  link,
-  isFeatured,
-  coverImage
-}`;
-
 export const SKILLS_CATEGORIES_QUERY = `*[_type == "skillCategory"] | order(order asc) {
   _id,
   tag,
@@ -57,6 +43,20 @@ export const CERTIFICATES_QUERY = `*[_type == "certificate"] | order(order asc) 
   }
 }`;
 
+export const PROJECTS_FEATURED_QUERY = `*[_type == "project" && isFeatured == true] | order(order asc) {
+  _type,
+  _id,
+  title,
+  "slug": slug.current,
+  categories[]->{title},
+  publishedAt,
+  summary,
+  tags,
+  link,
+  isFeatured,
+  coverImage
+}`;
+
 export const ALL_PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
   _type,
   _id,
@@ -71,7 +71,7 @@ export const ALL_PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
   coverImage
 }`;
 
-export const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
+export const ALL_POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
   _type,
   _id,
   title,
@@ -89,7 +89,25 @@ export const POSTS_SLUGS_QUERY = `*[_type == "post" && defined(slug.current)]{
     "slug": slug.current
   }`;
 
+export const PROJECTS_SLUGS_QUERY = `*[_type == "project" && defined(slug.current)]{
+    "slug": slug.current
+  }`;
+
 export const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
+  _type,
+  _id,
+  title,
+  "slug": slug.current,
+  publishedAt,
+  readTime,
+  summary,
+  categories[]->{ title },
+  tags,
+  coverImage,
+  body
+}`;
+
+export const PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0]{
   _type,
   _id,
   title,
