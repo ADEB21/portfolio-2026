@@ -54,18 +54,20 @@ export const PROJECTS_FEATURED_QUERY = `*[_type == "project" && isFeatured == tr
   tags,
   link,
   isFeatured,
-  coverImage
+  coverImage,
+  stack[]->
 }`;
 
 export const ALL_PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
   _type,
   _id,
   title,
+  role,
+  stack[]->,
   "slug": slug.current,
   categories[]->{title},
   publishedAt,
   summary,
-  tags,
   link,
   isFeatured,
   coverImage
@@ -111,12 +113,13 @@ export const PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0]{
   _type,
   _id,
   title,
+  role,
+  stack[]->,
   "slug": slug.current,
   publishedAt,
-  readTime,
   summary,
   categories[]->{ title },
-  tags,
   coverImage,
-  body
+  body,
+  link
 }`;
