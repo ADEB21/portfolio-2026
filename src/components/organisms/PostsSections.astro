@@ -65,24 +65,40 @@ console.log(filters);
 </style>
 
 <script>
-  const filters = document.querySelectorAll("ul li .filter-btn");
-  const posts = document.querySelectorAll<HTMLElement>(".card");
+  document.addEventListener("astro:page-load", () => {
+    const filters = document.querySelectorAll("ul li .filter-btn");
+    const posts = document.querySelectorAll<HTMLElement>(".card");
 
-  filters.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      filters.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
+    filters.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filters.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
 
-      const filter = btn.getAttribute("data-filter");
+        const filter = btn.getAttribute("data-filter");
 
-      posts.forEach((card) => {
-        const categories = JSON.parse(
-          card.getAttribute("data-categories") || "[]",
-        );
-        if (filter === "Tous" || categories.includes(filter)) {
-          card.style.display = "grid";
+        // Fonction qui met à jour l'affichage
+        const updateGrid = () => {
+          posts.forEach((item) => {
+            const categories: string[] = JSON.parse(
+              item.getAttribute("data-categories") || "[]",
+            );
+
+            if (filter === "Tous" || categories.includes(filter || "")) {
+              item.style.display = "flex";
+            } else {
+              item.style.display = "none";
+            }
+          });
+        };
+
+        // Si le navigateur supporte les View Transitions natives
+        if (document.startViewTransition) {
+          document.startViewTransition(() => {
+            updateGrid();
+          });
         } else {
-          card.style.display = "none";
+          // Fallback immédiat pour anciens navigateurs
+          updateGrid();
         }
       });
     });
