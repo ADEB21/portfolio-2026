@@ -31,7 +31,7 @@ const year = post.publishedAt.split("-")[0];
 
   <div class="spec-cell spec-cell--wide">
     <span class="eyebrow">// Stack Technique</span>
-    <ul style="" class="spec-tags">
+    <ul style="" class="spec-stack">
       {
         post.stack.map((tech) => (
           <li>
@@ -74,7 +74,7 @@ const year = post.publishedAt.split("-")[0];
     color: var(--color-brown, #2b1810);
   }
 
-  .spec-tags {
+  .spec-stack {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
