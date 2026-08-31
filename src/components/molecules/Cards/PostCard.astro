@@ -36,8 +36,12 @@ const date =
     </header>
 
     <body class="post-body">
-      <h3 class="post-title">{post.title}</h3>
-      <p class="post-summary">{post.summary}</p>
+      <h3 transition:name={`title-${post.slug}`} class="post-title">
+        {post.title}
+      </h3>
+      <p transition:name={`summary-${post.slug}`} class="post-summary">
+        {post.summary}
+      </p>
     </body>
 
     <div class="post-footer">
@@ -45,7 +49,7 @@ const date =
         post?.stack && (
           <ul class="footer-left">
             {post.stack.map((tech) => (
-              <li>
+              <li transition:name={`${tech.name}-${post.slug}-item`}>
                 <SkillIcon skill={tech} />
               </li>
             ))}
