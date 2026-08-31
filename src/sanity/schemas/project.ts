@@ -72,14 +72,18 @@ export const projectType = defineType({
       type: "array",
       of: [{ type: "reference", to: [{ type: "skill" }] }],
       validation: (rule) =>
-        rule.required().min(1).error("Associez au moins une technologie").max(4),
+        rule
+          .required()
+          .min(1)
+          .error("Associez au moins une technologie")
+          .max(4),
     }),
 
     defineField({
       title: "Rôle & Périmètre",
       name: "role",
       type: "string",
-      validation: (rule) => rule.required().error("Renseigner le role")
+      validation: (rule) => rule.required().error("Renseigner le role"),
     }),
 
     defineField({
@@ -94,6 +98,7 @@ export const projectType = defineType({
         {
           type: "code",
         },
+        { type: "colorPaletteBlock" },
       ],
     }),
 

@@ -2,6 +2,7 @@ import { categoryType } from "./schemas/category";
 import { certificateType } from "./schemas/certificate";
 import { degreeType } from "./schemas/degree";
 import { experienceType } from "./schemas/experience";
+import { colorPaletteBlock } from "./schemas/objects/objects/colorPaletteBlock";
 import { postType } from "./schemas/post";
 import { profileType } from "./schemas/profile";
 import { projectType } from "./schemas/project";
@@ -19,5 +20,6 @@ export const schemaType = [
   certificateType,
   skillType,
   categoryType,
-  postType
+  postType,
+  colorPaletteBlock,
 ];
