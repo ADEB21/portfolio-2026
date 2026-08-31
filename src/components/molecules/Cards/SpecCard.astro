@@ -1,21 +1,22 @@
 ---
 import type { Post } from "@@types/post";
-import SkillIcon from "../SkillIcon.astro"
+import SkillIcon from "../SkillIcon.astro";
 
 interface Props {
-    post: Post
+  post: Post;
 }
 
-const {post} = Astro.props
+const { post } = Astro.props;
 
 const categoriesLabel =
   post.categories.map((c) => c.title).join(" · ") || "Étude de cas";
+const year = post.publishedAt.split("-")[0];
 ---
 
 <div class="hero-bottom">
   <div class="spec-cell">
     <span class="eyebrow">// Année</span>
-    <p class="spec-value">{post.publishedAt.split("-")[0]}</p>
+    <p class="spec-value">{year}</p>
   </div>
 
   <div class="spec-cell">
