@@ -52,6 +52,17 @@ const date =
           </ul>
         )
       }
+      {
+        post._type === "post" && post?.categories && (
+          <ul class="footer-left">
+            {post.categories.map((tech) => (
+              <li>
+                <SkillIcon skill={tech} />
+              </li>
+            ))}
+          </ul>
+        )
+      }
       <div class="footer-right">
         <CircleButton
           href={post._type === "project"

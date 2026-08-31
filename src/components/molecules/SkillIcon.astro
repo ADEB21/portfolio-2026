@@ -3,15 +3,15 @@ import type { Skill } from "@@types/index";
 import Icons from "@components/atoms/Icons/Icons";
 
 interface Props {
-  skill: Skill
+  skill: Skill;
 }
 
 const { skill } = Astro.props;
 ---
 
 <div class="tech-pill-item" title={skill.name}>
-  <Icons name={skill.id} size={20} client:idle />
-  <span class="tech-name">{skill.name}</span>
+  {skill.name && <Icons name={skill.id} size={20} client:idle />}
+  <span class="tech-name">{skill.name || skill.title}</span>
 </div>
 
 <style>
