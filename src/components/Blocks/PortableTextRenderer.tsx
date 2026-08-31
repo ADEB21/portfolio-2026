@@ -12,9 +12,45 @@ const components: PortableTextComponents = {
     colorPaletteBlock: ColorPaletteBlock,
   },
   block: {
-    h2: ({ children }) => <h2>{children}</h2>,
+    h2: ({ children }) => (
+      <h2 style={{ marginBottom: "var(--space-l);" }}>{children}</h2>
+    ),
     h3: ({ children }) => <h3>{children}</h3>,
-    normal: ({ children }) => <p>{children}</p>,
+    normal: ({ value, children }) => {
+      // Vérifie si tous les spans textuels du bloc sont vides ou composés d'espaces
+      const isEmpty =
+        !value?.children ||
+        value.children.every(
+          (child: any) => !child.text || child.text.trim() === "",
+        );
+
+      if (isEmpty) {
+        return (
+          <br
+            aria-hidden="true"
+            style={{
+              margin: "0 0 var(--space-md) 0",
+              minHeight: "var(--leading-relaxed)",
+              userSelect: "none",
+            }}
+          />
+        );
+      }
+
+      return (
+        <p
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "var(--text-base)",
+            lineHeight: "var(--leading-relaxed)",
+            color: "var(--text-main)",
+            margin: "0 0 var(--space-md) 0",
+          }}
+        >
+          {children}
+        </p>
+      );
+    },
     blockquote: ({ children }) => (
       <blockquote
         style={{
@@ -37,7 +73,7 @@ const components: PortableTextComponents = {
           margin: "0 0 var(--space-md) var(--space-md)",
           padding: 0,
           color: "var(--text-main)",
-          listStyle: "revert"
+          listStyle: "revert",
         }}
       >
         {children}
@@ -49,7 +85,7 @@ const components: PortableTextComponents = {
           margin: "0 0 var(--space-md) var(--space-md)",
           padding: 0,
           color: "var(--text-main)",
-          listStyle: "auto"
+          listStyle: "auto",
         }}
       >
         {children}

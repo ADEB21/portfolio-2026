@@ -31,33 +31,8 @@ export function ColorPaletteBlock({ value }: ColorPaletteBlockProps) {
         boxShadow: "4px 4px 0px var(--color-brown)",
       }}
     >
-      <div style={{ marginBottom: "var(--space-md)" }}>
-        <span
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: "var(--text-xs)",
-            color: "var(--color-copper)",
-            letterSpacing: "var(--tracking-widest)",
-            textTransform: "uppercase",
-            fontWeight: "var(--font-weight-semibold)",
-            display: "block",
-            marginBottom: "var(--space-3xs)",
-          }}
-        >
-          // SYSTÈME CHROMATIQUE
-        </span>
-        <h2
-          style={{
-            fontFamily: "var(--font-serif)",
-            fontSize: "var(--text-xl)",
-            fontWeight: "var(--font-weight-semibold)",
-            lineHeight: "var(--leading-snug)",
-            color: "var(--text-main)",
-            margin: "0 0 var(--space-xs) 0",
-          }}
-        >
-          {value.title || "Palette & Identité Visuelle"}
-        </h2>
+      <div style={{ marginBottom: "var(--space-xl)" }}>
+        <h2>{value.title || "Palette & Identité Visuelle"}</h2>
         {value.description && (
           <p
             style={{
