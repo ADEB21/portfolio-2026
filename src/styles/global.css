@@ -203,3 +203,16 @@ section#formations {
   font-size: 1.05rem;
   color: var(--color-brown);
 }
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3xs);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: 1;
+  padding: var(--space-md);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+}

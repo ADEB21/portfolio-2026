@@ -20,7 +20,7 @@ const arrowDirection: ArrowDirection = isBlank
   target={isBlank ? "_blank" : "_self"}
   rel={isBlank ? "noopener noreferrer" : undefined}
   aria-label={ariaLabel}
-  class="btn-pill-primary"
+  class="btn btn-pill-primary"
 >
   <span class="btn-label">{label}</span>
   <span class="btn-icon" aria-hidden="true">
@@ -30,19 +30,9 @@ const arrowDirection: ArrowDirection = isBlank
 
 <style>
   .btn-pill-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-3xs, 0.45rem);
     background: var(--color-copper);
     color: var(--bg-main);
-    font-family: var(--font-sans);
-    font-weight: var(--font-weight-semibold, 600);
-    font-size: var(--text-sm);
-    line-height: 1;
-    padding: 0.85rem var(--space-l, 1.4rem);
-    border-radius: var(--radius-full, 9999px);
-    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
     box-shadow: var(--shadow-btn);
     transition:
       background var(--duration-base, 0.2s) ease,
