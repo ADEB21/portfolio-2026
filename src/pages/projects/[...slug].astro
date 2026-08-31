@@ -1,14 +1,11 @@
 ---
 // src/pages/blog/[slug].astro
 import Layout from "@layout/Layout.astro";
-import Hero from "@components/organisms/Hero.astro";
 import { PortableTextRenderer } from "@components/Blocks/PortableTextRenderer";
 import { sanityClient } from "sanity:client";
 import type { Post } from "@@types/index";
 import { PROJECT_QUERY, PROJECTS_SLUGS_QUERY } from "@assets/script/utils/api";
-import PostCoverCard from "@components/molecules/Cards/PostCoverCard.astro";
 import ProjectHero from "@components/organisms/ProjectHero.astro";
-import { parse } from "astro:schema";
 
 export async function getStaticPaths() {
   const posts =
@@ -27,7 +24,7 @@ const categoriesString =
 <Layout title={`${post.title} — Arthur Debruille`} description={post.summary}>
   <main>
     <ProjectHero post={post}/>
-    <p class="eyebrow" id="article">// Début de l'article</p>
+    <p class="eyebrow" id="article">// Début de l'étude de cas</p>
     <article class="article-body">
       <PortableTextRenderer value={post.body} client:load />
     </article>
