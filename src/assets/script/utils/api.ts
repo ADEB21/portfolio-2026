@@ -51,7 +51,6 @@ export const PROJECTS_FEATURED_QUERY = `*[_type == "project" && isFeatured == tr
   categories[]->{title},
   publishedAt,
   summary,
-  tags,
   link,
   isFeatured,
   coverImage,
@@ -82,7 +81,6 @@ export const ALL_POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
   readTime,
   summary,
   categories[]->{ title },
-  tags,
   coverImage,
   isFeatured
 }`;
@@ -104,7 +102,6 @@ export const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   readTime,
   summary,
   categories[]->{ title },
-  tags,
   coverImage,
   body
 }`;

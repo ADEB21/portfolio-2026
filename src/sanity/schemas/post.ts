@@ -78,18 +78,6 @@ export const postType = defineType({
     }),
 
     defineField({
-      name: "tags",
-      title: "Tags & Mots-clés",
-      description:
-        "Technologies et thématiques abordées (ex: React, A11y, Performance)",
-      type: "array",
-      of: [{ type: "string" }],
-      options: {
-        layout: "tags",
-      },
-    }),
-
-    defineField({
       name: "coverImage",
       title: "Image de couverture",
       type: "image",

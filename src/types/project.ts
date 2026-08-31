@@ -10,7 +10,6 @@ export interface Project {
   categories: Category[];
   publishedAt: string;
   summary: string;
-  tags: string[];
   isFeatured: boolean;
   coverImage: {
     alt: string;

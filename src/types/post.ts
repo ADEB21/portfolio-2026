@@ -11,7 +11,6 @@ export interface Post {
   stack: Skill[];
   publishedAt: string;
   summary: string;
-  tags: string[];
   isFeatured: boolean;
   coverImage: {
     alt: string;
