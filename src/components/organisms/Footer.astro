@@ -1,5 +1,5 @@
 ---
-import { navigationLinks, socialLinks } from "../../consts";
+import { navItems, socialLinks } from "../../consts";
 
 const currentYear = new Date().getFullYear();
 ---
@@ -22,7 +22,7 @@ const currentYear = new Date().getFullYear();
       <div class="footer-col">
         <h3 class="col-title">Navigation</h3>
         <ul class="footer-links-list">
-          {navigationLinks.map((link) => (
+          {navItems.map((link) => (
             <li>
               <a href={link.href}>{link.label}</a>
             </li>

@@ -5,9 +5,8 @@ import Navigation from "@components/molecules/Navigation.astro";
 <header class="warm-nav">
   <a href="/" class="brand-group">Arthur Debruille</a>
   <a href="/" class="brand-group-mobile">AD</a>
-  {Astro.url.pathname && Astro.url.pathname === "/" && <Navigation />}
-  {Astro.url.pathname && Astro.url.pathname === "/" && <span class="separator">|</span>}
-
+  <Navigation />
+  <span class="separator">|</span>
   <ul class="nav-links">
     <li><a href="/projects">Projets</a></li>
     <li><a href="/blog">Blog</a></li>
@@ -69,7 +68,7 @@ import Navigation from "@components/molecules/Navigation.astro";
     }
   }
   @media (max-width: 768px) {
-    .separator{
+    .separator {
       display: none;
     }
     .brand-group-mobile {

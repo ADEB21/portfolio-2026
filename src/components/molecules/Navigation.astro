@@ -6,7 +6,7 @@ import { navItems } from "../../consts";
   {
     navItems.map((item) => (
       <li>
-        <a href={`#${item.id}`} class="nav-link" data-section={item.id}>
+        <a href={item.href} class="nav-link" data-section={item.id}>
           <span class="nav-label">{item.label}</span>
         </a>
       </li>
