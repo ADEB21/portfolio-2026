@@ -23,13 +23,12 @@ const coverUrl = post.coverImage
       </div>
       <span class="cover-format">16:9</span>
     </div>
-    <div class="cover-image-container">
+    <div transition:name={`cover-${post.slug}`} class="cover-image-container">
       <img
         src={coverUrl}
         alt={post.coverImage?.alt || post.title}
         class="cover-img"
         loading="eager"
-        transition:name={`cover-${post.slug}`}
       />
     </div>
   </div>

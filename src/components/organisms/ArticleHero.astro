@@ -28,9 +28,9 @@ const categoriesLabel =
         </span>
       </div>
 
-      <h1 class="hero-title">{post.title}</h1>
+      <h1 transition:name={`title-${post.slug}`} class="hero-title">{post.title}</h1>
 
-      {post.summary && <p class="hero-summary">{post.summary}</p>}
+      {post.summary && <p transition:name={`summary-${post.slug}`} class="hero-summary">{post.summary}</p>}
       <span class="eyebrow">{categoriesLabel} </span>
 
       <div class="hero-actions">

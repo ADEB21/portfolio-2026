@@ -81,9 +81,8 @@ const date =
 
   {
     post.isFeatured && coverImageUrl && (
-      <div class="card-cover">
+      <div transition:name={`cover-${post.slug}`} class="card-cover">
         <Image
-          transition:name={`cover-${post.slug}`}
           src={coverImageUrl}
           width={700}
           height={400}

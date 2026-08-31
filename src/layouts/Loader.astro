@@ -4,7 +4,7 @@
 
 <aside id="page-preloader" class="preloader" aria-hidden="true">
   <div class="preloader-panel">
-    <!-- En-tête console façon fenêtre d'ingénierie -->
+    <!-- En-tête console -->
     <div class="preloader-header">
       <div class="header-dots">
         <span class="dot red"></span>
@@ -18,7 +18,7 @@
     <div class="preloader-body">
       <div class="terminal-text">
         <span class="prompt">></span>
-        <span class="command">INITIALIZING_PORTFOLIO_CORE</span>
+        <span class="command">INITIALIZING_CORE</span>
       </div>
 
       <!-- Barre de progression -->
@@ -35,19 +35,19 @@
   </div>
 </aside>
 
-<script is:inline>
-  (function () {
-    const hasLoaded = sessionStorage.getItem("portfolio_booted");
+<script>
+  function setupLoader() {
     const preloader = document.getElementById("page-preloader");
+    if (!preloader) return;
 
-    if (hasLoaded && preloader) {
+    // 1. Si la session est déjà initialisée (changement de page via ClientRouter) : masquer instantanément
+    if (sessionStorage.getItem("portfolio_booted") === "true") {
       preloader.style.display = "none";
+      document.body.style.overflow = "";
       return;
     }
 
-    if (!preloader) return;
-
-    // Bloque le scroll pendant le loader
+    // 2. Première visite : lancer l'animation du loader
     document.body.style.overflow = "hidden";
 
     const bar = document.getElementById("loader-bar");
@@ -66,11 +66,11 @@
 
     const interval = setInterval(() => {
       if (currentProgress < 100) {
-        currentProgress += Math.floor(Math.random() * 8) + 4;
+        currentProgress += Math.floor(Math.random() * 9) + 5;
         if (currentProgress > 100) currentProgress = 100;
 
-        if (bar) bar.style.width = currentProgress + "%";
-        if (counter) counter.textContent = currentProgress + "%";
+        if (bar) bar.style.width = `${currentProgress}%`;
+        if (counter) counter.textContent = `${currentProgress}%`;
 
         if (
           stepIndex < steps.length &&
@@ -89,11 +89,14 @@
 
           setTimeout(() => {
             preloader.style.display = "none";
-          }, 500);
-        }, 300);
+          }, 450);
+        }, 200);
       }
-    }, 100);
-  })();
+    }, 35);
+  }
+
+  // S'exécute au premier chargement ET à chaque navigation d'Astro ClientRouter
+  document.addEventListener("astro:page-load", setupLoader);
 </script>
 
 <style>
@@ -107,7 +110,7 @@
     justify-content: center;
     padding: var(--space-s, 1rem);
     transition:
-      transform var(--duration-slow, 450ms)
+      transform var(--duration-slow, 400ms)
         var(--ease-spring, cubic-bezier(0.16, 1, 0.3, 1)),
       opacity var(--duration-base, 250ms) ease;
   }
@@ -118,7 +121,6 @@
     pointer-events: none;
   }
 
-  /* Boîte centrale style Terminal */
   .preloader-panel {
     width: 100%;
     max-width: 440px;
@@ -194,7 +196,6 @@
     letter-spacing: var(--tracking-wide, 0.05em);
   }
 
-  /* Barre de progression */
   .progress-track {
     width: 100%;
     height: 6px;
