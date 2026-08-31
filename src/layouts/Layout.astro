@@ -13,6 +13,7 @@ import "lenis/dist/lenis.css";
 
 // Images
 import FallbackImage from "../assets/svg/esadd.svg";
+import Loader from "./Loader.astro";
 
 interface Props {
   title: string;
@@ -61,6 +62,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <ClientRouter />
   </head>
   <body class="site-wrapper">
+    <Loader/>
     <div class="bg-aura"></div>
     <Header />
     <slot />

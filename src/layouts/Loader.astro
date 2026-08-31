@@ -1,0 +1,231 @@
+---
+// src/components/atoms/PageLoader.astro
+---
+
+<aside id="page-preloader" class="preloader" aria-hidden="true">
+  <div class="preloader-panel">
+    <!-- En-tête console façon fenêtre d'ingénierie -->
+    <div class="preloader-header">
+      <div class="header-dots">
+        <span class="dot red"></span>
+        <span class="dot orange"></span>
+        <span class="dot green"></span>
+      </div>
+      <span class="system-status">// SYSTEM_BOOT</span>
+    </div>
+
+    <!-- Contenu du terminal -->
+    <div class="preloader-body">
+      <div class="terminal-text">
+        <span class="prompt">></span>
+        <span class="command">INITIALIZING_PORTFOLIO_CORE</span>
+      </div>
+
+      <!-- Barre de progression -->
+      <div class="progress-track">
+        <div id="loader-bar" class="progress-bar"></div>
+      </div>
+
+      <!-- Métadonnées / Compteur -->
+      <div class="preloader-footer">
+        <span class="step-label" id="loader-status">LOADING_ASSETS...</span>
+        <span class="percentage" id="loader-counter">0%</span>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  (function () {
+    const hasLoaded = sessionStorage.getItem("portfolio_booted");
+    const preloader = document.getElementById("page-preloader");
+
+    if (hasLoaded && preloader) {
+      preloader.style.display = "none";
+      return;
+    }
+
+    if (!preloader) return;
+
+    // Bloque le scroll pendant le loader
+    document.body.style.overflow = "hidden";
+
+    const bar = document.getElementById("loader-bar");
+    const counter = document.getElementById("loader-counter");
+    const status = document.getElementById("loader-status");
+
+    const steps = [
+      { progress: 25, text: "PARSING_DESIGN_TOKENS..." },
+      { progress: 55, text: "CONNECTING_SANITY_PIPELINE..." },
+      { progress: 85, text: "HYDRATING_ISLANDS..." },
+      { progress: 100, text: "SYSTEM_READY." },
+    ];
+
+    let currentProgress = 0;
+    let stepIndex = 0;
+
+    const interval = setInterval(() => {
+      if (currentProgress < 100) {
+        currentProgress += Math.floor(Math.random() * 8) + 4;
+        if (currentProgress > 100) currentProgress = 100;
+
+        if (bar) bar.style.width = currentProgress + "%";
+        if (counter) counter.textContent = currentProgress + "%";
+
+        if (
+          stepIndex < steps.length &&
+          currentProgress >= steps[stepIndex].progress
+        ) {
+          if (status) status.textContent = steps[stepIndex].text;
+          stepIndex++;
+        }
+      } else {
+        clearInterval(interval);
+
+        setTimeout(() => {
+          preloader.classList.add("fade-out");
+          document.body.style.overflow = "";
+          sessionStorage.setItem("portfolio_booted", "true");
+
+          setTimeout(() => {
+            preloader.style.display = "none";
+          }, 500);
+        }, 300);
+      }
+    }, 100);
+  })();
+</script>
+
+<style>
+  .preloader {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal, 1000);
+    background: var(--bg-main, #fbf7ee);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-s, 1rem);
+    transition:
+      transform var(--duration-slow, 450ms)
+        var(--ease-spring, cubic-bezier(0.16, 1, 0.3, 1)),
+      opacity var(--duration-base, 250ms) ease;
+  }
+
+  .preloader.fade-out {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Boîte centrale style Terminal */
+  .preloader-panel {
+    width: 100%;
+    max-width: 440px;
+    background: var(--bg-card-solid, #fffdf9);
+    border: 1px solid var(--color-brown, #4c2b24);
+    border-radius: var(--radius-sm, 12px);
+    box-shadow: 6px 6px 0px var(--color-brown, #4c2b24);
+    overflow: hidden;
+  }
+
+  .preloader-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-xs, 0.75rem) var(--space-s, 1rem);
+    background: var(--color-brown, #4c2b24);
+    color: var(--color-white, #fbf7ee);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: var(--text-xs, 0.75rem);
+  }
+
+  .header-dots {
+    display: flex;
+    gap: var(--space-3xs, 0.25rem);
+    align-items: center;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .red {
+    background: #fe5f56;
+  }
+  .orange {
+    background: #febb30;
+  }
+  .green {
+    background: #2bc840;
+  }
+
+  .system-status {
+    color: var(--color-copper, #b85b35);
+    font-weight: var(--font-weight-semibold, 600);
+    letter-spacing: var(--tracking-wide, 0.05em);
+  }
+
+  .preloader-body {
+    padding: var(--space-md, 1.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s, 1rem);
+  }
+
+  .terminal-text {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs, 0.5rem);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: var(--text-sm, 0.85rem);
+    color: var(--text-main, #0f0806);
+    font-weight: var(--font-weight-medium, 500);
+  }
+
+  .prompt {
+    color: var(--color-copper, #b85b35);
+    font-weight: bold;
+  }
+
+  .command {
+    letter-spacing: var(--tracking-wide, 0.05em);
+  }
+
+  /* Barre de progression */
+  .progress-track {
+    width: 100%;
+    height: 6px;
+    background: var(--color-brown-soft, rgba(76, 43, 36, 0.08));
+    border-radius: var(--radius-full, 9999px);
+    overflow: hidden;
+    border: 1px solid var(--border-light, rgba(76, 43, 36, 0.12));
+  }
+
+  .progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--color-copper, #b85b35);
+    border-radius: var(--radius-full, 9999px);
+    transition: width 60ms linear;
+  }
+
+  .preloader-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: var(--text-xs, 0.75rem);
+  }
+
+  .step-label {
+    color: var(--text-muted, #5a4843);
+  }
+
+  .percentage {
+    color: var(--color-copper, #b85b35);
+    font-weight: var(--font-weight-bold, 700);
+  }
+</style>
