@@ -1,39 +1,67 @@
 ---
+// src/components/atoms/Buttons/PrimaryButton.astro
 import type { Button } from "@@types/index";
+import Arrows, { type ArrowDirection } from "../Icons/Arrows";
 
 type Props = Button;
-const { href, label, isBlank = false, ariaLabel } = Astro.props;
+const { href = "", label, isBlank = false, ariaLabel } = Astro.props;
+
+// Typage strict sur les 8 directions
+const isAnchor = href.startsWith("#");
+const arrowDirection: ArrowDirection = isBlank
+  ? "up-right"
+  : isAnchor
+    ? "down"
+    : "right";
 ---
 
 <a
   href={href}
   target={isBlank ? "_blank" : "_self"}
+  rel={isBlank ? "noopener noreferrer" : undefined}
   aria-label={ariaLabel}
   class="btn-pill-primary"
 >
-  <span>{label}</span>
+  <span class="btn-label">{label}</span>
+  <span class="btn-icon" aria-hidden="true">
+    <Arrows direction={arrowDirection} size={15} />
+  </span>
 </a>
 
 <style>
   .btn-pill-primary {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-xs);
+    justify-content: center;
+    gap: var(--space-3xs, 0.45rem);
     background: var(--color-copper);
     color: var(--bg-main);
     font-family: var(--font-sans);
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold, 600);
     font-size: var(--text-sm);
-    padding: 0.95rem var(--space-l);
-    border-radius: var(--radius-full);
+    line-height: 1;
+    padding: 0.85rem var(--space-l, 1.4rem);
+    border-radius: var(--radius-full, 9999px);
     text-decoration: none;
     box-shadow: var(--shadow-btn);
     transition:
-      background var(--duration-base) ease,
-      transform var(--duration-base) var(--ease-spring),
-      box-shadow var(--duration-base) ease;
+      background var(--duration-base, 0.2s) ease,
+      transform var(--duration-base, 0.2s) var(--ease-spring, ease),
+      box-shadow var(--duration-base, 0.2s) ease;
   }
 
+  .btn-label {
+    line-height: 1;
+  }
+
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+  }
+
+  /* Micro-interaction au survol */
   .btn-pill-primary:hover {
     background: var(--color-copper-hover);
     transform: translateY(-2px);
