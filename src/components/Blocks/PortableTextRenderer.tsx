@@ -37,7 +37,7 @@ const components: PortableTextComponents = {
           margin: "0 0 var(--space-md) var(--space-md)",
           padding: 0,
           color: "var(--text-main)",
-          listStyle: "inside"
+          listStyle: "revert"
         }}
       >
         {children}
@@ -49,7 +49,7 @@ const components: PortableTextComponents = {
           margin: "0 0 var(--space-md) var(--space-md)",
           padding: 0,
           color: "var(--text-main)",
-          listStyle: "inside"
+          listStyle: "auto"
         }}
       >
         {children}
