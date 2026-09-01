@@ -19,6 +19,12 @@ body {
   padding: 0px var(--space-2xl);
 }
 
+@media (max-width: 768px) {
+  .site-wrapper {
+    padding: 0px var(--space-s);
+  }
+}
+
 /* 2. Headings Hierarchy */
 h1,
 h2,
@@ -217,7 +223,6 @@ section#formations {
   border-radius: var(--radius-full);
   text-decoration: none;
 }
-
 
 p.emphasis {
   display: -webkit-box;
