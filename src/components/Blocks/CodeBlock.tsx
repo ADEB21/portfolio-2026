@@ -38,7 +38,7 @@ export function CodeBlock({ value }: CodeBlockProps) {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '0.6rem 1rem',
+          padding: 'var(--space-2xs) 1rem',
           backgroundColor: '#1D120D',
           borderBottom: '1px solid rgba(251, 247, 238, 0.08)',
           fontFamily: "var(--font-mono)",

@@ -24,14 +24,6 @@ const year = post.publishedAt.split("-")[0];
     <div class="hero-top-left">
       <div class="hero-eyebrow">
         <span class="project-tag">// PROJET · {year}</span>
-        {
-          post.link && (
-            <div class="site-status">
-              <span class="status-indicator" />
-              <p class="status-text">En Production</p>
-            </div>
-          )
-        }
       </div>
 
       <h1 transition:name={`title-${post.slug}`} class="hero-title">
@@ -90,32 +82,12 @@ const year = post.publishedAt.split("-")[0];
     flex-wrap: wrap;
     gap: 0.5rem;
     font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: var(--text-xs, 0.78rem);
+    font-size: var(--text-xs, var(--space-xs));
   }
 
   .project-tag {
     color: var(--color-copper, #b85b35);
     font-weight: 600;
-  }
-
-  .site-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    background: rgba(46, 125, 50, 0.08);
-    border: 1px solid rgba(46, 125, 50, 0.25);
-    padding: 3px 9px;
-    border-radius: 9999px;
-    color: #2e7d32;
-    font-size: 0.72rem;
-    font-weight: 600;
-  }
-
-  .status-indicator {
-    width: 6px;
-    height: 6px;
-    background: #2e7d32;
-    border-radius: 50%;
   }
 
   .hero-title {
