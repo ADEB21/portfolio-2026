@@ -52,9 +52,8 @@ export const projectType = defineType({
       name: "coverImage",
       title: "Image de couverture",
       type: "picture",
-      options: {
-        hotspot: true,
-      },
+      validation: (rule) =>
+        rule.required().error("L'image de couverture est requise"),
     }),
 
     defineField({
@@ -71,12 +70,13 @@ export const projectType = defineType({
       title: "Stack",
       type: "array",
       of: [{ type: "reference", to: [{ type: "skill" }] }],
-      validation: (rule) =>
+      validation: (rule) => [
+        rule.required().error("Le champ Stack est obligatoire"),
+        rule.min(2).error("Veuillez sélectionner au moins 2 technologies"),
         rule
-          .required()
-          .min(1)
-          .error("Associez au moins une technologie")
-          .max(4),
+          .unique()
+          .error("Chaque technologie ne peut être ajoutée qu'une seule fois"),
+      ],
     }),
 
     defineField({

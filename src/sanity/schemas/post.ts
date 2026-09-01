@@ -74,24 +74,16 @@ export const postType = defineType({
       title: "Catégorie(s)",
       type: "array",
       of: [{ type: "reference", to: [{ type: "category" }] }],
-      validation: (rule) => rule.required().min(1).error("Associez au moins une catégorie").max(4),
+      validation: (rule) =>
+        rule.required().min(1).error("Associez au moins une catégorie").max(4),
     }),
 
     defineField({
       name: "coverImage",
       title: "Image de couverture",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        defineField({
-          name: "alt",
-          title: "Texte alternatif (Alt)",
-          type: "string",
-          description: "Important pour l'accessibilité et le SEO",
-        }),
-      ],
+      type: "picture",
+      validation: (rule) =>
+        rule.required().error("L'image de couverture est requise"),
     }),
 
     defineField({

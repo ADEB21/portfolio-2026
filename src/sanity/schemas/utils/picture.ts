@@ -1,11 +1,10 @@
-import { defineField, defineType } from 'sanity';
-
+import { defineField, defineType } from "sanity";
 
 export const pictureType = defineType({
   title: "Image",
   type: "image",
   name: "picture",
-    options: {
+  options: {
     hotspot: true,
   },
   fields: [
@@ -13,6 +12,9 @@ export const pictureType = defineType({
       name: "alt",
       type: "string",
       title: "Texte alternatif",
+      validation: (rule) => [
+        rule.required().error("Le texte alternatif (alt) est obligatoire"),
+      ],
     }),
   ],
   preview: {
