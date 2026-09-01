@@ -25,7 +25,6 @@ export function ColorPaletteBlock({ value }: ColorPaletteBlockProps) {
       style={{
         margin: "var(--space-2xl) 0",
         padding: "var(--space-md)",
-        background: "var(--bg-subtle)",
         border: "1px solid var(--color-brown)",
         borderRadius: "var(--radius-sm)",
         boxShadow: "4px 4px 0px var(--color-brown)",

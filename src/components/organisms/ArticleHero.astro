@@ -26,12 +26,20 @@ const categoriesLabel =
         <span class="eyebrow"
           >// ARTICLE · {post.publishedAt} · {post.readTime} minutes
         </span>
+        <span class="eyebrow">{categoriesLabel} </span>
       </div>
 
-      <h1 transition:name={`title-${post.slug}`} class="hero-title">{post.title}</h1>
+      <h1 transition:name={`title-${post.slug}`} class="hero-title">
+        {post.title}
+      </h1>
 
-      {post.summary && <p transition:name={`summary-${post.slug}`} class="hero-summary">{post.summary}</p>}
-      <span class="eyebrow">{categoriesLabel} </span>
+      {
+        post.summary && (
+          <p transition:name={`summary-${post.slug}`} class="hero-summary">
+            {post.summary}
+          </p>
+        )
+      }
 
       <div class="hero-actions">
         <PrimaryButton
@@ -53,7 +61,6 @@ const categoriesLabel =
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    border-bottom: 1px solid var(--color-brown, #2b1810);
     margin-bottom: 2.5rem;
   }
 
