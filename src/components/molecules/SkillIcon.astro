@@ -11,7 +11,7 @@ const { skill } = Astro.props;
 
 <div class="tech-pill-item" title={skill.name}>
   {skill.name && <Icons name={skill.id} size={20} client:idle />}
-  <span class="tech-name">{skill.name || skill.title}</span>
+  <span class="tech-name">{skill.name}</span>
 </div>
 
 <style>

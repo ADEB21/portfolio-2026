@@ -50,13 +50,13 @@ export const PROJECTS_FEATURED_QUERY = `*[_type == "project" && isFeatured == tr
   _id,
   title,
   "slug": slug.current,
-  categories[]->{title},
+  categories[0...3]->{title},
   publishedAt,
   summary,
   link,
   isFeatured,
   coverImage,
-  stack[0...4]->,
+  stack[0...3]->,
 }`;
 
 /** All posts (blog/index & projects/index) */
@@ -66,9 +66,9 @@ export const ALL_PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
   _id,
   title,
   role,
-  stack[0...4]->,
+  stack[0...3]->,
   "slug": slug.current,
-  categories[]->{title},
+  categories[0...3]->{ title },
   publishedAt,
   summary,
   link,
@@ -84,7 +84,7 @@ export const ALL_POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
   publishedAt,
   readTime,
   summary,
-  categories[0...4]->{ title },
+  categories[0...3]->{ title },
   coverImage,
   isFeatured
 }`;

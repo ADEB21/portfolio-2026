@@ -30,7 +30,13 @@ const year = post.publishedAt.split("-")[0];
         {post.title}
       </h1>
 
-      {post.summary && <p transition:name={`summary-${post.slug}`} class="hero-summary">{post.summary}</p>}
+      {
+        post.summary && (
+          <p transition:name={`summary-${post.slug}`} class="hero-summary">
+            {post.summary}
+          </p>
+        )
+      }
 
       <!-- Actions rapides -->
       <div class="hero-actions">
@@ -96,6 +102,10 @@ const year = post.publishedAt.split("-")[0];
     line-height: 1.08;
     letter-spacing: var(--tracking-tighter);
     margin-bottom: var(--space-l);
+  }
+
+  .hero-summary {
+    text-align: justify;
   }
 
   .hero-actions {

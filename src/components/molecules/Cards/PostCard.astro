@@ -36,10 +36,10 @@ const date =
     </header>
 
     <body class="post-body">
-      <h3 transition:name={`title-${post.slug}`} class="post-title">
+      <h3 transition:name={`title-${post.slug}`} class="post-title emphasis">
         {post.title}
       </h3>
-      <p transition:name={`summary-${post.slug}`} class="post-summary">
+      <p transition:name={`summary-${post.slug}`} class="post-summary emphasis">
         {post.summary}
       </p>
     </body>
@@ -59,11 +59,6 @@ const date =
       {
         post._type === "post" && post?.categories && (
           <ul class="footer-left">
-            {post.categories.map((tech) => (
-              <li>
-                <SkillIcon skill={tech} />
-              </li>
-            ))}
           </ul>
         )
       }
@@ -160,25 +155,15 @@ const date =
   }
 
   .post-title {
-    font-family: "Fraunces", Georgia, serif;
-    font-size: 1.65rem;
-    font-weight: 600;
-    line-height: 1.25;
     margin: 0;
     transition: color 0.4s ease;
   }
 
   .post-summary {
-    display: block;
+    text-align: justify;
     color: #5a4a42;
     font-size: var(--text-sm);
     margin: 0;
-
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    overflow: hidden;
-    max-height: 6.4em;
-    line-height: 1.6;
   }
 
   .post-footer {

@@ -202,6 +202,7 @@ section#formations {
   padding: 1rem 0 4rem 0;
   font-size: 1.05rem;
   color: var(--color-brown);
+  text-align: justify;
 }
 
 .btn {
@@ -215,4 +216,21 @@ section#formations {
   padding: var(--space-md);
   border-radius: var(--radius-full);
   text-decoration: none;
+}
+
+
+p.emphasis {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:is(h2, h3, h4, h5, h6).emphasis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
