@@ -23,6 +23,7 @@ export default defineConfig({
       apiVersion: "2026-03-01",
       useCdn: false,
       studioBasePath: '/admin',
+      token: env.SANITY_API_READ_TOKEN
     }),
     react(),
   ],
