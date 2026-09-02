@@ -5,11 +5,12 @@ import { HomeIcon } from "@sanity/icons/Home";
 import { CaseIcon } from "@sanity/icons/Case";
 import {DocumentsIcon} from '@sanity/icons/Documents'
 import {TagsIcon} from '@sanity/icons/Tags'
-import { CheckmarkCircleIcon } from "@sanity/icons/CheckmarkCircle";
 import { UserIcon } from "@sanity/icons/User";
 import { SparklesIcon } from "@sanity/icons/Sparkles";
 import { CalendarIcon } from "@sanity/icons/Calendar";
 import { UlistIcon } from "@sanity/icons/Ulist";
+import Certification from "@components/atoms/Icons/Certification";
+import GraduationCap from "@components/atoms/Icons/GraduationCap";
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -36,11 +37,11 @@ export const structure: StructureResolver = (S) =>
 
               S.documentTypeListItem("degree")
                 .title("Diplômes (Degree)")
-                .icon(CheckmarkCircleIcon),
+                .icon(GraduationCap),
 
               S.documentTypeListItem("certificate")
                 .title("Certificats")
-                .icon(CheckmarkCircleIcon),
+                .icon(Certification),
 
               S.documentTypeListItem("skillCategory")
                 .title("Catégories de compétences (SkillCategory)")
