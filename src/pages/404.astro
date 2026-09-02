@@ -1,0 +1,262 @@
+---
+import PrimaryButton from "@components/atoms/Buttons/PrimaryButton.astro"
+import SecondaryButton from "@components/atoms/Buttons/SecondaryButton.astro"
+import Layout from "@layout/Layout.astro"
+---
+
+<Layout
+  title="404 — Page introuvable | Arthur Debruille"
+  description="La page que vous recherchez semble introuvable ou a été déplacée."
+>
+  <main class="error-page">
+    <div class="error-page__container">
+      
+      <!-- Cartouche technique discret -->
+      <div class="error-page__badge">
+        <span class="error-page__dot"></span>
+        <span class="error-page__code">ERREUR 404</span>
+      </div>
+
+      <!-- Bloc Titre & Typographie -->
+      <div class="error-page__hero">
+        <span class="error-page__watermark" aria-hidden="true">404</span>
+        <h1 class="error-page__title">
+          Page introuvable<span>.</span>
+        </h1>
+      </div>
+
+      <p class="error-page__description">
+        La page que vous tentez d'atteindre n'existe pas dans le plan de navigation, 
+        ou a été restructuré lors d'un déploiement récent.
+      </p>
+
+      <!-- Actions de navigation -->
+      <div class="error-page__actions">
+        <PrimaryButton href="/" label="Retour à l'accueil" ariaLabel="Retour à l'accueil" isBlank={false}/>
+        <SecondaryButton href="/projects" label="Explorer les projets" ariaLabel="Explorer les projets" isBlank={true}/>
+      </div>
+
+    </div>
+
+    <!-- Grille de repère subtile en arrière-plan -->
+    <div class="error-page__grid" aria-hidden="true">
+      <div class="grid-line"></div>
+      <div class="grid-line"></div>
+      <div class="grid-line"></div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  /* Base de la page 404 */
+  .error-page {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    overflow: hidden;
+    color: var(--color-text, #1E1E1E);
+  }
+
+  .error-page__container {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Badge technique / cartouche studio */
+  .error-page__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(184, 91, 53, 0.25);
+    background-color: rgba(184, 91, 53, 0.04);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--color-copper, #B85B35);
+    margin-bottom: 2rem;
+  }
+
+  .error-page__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-copper, #B85B35);
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  .error-page__sep {
+    opacity: 0.4;
+  }
+
+  /* Titre & Filigrane 404 */
+  .error-page__hero {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .error-page__watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(6rem, 20vw, 15rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(184, 91, 53, 0.12);
+    user-select: none;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .error-page__title {
+    position: relative;
+    z-index: 2;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+
+  .error-page__title span {
+    color: var(--color-copper, #B85B35);
+  }
+
+  /* Description textuelle */
+  .error-page__description {
+    position: relative;
+    z-index: 2;
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    line-height: 1.6;
+    color: var(--color-text-muted, #66635D);
+    max-width: 480px;
+    margin: 0 0 2.5rem 0;
+    text-wrap: balance;
+  }
+
+  /* Boutons & Liens */
+  .error-page__actions {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+  }
+
+  .btn__icon {
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+  }
+
+  .btn--primary {
+    background-color: var(--color-copper, #B85B35);
+    color: #FFFFFF;
+    border: 1px solid var(--color-copper, #B85B35);
+  }
+
+  .btn--primary:hover {
+    background-color: #9C4B2A;
+    border-color: #9C4B2A;
+    transform: translateY(-1px);
+  }
+
+  .btn--primary:hover .btn__icon--left {
+    transform: translateX(-3px);
+  }
+
+  .btn--secondary {
+    background-color: transparent;
+    color: var(--color-text, #1E1E1E);
+    border: 1px solid rgba(30, 30, 30, 0.15);
+  }
+
+  .btn--secondary:hover {
+    border-color: var(--color-copper, #B85B35);
+    color: var(--color-copper, #B85B35);
+    transform: translateY(-1px);
+  }
+
+  .btn--secondary:hover .btn__icon--right {
+    transform: translate(2px, -2px);
+  }
+
+  /* Repères graphiques en fond */
+  .error-page__grid {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: space-around;
+    pointer-events: none;
+    opacity: 0.35;
+    z-index: 0;
+  }
+
+  .grid-line {
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(184, 91, 53, 0.15) 30%,
+      rgba(184, 91, 53, 0.15) 70%,
+      transparent 100%
+    );
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.4;
+      transform: scale(0.85);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .error-page__actions {
+      flex-direction: column;
+    }
+    .btn {
+      width: 100%;
+    }
+  }
+</style>
