@@ -10,10 +10,9 @@ import react from "@astrojs/react";
 // Charge explicitement les variables .env dans le fichier de config
 const env = loadEnv(process.env.NODE_ENV || "development", process.cwd(), "");
 
-
 // https://astro.build/config
 export default defineConfig({
-  site: "https://example.com",
+  site: "https://arthurdebruille.fr",
   integrations: [
     mdx(),
     sitemap(),
@@ -22,8 +21,8 @@ export default defineConfig({
       dataset: env.PUBLIC_SANITY_DATASET,
       apiVersion: "2026-03-01",
       useCdn: false,
-      studioBasePath: '/admin',
-      token: env.SANITY_API_READ_TOKEN
+      studioBasePath: "/admin",
+      token: env.SANITY_API_READ_TOKEN,
     }),
     react(),
   ],
