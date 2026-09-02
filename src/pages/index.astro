@@ -20,7 +20,6 @@ import {
 import Layout from "@layout/Layout.astro";
 import HubProjectsRedirection from "@components/molecules/HubProjectsRedirection.astro";
 
-
 // Cards
 import SkillCategoryCard from "@components/molecules/Cards/SkillCategoryCard.astro";
 import ExperienceCard from "@components/molecules/Cards/ExperienceCard.astro";
@@ -29,8 +28,9 @@ import Hero from "@components/organisms/Hero.astro";
 import PostCard from "@components/molecules/Cards/PostCard.astro";
 
 const profile: Profile = await sanityClient.fetch(PROFILE_QUERY);
-const featuredProjects: Post[] =
-  await sanityClient.fetch(PROJECTS_FEATURED_QUERY);
+const featuredProjects: Post[] = await sanityClient.fetch(
+  PROJECTS_FEATURED_QUERY,
+);
 const skillsCategories: Category[] = await sanityClient.fetch(
   SKILLS_CATEGORIES_QUERY,
 );
@@ -42,7 +42,7 @@ const certificationsList: Certificate[] =
 
 <Layout
   title={`${profile.name} — ${profile.role}`}
-  description="Bienvenue sur mon Portfolio"
+  description="Conception d’expériences web immersives et architectures front-end sur-mesure. Portfolio de projets et blog."
 >
   <main>
     <!-- A PROPOS -->
