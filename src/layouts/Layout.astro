@@ -1,7 +1,7 @@
 ---
 import type { ImageMetadata } from "astro";
 import { SITE_TITLE } from "../consts";
-import { ClientRouter } from 'astro:transitions'
+import { ClientRouter } from "astro:transitions";
 
 // Components
 import Header from "@components/organisms/Header.astro";
@@ -12,17 +12,22 @@ import "../styles/root.css";
 import "lenis/dist/lenis.css";
 
 // Images
-import FallbackImage from "../assets/svg/esadd.svg";
+import FallbackImage from "@assets/images/ogImage.jpg";
 import Loader from "./Loader.astro";
 
 interface Props {
   title: string;
   description: string;
-  image?: ImageMetadata;
+  image?: string;
 }
 
-const { title, description = "", image = FallbackImage } = Astro.props;
+const { title, description = "", image } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+
+const ogImage = new URL(image ? image : FallbackImage.src, Astro.url)
+
+console.log("Mon OgImage", ogImage);
 
 ---
 
@@ -30,8 +35,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <html lang="fr">
   <head>
     <!-- Global Metadata -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -55,14 +60,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image.src, Astro.url)} />
+    <meta property="og:image" content={ogImage} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+
     <ClientRouter />
   </head>
   <body class="site-wrapper">
-    <Loader/>
+    <Loader />
     <div class="bg-aura"></div>
     <Header />
     <slot />

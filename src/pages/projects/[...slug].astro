@@ -6,6 +6,7 @@ import { sanityClient } from "sanity:client";
 import type { Post } from "@@types/index";
 import { PROJECT_QUERY, PROJECTS_SLUGS_QUERY } from "@assets/script/utils/api";
 import ProjectHero from "@components/organisms/ProjectHero.astro";
+import { urlFor } from "@assets/script/utils/image";
 
 export async function getStaticPaths() {
   const posts =
@@ -19,11 +20,19 @@ const post: Post = await sanityClient.fetch(PROJECT_QUERY, { slug });
 
 const categoriesString =
   post.categories?.map((c) => c.title).join(" · ") || "Veille & Tech";
+
+const ogImage =
+  post.coverImage?.asset &&
+  urlFor(post.coverImage.asset).width(1200).height(630).auto("format").url();
 ---
 
-<Layout title={`${post.title} — Arthur Debruille`} description={post.summary}>
+<Layout
+  title={`${post.title} | Projets | Arthur Debruille`}
+  description={post.summary}
+  image={ogImage}
+>
   <main>
-    <ProjectHero post={post}/>
+    <ProjectHero post={post} />
     <p class="eyebrow" id="article">// Début de l'étude de cas</p>
     <article class="article-body">
       <PortableTextRenderer value={post.body} client:load />

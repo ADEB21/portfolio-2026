@@ -1,11 +1,11 @@
 ---
-// src/pages/blog/[slug].astro
 import Layout from "@layout/Layout.astro";
 import { PortableTextRenderer } from "@components/Blocks/PortableTextRenderer";
 import { sanityClient } from "sanity:client";
 import type { Post } from "@@types/index";
 import { POST_QUERY, POSTS_SLUGS_QUERY } from "@assets/script/utils/api";
 import ArticleHero from "@components/organisms/ArticleHero.astro";
+import { urlFor } from "@assets/script/utils/image";
 
 export async function getStaticPaths() {
   const posts = await sanityClient.fetch<{ slug: string }[]>(POSTS_SLUGS_QUERY);
@@ -16,10 +16,17 @@ const { slug } = Astro.params;
 
 const post: Post = await sanityClient.fetch(POST_QUERY, { slug });
 
-
+const ogImage =
+  post.coverImage?.asset &&
+  urlFor(post.coverImage.asset).width(1200).height(630).auto("format").url();
+  
 ---
 
-<Layout title={`${post.title} — Arthur Debruille`} description={post.summary}>
+<Layout
+  title={`${post.title} | Blog | Arthur Debruille`}
+  description={post.summary}
+  image={ogImage}
+>
   <main>
     <ArticleHero post={post} />
     <p class="eyebrow" id="article">// Début de l'article</p>
