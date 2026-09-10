@@ -1,0 +1,98 @@
+---
+// src/pages/contact.astro
+import Layout from "@layout/Layout.astro";
+import { isInputError } from "astro:actions";
+import { actions } from "astro:actions";
+import { undefined } from "astro:schema";
+
+const result = Astro.getActionResult(actions.send);
+if (result?.data) {
+  return Astro.redirect("/");
+}
+
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+---
+
+<Layout
+  title="Contact — Arthur Debruille"
+  description="Une idée de projet, une opportunité ou une simple question ? Entrons en contact."
+>
+  <main>
+    <form id="test-form" method="POST" action={actions.send}>
+      <label
+        >Prénom<input
+          type="text"
+          name="firstname"
+          placeholder="John"
+          required
+          aria-describedby={inputErrors.firstname ? "firstname-error" : ""}
+        /></label
+      >
+      {
+        inputErrors.firstname && (
+          <p id="firstname-error">{inputErrors.firstname[0]}</p>
+        )
+      }
+      <label
+        >Nom<input
+          type="text"
+          name="lastname"
+          placeholder="Doe"
+          required
+          aria-describedby={inputErrors.lastname ? "lastname-error" : ""}
+        /></label
+      >
+      {
+        inputErrors.lastname && (
+          <p id="lastname-error">{inputErrors.lastname[0]}</p>
+        )
+      }
+      <label
+        >Email<input
+          type="email"
+          name="email"
+          placeholder="john.doe@example.fr"
+          required
+          aria-describedby={inputErrors.email ? "email-error" : ""}
+        /></label
+      >
+      {inputErrors.email && <p id="email-error">{inputErrors.email[0]}</p>}
+      <label
+        >Sujet<input
+          type="text"
+          name="subject"
+          placeholder="Ut anim dolor elit nostrud et duis..."
+          required
+          aria-describedby={inputErrors.subject ? "subject-error" : ""}
+        /></label
+      >
+      {
+        inputErrors.subject && (
+          <p id="subject-error">{inputErrors.subject[0]}</p>
+        )
+      }
+      <label
+        >Mon message<textarea
+          name="message"
+          placeholder="Ex do consequat nulla aliqua ullamco veniam voluptate aliqua. Mollit ullamco amet eiusmod in anim dolore veniam fugiat cupidatat nostrud non et. Lorem duis irure ad. Magna pariatur deserunt exercitation non occaecat ex laborum ex."
+          aria-describedby={inputErrors.message ? "message-error" : ""}
+          required></textarea></label
+      >
+      {
+        inputErrors.message && (
+          <p id="message-error">{inputErrors.message[0]}</p>
+        )
+      }
+      <button type="submit" id="submit-btn">Envoyer</button>
+    </form>
+  </main>
+</Layout>
+
+<style>
+  main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
