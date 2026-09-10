@@ -43,16 +43,14 @@
 
   function setupLoader() {
     const preloader = document.getElementById("page-preloader");
+    const isBooted = sessionStorage.getItem("booted") === "true"
     if (!preloader) return;
 
-    // Si déjà vu dans la session : on détruit le loader et on s'assure que le scroll est actif
-    if (sessionStorage.getItem("booted") === "true") {
+    if (isBooted) {
       preloader.remove();
-      initLenis().start();
       return;
     }
 
-    // 1. VERROUILLAGE DU SCROLL
     preloader.classList.add("is-active");
     initLenis().stop();
     document.body.style.overflow = "hidden";

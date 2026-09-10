@@ -79,9 +79,5 @@ const ogImage = new URL(image ? image : FallbackImage.src, Astro.url);
 
 <script>
   import { initLenis } from "@assets/script/utils/lenis";
-
-  document.addEventListener("astro:page-load", () => {
-    initLenis();
-    console.log(initLenis());
-  });
+  document.addEventListener("astro:page-load", () => initLenis());
 </script>
