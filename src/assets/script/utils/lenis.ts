@@ -1,12 +1,21 @@
-import Lenis from "lenis"
+import Lenis from "lenis";
 
-// Initialize Lenis
-const lenis = new Lenis();
+let lenisInstance: Lenis | null = null;
 
-// Use requestAnimationFrame to continuously update the scroll
-function raf(time: number) {
-  lenis.raf(time);
+export function initLenis(): Lenis {
+  if (lenisInstance) return lenisInstance;
+
+  lenisInstance = new Lenis({
+    anchors: {
+      offset: -150,
+    },
+  });
+
+  function raf(time: number) {
+    lenisInstance?.raf(time);
+    requestAnimationFrame(raf);
+  }
+
   requestAnimationFrame(raf);
+  return lenisInstance;
 }
-
-requestAnimationFrame(raf);

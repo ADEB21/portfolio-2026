@@ -63,7 +63,7 @@ const ogImage = new URL(image ? image : FallbackImage.src, Astro.url);
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    
+
     <link rel="manifest" href="/manifest.webmanifest" />
 
     <ClientRouter />
@@ -77,4 +77,11 @@ const ogImage = new URL(image ? image : FallbackImage.src, Astro.url);
   </body>
 </html>
 
-<script src="../assets/script/utils/lenis.ts"></script>
+<script>
+  import { initLenis } from "@assets/script/utils/lenis";
+
+  document.addEventListener("astro:page-load", () => {
+    initLenis();
+    console.log(initLenis());
+  });
+</script>

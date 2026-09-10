@@ -39,17 +39,22 @@
 </aside>
 
 <script>
+  import { initLenis } from "@assets/script/utils/lenis";
+
   function setupLoader() {
     const preloader = document.getElementById("page-preloader");
     if (!preloader) return;
 
-    // Masquage immédiat si la session a déjà chargé le portfolio
-    if (sessionStorage.getItem("portfolio_booted") === "true") {
+    // Si déjà vu dans la session : on détruit le loader et on s'assure que le scroll est actif
+    if (sessionStorage.getItem("booted") === "true") {
       preloader.remove();
-      document.body.style.overflow = "";
+      initLenis().start();
       return;
     }
 
+    // 1. VERROUILLAGE DU SCROLL
+    preloader.classList.add("is-active");
+    initLenis().stop();
     document.body.style.overflow = "hidden";
 
     const bar = document.getElementById("loader-bar");
@@ -57,10 +62,12 @@
     const status = document.getElementById("loader-status");
 
     const steps = [
+      { progress: 5, text: "DISABLING_SCROLLING..." },
       { progress: 28, text: "PARSING_DESIGN_TOKENS..." },
       { progress: 60, text: "CONNECTING_SANITY_PIPELINE..." },
       { progress: 85, text: "HYDRATING_ISLANDS..." },
-      { progress: 100, text: "SYSTEM_READY." },
+      { progress: 90, text: "ENABLING_SCROLLING..." },
+      { progress: 100, text: "SITE_READY" },
     ];
 
     let currentProgress = 0;
@@ -71,14 +78,12 @@
       if (isPausing) return;
 
       if (currentProgress < 100) {
-        // Incrément modéré pour laisser apprécier l'animation
         const increment = Math.floor(Math.random() * 4) + 1;
         currentProgress = Math.min(currentProgress + increment, 100);
 
         if (bar) bar.style.width = `${currentProgress}%`;
         if (counter) counter.textContent = `${currentProgress}%`;
 
-        // Micro-pause à chaque étape clé
         if (
           stepIndex < steps.length &&
           currentProgress >= steps[stepIndex].progress
@@ -88,30 +93,39 @@
 
           if (currentProgress < 100) {
             isPausing = true;
-            setTimeout(() => {
-              isPausing = false;
-            }, Math.floor(Math.random() * 120) + 180);
+            setTimeout(
+              () => {
+                isPausing = false;
+              },
+              Math.floor(Math.random() * 120) + 180,
+            );
           }
         }
       } else {
         clearInterval(interval);
 
-        // Pause sur "SYSTEM_READY." avant d'enclencher la sortie
         setTimeout(() => {
-          sessionStorage.setItem("portfolio_booted", "true");
-          document.body.style.overflow = "";
+          sessionStorage.setItem("booted", "true");
           preloader.classList.add("is-exiting");
 
-          // Nettoyage complet du DOM dès la fin de l'ouverture des volets
+          // Fonction de nettoyage et réactivation
+          const unlockScrollAndCleanup = () => {
+            preloader.remove();
+
+            // 2. RÉACTIVATION DU SCROLL
+            initLenis().start();
+            document.body.style.overflow = "";
+          };
+
           const shutterBottom = preloader.querySelector(".shutter-bottom");
           if (shutterBottom) {
             shutterBottom.addEventListener(
               "transitionend",
-              () => preloader.remove(),
-              { once: true }
+              unlockScrollAndCleanup,
+              { once: true },
             );
           } else {
-            setTimeout(() => preloader.remove(), 600);
+            setTimeout(unlockScrollAndCleanup, 600);
           }
         }, 450);
       }
@@ -123,17 +137,20 @@
 
 <style>
   .preloader {
+    display: none;
     position: fixed;
     inset: 0;
     z-index: var(--z-modal, 1000);
-    display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--space-s, 1rem);
     pointer-events: auto;
   }
 
-  /* Rideaux de fond scindés en deux moitiés */
+  .preloader.is-active {
+    display: flex;
+  }
+
   .shutter {
     position: absolute;
     left: 0;
@@ -156,7 +173,6 @@
     transform-origin: bottom;
   }
 
-  /* Panneau console */
   .preloader-panel {
     position: relative;
     z-index: 2;
@@ -197,9 +213,15 @@
     border-radius: 50%;
   }
 
-  .red { background: #fe5f56; }
-  .orange { background: #febb30; }
-  .green { background: #2bc840; }
+  .red {
+    background: #fe5f56;
+  }
+  .orange {
+    background: #febb30;
+  }
+  .green {
+    background: #2bc840;
+  }
 
   .system-status {
     color: var(--color-copper, #b85b35);
@@ -267,18 +289,15 @@
     font-weight: var(--font-weight-bold, 700);
   }
 
-  /* --- Séquence de sortie --- */
   .preloader.is-exiting {
     pointer-events: none;
   }
 
-  /* 1. La fenêtre s'écrase rapidement sur elle-même */
   .preloader.is-exiting .preloader-panel {
     transform: scale(0.85) translateY(-20px);
     opacity: 0;
   }
 
-  /* 2. Les volets du fond se séparent vers le haut et le bas avec un léger délai */
   .preloader.is-exiting .shutter-top {
     transform: translateY(-100%);
     transition-delay: 100ms;
