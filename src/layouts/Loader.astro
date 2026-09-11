@@ -1,4 +1,6 @@
 ---
+import AppleWindowControls from "@components/atoms/AppleWindowControls.astro";
+
 // src/components/atoms/PageLoader.astro
 ---
 
@@ -9,12 +11,8 @@
   <div class="preloader-panel" id="loader-panel">
     <!-- En-tête console -->
     <div class="preloader-header">
-      <div class="header-dots">
-        <span class="dot red"></span>
-        <span class="dot orange"></span>
-        <span class="dot green"></span>
-      </div>
-      <span class="system-status">// SYSTEM_BOOT</span>
+      <AppleWindowControls/>
+      <span class="eyebrow">// SYSTEM_BOOT</span>
     </div>
 
     <!-- Contenu du terminal -->
@@ -198,35 +196,7 @@
     font-family: var(--font-mono, ui-monospace, monospace);
     font-size: var(--text-xs, 0.75rem);
   }
-
-  .header-dots {
-    display: flex;
-    gap: var(--space-3xs, 0.25rem);
-    align-items: center;
-  }
-
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-  }
-
-  .red {
-    background: #fe5f56;
-  }
-  .orange {
-    background: #febb30;
-  }
-  .green {
-    background: #2bc840;
-  }
-
-  .system-status {
-    color: var(--color-copper, #b85b35);
-    font-weight: var(--font-weight-semibold, 600);
-    letter-spacing: var(--tracking-wide, 0.05em);
-  }
-
+  
   .preloader-body {
     padding: var(--space-md, 1.5rem);
     display: flex;
