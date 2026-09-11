@@ -1,9 +1,10 @@
 ---
 // src/pages/contact.astro
+export const prerender = false;
+
 import Layout from "@layout/Layout.astro";
 import { isInputError } from "astro:actions";
 import { actions } from "astro:actions";
-import { undefined } from "astro:schema";
 
 const result = Astro.getActionResult(actions.send);
 if (result?.data) {
@@ -11,6 +12,8 @@ if (result?.data) {
 }
 
 const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+
+console.log(result);
 ---
 
 <Layout
@@ -18,7 +21,7 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
   description="Une idée de projet, une opportunité ou une simple question ? Entrons en contact."
 >
   <main>
-    <form id="test-form" method="POST" action={actions.send}>
+    <form id="contact-form" method="POST" action={actions.send}>
       <label
         >Prénom<input
           type="text"
@@ -61,7 +64,7 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
         >Sujet<input
           type="text"
           name="subject"
-          placeholder="Ut anim dolor elit nostrud et duis..."
+          placeholder="Mon projet de site web"
           required
           aria-describedby={inputErrors.subject ? "subject-error" : ""}
         /></label

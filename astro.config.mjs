@@ -16,31 +16,6 @@ const env = loadEnv(process.env.NODE_ENV || "development", process.cwd(), "");
 // https://astro.build/config
 export default defineConfig({
   site: "https://arthurdebruille.fr",
-
-  // fonts: [
-  //   {
-  //     provider: fontProviders.local(),
-  //     name: "Atkinson",
-  //     cssVariable: "--font-atkinson",
-  //     fallbacks: ["sans-serif"],
-  //     options: {
-  //       variants: [
-  //         {
-  //           src: ["./src/assets/fonts/atkinson-regular.woff"],
-  //           weight: 400,
-  //           style: "normal",
-  //           display: "swap",
-  //         },
-  //         {
-  //           src: ["./src/assets/fonts/atkinson-bold.woff"],
-  //           weight: 700,
-  //           style: "normal",
-  //           display: "swap",
-  //         },
-  //       ],
-  //     },
-  //   },
-  // ],
   integrations: [
     mdx(),
     sitemap(),

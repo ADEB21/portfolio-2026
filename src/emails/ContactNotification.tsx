@@ -22,11 +22,11 @@ interface ContactNotificationProps {
 }
 
 export const ContactNotification = ({
-  firstname = "Jean",
-  lastname = "Dupont",
-  email = "jean.dupont@example.com",
-  subject = "Refonte d'interface web",
-  message = "Bonjour Arthur,\n\nJe souhaiterais échanger avec vous au sujet d'une mission front-end.",
+  firstname,
+  lastname,
+  email,
+  subject,
+  message,
 }: ContactNotificationProps) => {
   const fullName = `${firstname} ${lastname}`.trim();
   const previewText = `Nouveau message de ${fullName} : ${subject}`;
@@ -38,7 +38,7 @@ export const ContactNotification = ({
       <Body style={main}>
         <Container style={container}>
           <Section style={badgeSection}>
-            <Text style={badge}>// SYSTEM_NOTIFICATION — CONTACT</Text>
+            <Text style={badge}>// FORM_NOTIFICATION — CONTACT</Text>
           </Section>
 
           <Heading style={heading}>
@@ -59,9 +59,13 @@ export const ContactNotification = ({
                 <tr>
                   <td style={metaLabel}>EMAIL</td>
                   <td style={metaValue}>
-                    <Link href={`mailto:${email}`} style={link}>
+                    <a
+                      data-resend-no-track="true"
+                      href={`mailto:${email}`}
+                      style={link}
+                    >
                       {email}
-                    </Link>
+                    </a>
                   </td>
                 </tr>
                 <tr>
@@ -73,17 +77,18 @@ export const ContactNotification = ({
           </Section>
 
           <Section style={messageCard}>
-            <Text style={messageLabel}>// MESSAGE TRANSMIS</Text>
+            <Text style={messageLabel}>// MESSAGE</Text>
             <Text style={messageBody}>{message}</Text>
           </Section>
 
           <Section style={ctaSection}>
-            <Link
+            <a
+              data-resend-no-track="true"
               href={`mailto:${email}?subject=Re: ${encodeURIComponent(subject)}`}
               style={ctaButton}
             >
               Répondre directement à {firstname} →
-            </Link>
+            </a>
           </Section>
 
           <Hr style={divider} />
@@ -100,7 +105,6 @@ export const ContactNotification = ({
 };
 
 export default ContactNotification;
-
 
 const main: React.CSSProperties = {
   backgroundColor: "#F4EFE6",
