@@ -43,7 +43,7 @@
 
   function setupLoader() {
     const preloader = document.getElementById("page-preloader");
-    const isBooted = sessionStorage.getItem("booted") === "true"
+    const isBooted = sessionStorage.getItem("booted") === "true";
     if (!preloader) return;
 
     if (isBooted) {
@@ -135,7 +135,7 @@
 
 <style>
   .preloader {
-    display: none;
+    display: flex;
     position: fixed;
     inset: 0;
     z-index: var(--z-modal, 1000);
@@ -145,8 +145,8 @@
     pointer-events: auto;
   }
 
-  .preloader.is-active {
-    display: flex;
+  :global(html.portfolio-ready) .preloader {
+    display: none !important;
   }
 
   .shutter {
