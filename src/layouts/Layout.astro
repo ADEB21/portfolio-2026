@@ -29,6 +29,13 @@ const ogImage = new URL(image ? image : FallbackImage.src, Astro.url);
 <!--DOCTTYPE html-->
 <html lang="fr">
   <head>
+    <script is:inline>
+      try {
+        if (sessionStorage.getItem("booted") === "true") {
+          document.documentElement.classList.add("portfolio-ready");
+        }
+      } catch (e) {}
+    </script>
     <!-- Global Metadata -->
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

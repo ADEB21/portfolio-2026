@@ -8,6 +8,8 @@ import sanity from "@sanity/astro";
 import react from "@astrojs/react";
 import AstroPWA from "@vite-pwa/astro";
 
+import vercel from "@astrojs/vercel";
+
 // Charge explicitement les variables .env dans le fichier de config
 const env = loadEnv(process.env.NODE_ENV || "development", process.cwd(), "");
 
@@ -110,28 +112,6 @@ export default defineConfig({
     }),
     react(),
   ],
-  fonts: [
-    {
-      provider: fontProviders.local(),
-      name: "Atkinson",
-      cssVariable: "--font-atkinson",
-      fallbacks: ["sans-serif"],
-      options: {
-        variants: [
-          {
-            src: ["./src/assets/fonts/atkinson-regular.woff"],
-            weight: 400,
-            style: "normal",
-            display: "swap",
-          },
-          {
-            src: ["./src/assets/fonts/atkinson-bold.woff"],
-            weight: 700,
-            style: "normal",
-            display: "swap",
-          },
-        ],
-      },
-    },
-  ],
+
+  adapter: vercel(),
 });

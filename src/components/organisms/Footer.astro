@@ -1,4 +1,5 @@
 ---
+import { initLenis } from "@assets/script/utils/lenis";
 import { navItems, socialLinks } from "../../consts";
 
 const currentYear = new Date().getFullYear();
@@ -6,41 +7,46 @@ const currentYear = new Date().getFullYear();
 
 <footer class="footer">
   <div class="footer-inner">
-
     <div class="footer-grid">
       <div class="footer-col brand-col">
         <div class="footer-brand">Arthur Debruille</div>
         <p class="footer-tagline">
-          Développeur Front-End spécialisé dans l’écosystème React, la performance et le design d’interfaces soignées.
+          Développeur Front-End spécialisé dans l’écosystème React, la
+          performance et le design d’interfaces soignées.
         </p>
-        <div class="footer-status">
-          <span class="status-dot"></span>
-          <span>Disponible pour nouveaux projets</span>
-        </div>
       </div>
 
       <div class="footer-col">
         <h3 class="col-title">Navigation</h3>
         <ul class="footer-links-list">
-          {navItems.map((link) => (
-            <li>
-              <a href={link.href}>{link.label}</a>
-            </li>
-          ))}
+          {
+            navItems.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
         </ul>
       </div>
 
       <div class="footer-col">
         <h3 class="col-title">Connexions</h3>
         <ul class="footer-links-list">
-          {socialLinks.map((social) => (
-            <li>
-              <a href={social.url} target="_blank" rel="noopener noreferrer" class="social-link-item">
-                <span>{social.name}</span>
-                <span class="ext-arrow">↗</span>
-              </a>
-            </li>
-          ))}
+          {
+            socialLinks.map((social) => (
+              <li>
+                <a
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="social-link-item"
+                >
+                  <span>{social.name}</span>
+                  <span class="ext-arrow">↗</span>
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </div>
 
@@ -63,10 +69,10 @@ const currentYear = new Date().getFullYear();
       <p class="copyright-text">
         &copy; {currentYear} Arthur Debruille &bull; Développeur Front-End React
       </p>
-      <a href="#" class="back-to-top" aria-label="Retour en haut de page">
+      <button class="back-to-top" aria-label="Retour en haut de page">
         <span>Haut de page</span>
         <span>&uarr;</span>
-      </a>
+      </button>
     </div>
   </div>
 </footer>
@@ -105,7 +111,7 @@ const currentYear = new Date().getFullYear();
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #8C7A70;
+    color: #8c7a70;
     margin: 0 0 0.5rem 0;
   }
 
@@ -113,38 +119,16 @@ const currentYear = new Date().getFullYear();
     font-family: "Fraunces", Georgia, serif;
     font-size: var(--text-2xl);
     font-weight: 600;
-    color: #2B1810;
+    color: #2b1810;
   }
 
   .footer-tagline {
     font-size: 0.92rem;
     line-height: 1.6;
-    color: #5A4A42;
+    color: #5a4a42;
     margin: 0;
   }
 
-  .footer-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: #2B1810;
-    background: rgba(46, 125, 50, 0.08);
-    border: 1px solid rgba(46, 125, 50, 0.2);
-    padding: 5px 12px;
-    border-radius: 9999px;
-    width: fit-content;
-    margin-top: 0.25rem;
-  }
-
-  .status-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #2E7D32;
-    box-shadow: 0 0 6px rgba(46, 125, 50, 0.6);
-  }
   .footer-links-list {
     list-style: none;
     padding: 0;
@@ -156,9 +140,11 @@ const currentYear = new Date().getFullYear();
 
   .footer-links-list a {
     font-size: 0.92rem;
-    color: #5A4A42;
+    color: #5a4a42;
     text-decoration: none;
-    transition: color 0.15s ease, transform 0.15s ease;
+    transition:
+      color 0.15s ease,
+      transform 0.15s ease;
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -166,7 +152,7 @@ const currentYear = new Date().getFullYear();
   }
 
   .footer-links-list a:hover {
-    color: #B85B35;
+    color: #b85b35;
     transform: translateX(3px);
   }
 
@@ -177,7 +163,7 @@ const currentYear = new Date().getFullYear();
 
   .ext-arrow {
     font-size: var(--text-xs);
-    color: #B85B35;
+    color: #b85b35;
   }
 
   .details-stack {
@@ -189,7 +175,7 @@ const currentYear = new Date().getFullYear();
   .detail-label {
     font-family: var(--font-mono);
     font-size: 0.7rem;
-    color: #8C7A70;
+    color: #8c7a70;
     text-transform: uppercase;
     display: block;
     margin-bottom: 2px;
@@ -197,7 +183,7 @@ const currentYear = new Date().getFullYear();
 
   .detail-val {
     font-size: 0.9rem;
-    color: #2B1810;
+    color: #2b1810;
     font-weight: 500;
     margin: 0;
   }
@@ -208,7 +194,7 @@ const currentYear = new Date().getFullYear();
     gap: 6px;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    color: #2B1810;
+    color: #2b1810;
     background: rgba(76, 43, 36, 0.06);
     border: 1px solid rgba(76, 43, 36, 0.14);
     padding: 5px 12px;
@@ -219,8 +205,8 @@ const currentYear = new Date().getFullYear();
   }
 
   .studio-link:hover {
-    background: #2B1810;
-    color: #FBF7EE;
+    background: #2b1810;
+    color: #fbf7ee;
   }
 
   .footer-bottom-bar {
@@ -236,14 +222,14 @@ const currentYear = new Date().getFullYear();
   .copyright-text {
     font-family: var(--font-mono);
     font-size: var(--space-xs);
-    color: #8C7A70;
+    color: #8c7a70;
     margin: 0;
   }
 
   .back-to-top {
     font-family: var(--font-mono);
     font-size: var(--space-xs);
-    color: #2B1810;
+    color: #2b1810;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
@@ -252,7 +238,7 @@ const currentYear = new Date().getFullYear();
   }
 
   .back-to-top:hover {
-    color: #B85B35;
+    color: #b85b35;
   }
 
   /* Responsive */
@@ -280,3 +266,18 @@ const currentYear = new Date().getFullYear();
     }
   }
 </style>
+
+<script>
+  import { initLenis } from "@assets/script/utils/lenis";
+
+  const backToTop = () => {
+    const button = document.querySelector(".back-to-top");
+
+    if (!button) return;
+    button.addEventListener("click", () => {
+      initLenis().scrollTo(0);
+    });
+  };
+
+  document.addEventListener("astro:page-load", backToTop);
+</script>

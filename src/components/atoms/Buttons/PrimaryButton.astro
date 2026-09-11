@@ -20,7 +20,7 @@ const arrowDirection: ArrowDirection = isBlank
   target={isBlank ? "_blank" : "_self"}
   rel={isBlank ? "noopener noreferrer" : undefined}
   aria-label={ariaLabel}
-  class="btn btn-pill-primary"
+  class="btn btn-primary"
 >
   <span class="btn-label">{label}</span>
   <span class="btn-icon" aria-hidden="true">
@@ -29,7 +29,7 @@ const arrowDirection: ArrowDirection = isBlank
 </a>
 
 <style>
-  .btn-pill-primary {
+  .btn-primary {
     background: var(--color-copper);
     color: var(--bg-main);
     font-weight: var(--font-weight-semibold);
@@ -51,8 +51,7 @@ const arrowDirection: ArrowDirection = isBlank
     line-height: 0;
   }
 
-  /* Micro-interaction au survol */
-  .btn-pill-primary:hover {
+  .btn-primary:hover {
     background: var(--color-copper-hover);
     transform: translateY(-2px);
     box-shadow: var(--shadow-btn-hover);

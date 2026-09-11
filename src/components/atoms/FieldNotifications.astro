@@ -1,0 +1,104 @@
+---
+const { result } = Astro.props;
+
+// État global de la transmission
+const isSuccess = Boolean(result?.data);
+const isGeneralError = Boolean(result?.error);
+---
+
+<!-- Notification de résultat sous le bouton -->{
+  isSuccess && (
+    <div
+      class="form-notice form-notice--success"
+      role="status"
+      aria-live="polite"
+    >
+      <span class="notice-icon">✓</span>
+      <div class="notice-content">
+        <span class="notice-code">// OK: MESSAGE ENVOYÉ</span>
+        <p class="notice-text">
+          Votre message a été transmis avec succès !
+        </p>
+      </div>
+    </div>
+  )
+}
+
+{
+  isGeneralError && (
+    <div
+      class="form-notice form-notice--error"
+      role="alert"
+      aria-live="assertive"
+    >
+      <span class="notice-icon">✕</span>
+      <div class="notice-content">
+        <span class="notice-code">// ERREUR: ÉCHEC DE L'ENVOI DU MESSAGE</span>
+        <p class="notice-text">
+          Une erreur est survenue lors de l'envoi. Veuillez réessayer plus
+          tard.
+        </p>
+      </div>
+    </div>
+  )
+}
+
+<style>
+  /* --- Feedback Terminal Notifications --- */
+  .form-notice {
+    margin-top: 0.5rem;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-sm, 8px);
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    animation: fadeIn 250ms ease-out;
+  }
+
+  .notice-icon {
+    font-weight: bold;
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+
+  .notice-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .notice-code {
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .notice-text {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+
+  /* Version Succès (Vert) */
+  .form-notice--success {
+    background-color: rgba(43, 200, 64, 0.08);
+    border: 1px solid rgba(43, 200, 64, 0.35);
+    color: #1e7b2b;
+  }
+
+  .form-notice--success .notice-code {
+    color: #248a32;
+  }
+
+  /* Version Erreur (Rouge) */
+  .form-notice--error {
+    background-color: rgba(254, 95, 86, 0.08);
+    border: 1px solid rgba(254, 95, 86, 0.35);
+    color: #b82b24;
+  }
+
+  .form-notice--error .notice-code {
+    color: #fe5f56;
+  }
+</style>

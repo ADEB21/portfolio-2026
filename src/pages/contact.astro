@@ -1,0 +1,291 @@
+---
+// src/pages/contact.astro
+export const prerender = false;
+
+import Layout from "@layout/Layout.astro";
+import FormField from "@components/atoms/FormField.astro";
+import { isInputError } from "astro:actions";
+import { actions } from "astro:actions";
+import PrimaryButton from "@components/atoms/Buttons/PrimaryButton.astro";
+import AppleWindowControls from "@components/atoms/AppleWindowControls.astro";
+import Arrows from "@components/atoms/Icons/Arrows";
+import FieldNotifications from "@components/atoms/FieldNotifications.astro";
+
+const result = Astro.getActionResult(actions.send);
+
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+
+// État global de la transmission
+const isSuccess = Boolean(result?.data);
+const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
+---
+
+<Layout
+  title="Contact — Arthur Debruille"
+  description="Une opportunité, un projet ou une question technique ? Entrons en contact."
+>
+  <main class="contact-view">
+    <div class="contact-shell">
+      <!-- Colonne d'intention éditoriale -->
+      <aside class="contact-sidebar">
+        <h1 class="contact-heading">Parlons de votre prochain projet.</h1>
+
+        <p class="contact-intro">
+          Une idée d'architecture front-end, une refonte complète ou une simple
+          question ? Écrivez-moi directement ici.
+        </p>
+
+        <div class="direct-channels">
+          <div class="channel-item">
+            <span class="eyebrow">// NETWORKS</span>
+            <div class="channel-links">
+              <a
+                href="https://github.com/arthurdebruille"
+                target="_blank"
+                rel="noreferrer">GitHub ↗</a
+              >
+              <a
+                href="https://linkedin.com/in/arthurdebruille"
+                target="_blank"
+                rel="noreferrer">LinkedIn ↗</a
+              >
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Panneau formulaire console -->
+      <section class="contact-panel" >
+        <div class="panel-header">
+          <AppleWindowControls />
+          <span class="eyebrow">// FORM</span>
+        </div>
+
+        <form method="POST" action={actions.send} class="form-body" data-astro-reload>
+          <div class="fields-row">
+            <FormField
+              label="Prénom"
+              name="firstname"
+              type="text"
+              placeholder="Alexandre"
+              required
+              error={inputErrors.firstname}
+            />
+
+            <FormField
+              label="Nom"
+              name="lastname"
+              type="text"
+              placeholder="Martin"
+              required
+              error={inputErrors.lastname}
+            />
+          </div>
+
+          <FormField
+            label="Email"
+            name="email"
+            type="email"
+            placeholder="alexandre.martin@example.com"
+            required
+            error={inputErrors.email}
+          />
+
+          <FormField
+            label="Sujet"
+            name="subject"
+            type="text"
+            placeholder="Refonte front-end, mission..."
+            required
+            error={inputErrors.subject}
+          />
+
+          <FormField
+            as="textarea"
+            label="Message"
+            name="message"
+            rows={5}
+            placeholder="Décrivez brièvement vos attentes, vos délais et votre vision..."
+            required
+            error={inputErrors.message}
+          />
+          {result && <FieldNotifications result={result} />}
+
+          <div class="form-action">
+            <button
+              class="btn btn-primary"
+              type="submit"
+              id="submit-btn"
+              aria-label="Envoyer mon message"
+              >Envoyer mon message <span class="btn-icon" aria-hidden="true">
+                <Arrows direction={"right"} size={15} />
+              </span></button
+            >
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  /** Button */
+  .btn-primary {
+    background: var(--color-copper);
+    color: var(--bg-main);
+    font-weight: var(--font-weight-semibold);
+    box-shadow: var(--shadow-btn);
+    transition:
+      background var(--duration-base, 0.2s) ease,
+      transform var(--duration-base, 0.2s) var(--ease-spring, ease),
+      box-shadow var(--duration-base, 0.2s) ease;
+    line-height: 1;
+  }
+
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+  }
+  .btn-primary:hover {
+    background: var(--color-copper-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-btn-hover);
+  }
+
+  .contact-view {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--space-xl, 3rem) + 4rem) var(--space-s, 1rem) 4rem;
+  }
+
+  .contact-shell {
+    width: 100%;
+    max-width: 1020px;
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  /* --- Colonne de gauche --- */
+  .contact-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .contact-heading {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    margin: 0;
+  }
+
+  .contact-intro {
+    font-size: var(--text-base, 1rem);
+    line-height: 1.6;
+    color: var(--text-muted, #5a4843);
+    margin: 0;
+  }
+
+  .direct-channels {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light, rgba(76, 43, 36, 0.12));
+  }
+
+  .channel-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .channel-links {
+    display: flex;
+    gap: var(--space-s);
+  }
+
+  .channel-links a {
+    font-size: var(--text-sm);
+    transition: color 150ms ease;
+  }
+
+  .channel-links a:hover {
+    color: var(--color-copper);
+  }
+
+  /* --- Colonne de droite : Cartouche Console --- */
+  .contact-panel {
+    background: var(--bg-card-solid, #fffdf9);
+    border: 1px solid var(--color-brown, #4c2b24);
+    border-radius: var(--radius-sm, 12px);
+    box-shadow: 6px 6px 0px var(--color-brown, #4c2b24);
+    overflow: hidden;
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-xs, 0.65rem) var(--space-s, 1rem);
+    background: var(--color-brown, #4c2b24);
+    color: var(--color-white, #fbf7ee);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: var(--text-xs, 0.725rem);
+  }
+
+  .panel-title {
+    color: var(--color-copper, #b85b35);
+    font-weight: 600;
+  }
+
+  .form-body {
+    padding: var(--space-m, 1.75rem);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s, 1.15rem);
+  }
+
+  .fields-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-action {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 840px) {
+    .contact-shell {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .form-body {
+      padding: 1.25rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .fields-row {
+      grid-template-columns: 1fr;
+    }
+
+    .form-action {
+      justify-content: stretch;
+    }
+
+    .form-action :global(button) {
+      width: 100%;
+    }
+  }
+</style>
