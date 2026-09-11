@@ -15,5 +15,5 @@ export const navItems: {id: string; label: string, href: string;}[] = [
 export const socialLinks = [
   { name: 'LinkedIn', url: 'https://linkedin.com/in/arthurdebruille' },
   { name: 'GitHub', url: 'https://github.com/ADEB21' },
-  { name: 'Email direct', url: 'mailto:arthurdebruille@proton.me' },
+  { name: 'Contact', url: '/contact' },
 ];
