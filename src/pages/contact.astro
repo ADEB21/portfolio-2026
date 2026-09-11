@@ -8,13 +8,16 @@ import { isInputError } from "astro:actions";
 import { actions } from "astro:actions";
 import PrimaryButton from "@components/atoms/Buttons/PrimaryButton.astro";
 import AppleWindowControls from "@components/atoms/AppleWindowControls.astro";
+import Arrows from "@components/atoms/Icons/Arrows";
+import FieldNotifications from "@components/atoms/FieldNotifications.astro";
 
 const result = Astro.getActionResult(actions.send);
-if (result?.data) {
-  return Astro.redirect("/");
-}
 
 const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+
+// État global de la transmission
+const isSuccess = Boolean(result?.data);
+const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
 ---
 
 <Layout
@@ -52,13 +55,13 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
       </aside>
 
       <!-- Panneau formulaire console -->
-      <section class="contact-panel">
+      <section class="contact-panel" >
         <div class="panel-header">
-          <AppleWindowControls/>
+          <AppleWindowControls />
           <span class="eyebrow">// FORM</span>
         </div>
 
-        <form method="POST" action={actions.send} class="form-body">
+        <form method="POST" action={actions.send} class="form-body" data-astro-reload>
           <div class="fields-row">
             <FormField
               label="Prénom"
@@ -106,13 +109,18 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
             required
             error={inputErrors.message}
           />
+          {result && <FieldNotifications result={result} />}
 
           <div class="form-action">
-            <PrimaryButton
+            <button
+              class="btn btn-primary"
               type="submit"
-              label="Envoyer mon message"
               id="submit-btn"
-            />
+              aria-label="Envoyer mon message"
+              >Envoyer mon message <span class="btn-icon" aria-hidden="true">
+                <Arrows direction={"right"} size={15} />
+              </span></button
+            >
           </div>
         </form>
       </section>
@@ -121,6 +129,31 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 </Layout>
 
 <style>
+  /** Button */
+  .btn-primary {
+    background: var(--color-copper);
+    color: var(--bg-main);
+    font-weight: var(--font-weight-semibold);
+    box-shadow: var(--shadow-btn);
+    transition:
+      background var(--duration-base, 0.2s) ease,
+      transform var(--duration-base, 0.2s) var(--ease-spring, ease),
+      box-shadow var(--duration-base, 0.2s) ease;
+    line-height: 1;
+  }
+
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+  }
+  .btn-primary:hover {
+    background: var(--color-copper-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-btn-hover);
+  }
+
   .contact-view {
     min-height: 100vh;
     display: flex;
