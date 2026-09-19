@@ -1,4 +1,5 @@
 // src/types/post.ts
+import type { PortableTextBlock } from "@portabletext/react";
 import type { Category } from "./category";
 import type { Skill } from "./skill";
 
@@ -19,7 +20,7 @@ export interface Post {
     };
   };
   readTime?: number;
-  body: [];
+  body: PortableTextBlock;
   link?: string;
   role: string;
 

@@ -3,14 +3,15 @@ import type { StructureResolver } from "sanity/structure";
 
 import { HomeIcon } from "@sanity/icons/Home";
 import { CaseIcon } from "@sanity/icons/Case";
-import {DocumentsIcon} from '@sanity/icons/Documents'
-import {TagsIcon} from '@sanity/icons/Tags'
+import { DocumentsIcon } from "@sanity/icons/Documents";
+import { TagsIcon } from "@sanity/icons/Tags";
 import { UserIcon } from "@sanity/icons/User";
 import { SparklesIcon } from "@sanity/icons/Sparkles";
 import { CalendarIcon } from "@sanity/icons/Calendar";
 import { UlistIcon } from "@sanity/icons/Ulist";
 import Certification from "@components/atoms/Icons/Certification";
 import GraduationCap from "@components/atoms/Icons/GraduationCap";
+import Legal from "@components/atoms/Icons/Legal";
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -46,6 +47,8 @@ export const structure: StructureResolver = (S) =>
               S.documentTypeListItem("skillCategory")
                 .title("Catégories de compétences (SkillCategory)")
                 .icon(UlistIcon),
+
+              S.divider(),
             ]),
         ),
 
@@ -64,6 +67,31 @@ export const structure: StructureResolver = (S) =>
 
       // 3. Derniers onglets : Données transverses (Skill & Category)
       S.documentTypeListItem("skill").title("Skills").icon(SparklesIcon),
-
       S.documentTypeListItem("category").title("Catégories").icon(TagsIcon),
+
+      S.divider(),
+
+      // Singleton : Mentions Légales
+      S.listItem()
+        .title("Mentions Légales")
+        .icon(Legal)
+        .id("legal-notices")
+        .child(
+          S.document()
+            .schemaType("legalPage")
+            .documentId("legal-notices")
+            .title("Mentions Légales"),
+        ),
+
+      // Singleton : Politique de Confidentialité
+      S.listItem()
+        .title("Politique de Confidentialité")
+        .icon(Legal)
+        .id("privacy-policy")
+        .child(
+          S.document()
+            .schemaType("legalPage")
+            .documentId("privacy-policy")
+            .title("Politique de Confidentialité"),
+        ),
     ]);

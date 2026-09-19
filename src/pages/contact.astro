@@ -55,13 +55,18 @@ const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
       </aside>
 
       <!-- Panneau formulaire console -->
-      <section class="contact-panel" >
+      <section class="contact-panel">
         <div class="panel-header">
           <AppleWindowControls />
           <span class="eyebrow">// FORM</span>
         </div>
 
-        <form method="POST" action={actions.send} class="form-body" data-astro-reload>
+        <form
+          method="POST"
+          action={actions.send}
+          class="form-body"
+          data-astro-reload
+        >
           <div class="fields-row">
             <FormField
               label="Prénom"
@@ -109,6 +114,15 @@ const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
             required
             error={inputErrors.message}
           />
+
+          <p class="form-privacy-note">
+            En soumettant ce message, vous acceptez que les informations saisies
+            soient utilisées pour vous répondre. Consultez la <a
+              href="/politique-de-confidentialite"
+              >politique de confidentialité</a
+            >.
+          </p>
+
           {result && <FieldNotifications result={result} />}
 
           <div class="form-action">
@@ -261,6 +275,18 @@ const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
     margin-top: 0.5rem;
     display: flex;
     justify-content: flex-end;
+  }
+
+  .form-privacy-note {
+    font-size: var(--text-xs);
+    color: var(--text-main);
+    line-height: 1.4;
+  }
+
+  .form-privacy-note a {
+    color: var(--color-copper);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   /* --- Responsive --- */

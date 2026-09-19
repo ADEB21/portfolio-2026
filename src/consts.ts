@@ -12,6 +12,11 @@ export const navItems: {id: string; label: string, href: string;}[] = [
   { id: "formations", label: "Formations", href: "/#formations" },
 ];
 
+export const legalItems: {id: string; label: string, href: string;}[] = [
+  { id: "mentions-legales", label: "Mentions légales", href: "/mentions-legales" },
+  { id: "politique-de-confidentialite", label: "Politique de confidentialité", href: "/politique-de-confidentialite" },
+];
+
 export const socialLinks = [
   { name: 'LinkedIn', url: 'https://linkedin.com/in/arthurdebruille' },
   { name: 'GitHub', url: 'https://github.com/ADEB21' },

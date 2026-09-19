@@ -1,6 +1,6 @@
 ---
 import { initLenis } from "@assets/script/utils/lenis";
-import { navItems, socialLinks } from "../../consts";
+import { legalItems, navItems, socialLinks } from "../../consts";
 
 const currentYear = new Date().getFullYear();
 ---
@@ -30,7 +30,7 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <div class="footer-col">
-        <h3 class="col-title">Connexions</h3>
+        <h3 class="col-title">Réseaux Sociaux</h3>
         <ul class="footer-links-list">
           {
             socialLinks.map((social) => (
@@ -51,17 +51,16 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <div class="footer-col">
-        <h3 class="col-title">Détails</h3>
-        <div class="details-stack">
-          <div>
-            <span class="detail-label">Localisation</span>
-            <p class="detail-val">Dijon & Remote, France</p>
-          </div>
-          <div>
-            <span class="detail-label">Stack du portfolio</span>
-            <p class="detail-val">Astro &bull; Sanity CMS</p>
-          </div>
-        </div>
+        <h3 class="col-title">Légales</h3>
+        <ul class="footer-links-list">
+          {
+            legalItems.map((link) => (
+              <li>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
 
@@ -164,28 +163,6 @@ const currentYear = new Date().getFullYear();
   .ext-arrow {
     font-size: var(--text-xs);
     color: #b85b35;
-  }
-
-  .details-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-  }
-
-  .detail-label {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: #8c7a70;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 2px;
-  }
-
-  .detail-val {
-    font-size: 0.9rem;
-    color: #2b1810;
-    font-weight: 500;
-    margin: 0;
   }
 
   .studio-link {

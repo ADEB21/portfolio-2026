@@ -2,6 +2,7 @@ import { categoryType } from "./schemas/category";
 import { certificateType } from "./schemas/certificate";
 import { degreeType } from "./schemas/degree";
 import { experienceType } from "./schemas/experience";
+import { legalPageType } from "./schemas/legalPage";
 import { colorPaletteBlock } from "./schemas/objects/colorPaletteBlock";
 import { postType } from "./schemas/post";
 import { profileType } from "./schemas/profile";
@@ -22,4 +23,5 @@ export const schemaType = [
   categoryType,
   postType,
   colorPaletteBlock,
+  legalPageType,
 ];
