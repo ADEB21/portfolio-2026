@@ -99,6 +99,10 @@ export const PROJECTS_SLUGS_QUERY = `*[_type == "project" && defined(slug.curren
     "slug": slug.current
   }`;
 
+export const LEGALES_SLUGS_QUERY = `*[_type == "legalPage" && defined(slug.current)]{
+    "slug": slug.current
+  }`;
+
 /** Query single Post based on slug variables ($slug) */
 
 export const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
@@ -127,4 +131,14 @@ export const PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0]{
   coverImage,
   body,
   link
+}`;
+
+export const LEGALES_QUERY = `*[_type == "legalPage" && slug.current == $slug][0]{
+  _type,
+  _id,
+  _updatedAt,
+  title,
+  summary,
+  content,
+  "slug": slug.current,
 }`;
