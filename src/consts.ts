@@ -13,8 +13,8 @@ export const navItems: {id: string; label: string, href: string;}[] = [
 ];
 
 export const legalItems: {id: string; label: string, href: string;}[] = [
-  { id: "politique-de-confidentialite", label: "Politique de confidentialité", href: "/politique-de-confidentialite" },
   { id: "mentions-legales", label: "Mentions légales", href: "/mentions-legales" },
+  { id: "politique-de-confidentialite", label: "Politique de confidentialité", href: "/politique-de-confidentialite" },
 ];
 
 export const socialLinks = [

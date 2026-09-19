@@ -1,0 +1,33 @@
+---
+// src/pages/blog/[slug].astro
+import Layout from "@layout/Layout.astro";
+import { PortableTextRenderer } from "@components/Blocks/PortableTextRenderer";
+import { sanityClient } from "sanity:client";
+import type { Legal } from "@@types/index";
+import { LEGALES_QUERY, LEGALES_SLUGS_QUERY } from "@assets/script/utils/api";
+import LegalHero from "@components/organisms/LegalHero.astro";
+
+export async function getStaticPaths() {
+  const posts =
+    await sanityClient.fetch<{ slug: string }[]>(LEGALES_SLUGS_QUERY);
+  return posts.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+
+console.log(slug);
+
+const post: Legal = await sanityClient.fetch(LEGALES_QUERY, { slug });
+---
+
+<Layout
+  title={`${post.title} | Projets | Arthur Debruille`}
+  description={post.summary}
+>
+  <main>
+    <LegalHero title={post.title} description={post.summary} updatedAt={post._updatedAt} />
+    <article class="article-body">
+      <PortableTextRenderer value={post.content} client:load />
+    </article>
+  </main>
+</Layout>
