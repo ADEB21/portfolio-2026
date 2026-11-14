@@ -19,5 +19,5 @@ export const legalItems: {id: string; label: string, href: string;}[] = [
 export const socialLinks = [
   { name: 'LinkedIn', url: 'https://linkedin.com/in/arthurdebruille' },
   { name: 'GitHub', url: 'https://github.com/ADEB21' },
-  { name: 'Contact', url: '/contact' },
+  // { name: 'Contact', url: '/contact' },
 ];

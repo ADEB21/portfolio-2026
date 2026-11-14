@@ -1,32 +1,31 @@
 ---
 // src/pages/contact.astro
-export const prerender = false;
+// export const prerender = false;
 
-import Layout from "@layout/Layout.astro";
-import FormField from "@components/atoms/FormField.astro";
-import { isInputError } from "astro:actions";
-import { actions } from "astro:actions";
-import PrimaryButton from "@components/atoms/Buttons/PrimaryButton.astro";
-import AppleWindowControls from "@components/atoms/AppleWindowControls.astro";
-import Arrows from "@components/atoms/Icons/Arrows";
-import FieldNotifications from "@components/atoms/FieldNotifications.astro";
+// import Layout from "@layout/Layout.astro";
+// import FormField from "@components/atoms/FormField.astro";
+// import { isInputError } from "astro:actions";
+// import { actions } from "astro:actions";
+// import PrimaryButton from "@components/atoms/Buttons/PrimaryButton.astro";
+// import AppleWindowControls from "@components/atoms/AppleWindowControls.astro";
+// import Arrows from "@components/atoms/Icons/Arrows";
+// import FieldNotifications from "@components/atoms/FieldNotifications.astro";
 
-const result = Astro.getActionResult(actions.send);
+// const result = Astro.getActionResult(actions.send);
 
-const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+// const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 
 // État global de la transmission
-const isSuccess = Boolean(result?.data);
-const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
+// const isSuccess = Boolean(result?.data);
+// const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
 ---
 
-<Layout
+<!-- <Layout
   title="Contact — Arthur Debruille"
   description="Une opportunité, un projet ou une question technique ? Entrons en contact."
 >
   <main class="contact-view">
     <div class="contact-shell">
-      <!-- Colonne d'intention éditoriale -->
       <aside class="contact-sidebar">
         <h1 class="contact-heading">Parlons de votre prochain projet.</h1>
 
@@ -54,7 +53,6 @@ const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
         </div>
       </aside>
 
-      <!-- Panneau formulaire console -->
       <section class="contact-panel">
         <div class="panel-header">
           <AppleWindowControls />
@@ -140,10 +138,9 @@ const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
       </section>
     </div>
   </main>
-</Layout>
+</Layout> -->
 
-<style>
-  /** Button */
+<!-- <style>
   .btn-primary {
     background: var(--color-copper);
     color: var(--bg-main);
@@ -185,7 +182,6 @@ const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
     align-items: start;
   }
 
-  /* --- Colonne de gauche --- */
   .contact-sidebar {
     display: flex;
     flex-direction: column;
@@ -233,7 +229,6 @@ const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
     color: var(--color-copper);
   }
 
-  /* --- Colonne de droite : Cartouche Console --- */
   .contact-panel {
     background: var(--bg-card-solid, #fffdf9);
     border: 1px solid var(--color-brown, #4c2b24);
@@ -289,7 +284,6 @@ const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
     text-underline-offset: 2px;
   }
 
-  /* --- Responsive --- */
   @media (max-width: 840px) {
     .contact-shell {
       grid-template-columns: 1fr;
@@ -314,4 +308,4 @@ const isGeneralError = Boolean(result?.error && !isInputError(result?.error));
       width: 100%;
     }
   }
-</style>
+</style> -->
